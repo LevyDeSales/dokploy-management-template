@@ -98,7 +98,31 @@ Restart Codex after changes, then run `/mcp` in the TUI and verify both servers 
 - Agent/project instructions: `AGENTS.md`
 - Operations runbook: `docs/dokploy-operations.md`
 - Session/workspace model: `docs/session-workspace-model.md`
+- Dokploy concept map: `docs/shared/dokploy-reference.md`
+- Shared instance docs: `docs/shared/instance.md`
+- Mutation safety rules: `docs/shared/mutation-safety.md`
 - Alltius org docs: `docs/orgs/alltius/`
 - Zapix org docs: `docs/orgs/zapix/`
 - Shared docs: `docs/shared/`
+- Reusable templates: `docs/templates/`
 - Implementation plan history: `docs/superpowers/plans/`
+
+## Documentation Architecture
+
+The canonical documentation architecture is `docs/shared/dokploy-reference.md`.
+
+Dokploy resources are organized as:
+
+```text
+Organization -> Project -> Environment -> Service
+```
+
+Use org-level docs first for inventory and cross-project views. Service detail belongs under the environment where the service runs, using this pattern:
+
+```text
+docs/orgs/<org>/projects/<project-slug>/environments/<environment-slug>/services/<service-slug>.md
+```
+
+Project and org files such as `services.md`, `domains.md`, `variables.md`, `deployments.md`, and `backups.md` are rollups or indexes.
+
+Copy from `docs/templates/` for new project, environment, service, domain, variable, deployment, backup, schedule, integration, server, decision, and runbook files.

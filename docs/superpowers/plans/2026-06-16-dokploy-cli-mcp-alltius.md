@@ -191,8 +191,8 @@ Create a local `.env` file or export these variables in the shell:
 
 ```bash
 export DOKPLOY_ALLTIUS_URL="https://dokploy.alltius.dev"
-export DOKPLOY_ALLTIUS_ORG_ALLTIUS_API_KEY="token-for-dokploy-alltius-org-Alltius"
-export DOKPLOY_ALLTIUS_ORG_ZAPIX_API_KEY="token-for-dokploy-alltius-org-Zapix"
+export DOKPLOY_ALLTIUS_ORG_ALLTIUS_API_KEY="raw-alltius-api-key"
+export DOKPLOY_ALLTIUS_ORG_ZAPIX_API_KEY="raw-zapix-api-key"
 # Optional fallback only:
 # export DOKPLOY_ALLTIUS_CUSTOM_HEADERS='{"CF-Access-Client-Id":"client-id.access","CF-Access-Client-Secret":"client-secret"}'
 ```

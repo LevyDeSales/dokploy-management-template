@@ -33,6 +33,37 @@ This repository is the Git-tracked operations and documentation workspace for ou
 - Operations runbook: `docs/dokploy-operations.md`
 - Session and workspace model: `docs/session-workspace-model.md`
 
+## Documentation Architecture
+
+Document Dokploy resources with the same hierarchy used by Dokploy:
+
+```text
+Organization -> Project -> Environment -> Service
+```
+
+- Organization docs live in `docs/orgs/alltius/` and `docs/orgs/zapix/`.
+- Project docs live in `docs/orgs/<org>/projects/<project-slug>/`.
+- Service detail lives under `docs/orgs/<org>/projects/<project-slug>/environments/<environment-slug>/services/<service-slug>.md`.
+- Shared instance and policy docs live in `docs/shared/`.
+- Reusable document templates live in `docs/templates/`.
+- The concept map is `docs/shared/dokploy-reference.md`.
+- Mutation safety rules live in `docs/shared/mutation-safety.md`.
+
+Use these org-level files before creating narrower project docs:
+
+- `inventory.md`: read-only resource snapshot.
+- `servers.md`: remote servers, build servers, validation, capacity, and security posture.
+- `domains.md`: domain routing, HTTPS, DNS, path rewrites, and Traefik notes.
+- `variables.md`: variable names, scope, purpose, and rotation notes, without values.
+- `deployments.md`: source, auto deploy, build server, deployment server, and rollback notes.
+- `backups.md`: org-managed service, database, and volume backup policy and restore evidence.
+- `access.md`: roles, credential labels, and external access notes, without secrets.
+- `runbooks.md`: org-specific operational procedures.
+- `decisions.md`: durable org decisions and rationale.
+- `settings/`: Git sources, registries, SSH keys, certificates, S3 destinations, and notifications.
+
+Keep shared panel/control-plane docs in `docs/shared/instance.md` and shared panel/control-plane backup evidence in `docs/shared/instance-backups.md`.
+
 ## Session Focus Model
 
 - Use this single repository and working directory as the control plane for both organizations.
@@ -43,7 +74,7 @@ This repository is the Git-tracked operations and documentation workspace for ou
 - Record org-specific findings and decisions under `docs/orgs/alltius/` or `docs/orgs/zapix/`.
 - Do not create separate permanent CWDs per org while both orgs share the same Dokploy instance and repository configuration.
 - Use Git worktrees only for parallel documentation or larger branch work. Do not use worktrees as the normal org-separation mechanism.
-- If using a worktree, remember `.env.local` is ignored and must be made available intentionally, for example through a safe local copy or a documented `.worktreeinclude` decision.
+- If using a worktree, remember `.env.local` is ignored. Create an untracked `.env.local` inside that worktree with restrictive permissions; never commit copied credentials.
 
 ## Credentials
 
@@ -58,8 +89,10 @@ This repository is the Git-tracked operations and documentation workspace for ou
 ## Operating Rules
 
 - Prefer read-only discovery before any mutating operation.
-- Confirm before create, update, delete, deploy, redeploy, restart, stop, rollback, prune, rebuild, or credential rotation.
+- Follow `docs/shared/mutation-safety.md` before any mutating operation.
 - Before destructive operations, collect current organization, project, environment, service, server, and backup state.
 - Keep MCP redaction enabled with `DOKPLOY_REDACT_ENV=true`.
 - Use official Dokploy docs and Swagger before assuming API or CLI command shape.
 - Document important findings, inventory decisions, and operational procedures in `docs/`.
+- Use `docs/templates/` when adding project, environment, service, domain, variable, deployment, backup, schedule, integration, server, decision, or runbook docs.
+- Do not store secret values in docs; document only variable names, purpose, owner, rotation notes, and sensitivity.

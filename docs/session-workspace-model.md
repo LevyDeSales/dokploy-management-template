@@ -36,6 +36,19 @@ Use this focus for inventory, deployments, backups, domains, servers, and operat
 
 Use this focus for shared policies, cross-org incident procedures, backup standards, naming conventions, and Dokploy instance-level documentation.
 
+## Documentation Routing
+
+Route documentation by scope:
+
+| Scope | Path |
+| --- | --- |
+| Alltius org facts and decisions | `docs/orgs/alltius/` |
+| Zapix org facts and decisions | `docs/orgs/zapix/` |
+| Cross-org policy and instance procedures | `docs/shared/` |
+| New resource document models | `docs/templates/` |
+
+Within each org, start with `inventory.md` and then create project-level docs under `projects/<project-slug>/` only after the project is observed in Dokploy. Follow `docs/shared/dokploy-reference.md` for the current layout.
+
 ## Prompt Pattern
 
 Use this pattern at the start of an operational session:
@@ -72,7 +85,13 @@ Use a worktree when:
 
 Do not use a worktree just to switch between `alltius` and `zapix`; use the wrapper commands and documentation paths instead.
 
-Because `.env.local` is ignored, a worktree will not automatically have credentials. If a worktree needs live CLI or MCP checks, intentionally provide credentials through a safe local copy or a documented `.worktreeinclude` decision.
+Because `.env.local` is ignored, a worktree will not automatically have credentials. If a worktree needs live CLI or MCP checks:
+
+1. Create an untracked `.env.local` inside that worktree.
+2. Set restrictive permissions with `chmod 600 .env.local`.
+3. Store only the raw API key values already documented in `.env.example`.
+4. Run `git check-ignore -v .env.local` before using it.
+5. Never commit copied credentials or command output containing credentials.
 
 ## Separate CWD Rules
 

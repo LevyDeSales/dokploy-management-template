@@ -91,10 +91,56 @@ Use these paths:
 - Alltius inventory and decisions: `docs/orgs/alltius/`
 - Zapix inventory and decisions: `docs/orgs/zapix/`
 - Cross-org/shared procedures: `docs/shared/`
+- Reusable documentation templates: `docs/templates/`
+
+## Resource Taxonomy
+
+Mirror Dokploy's hierarchy in the docs. `docs/shared/dokploy-reference.md` is the canonical map.
+
+```text
+Organization -> Project -> Environment -> Service
+```
+
+Org-level files:
+
+| File | Purpose |
+| --- | --- |
+| `inventory.md` | Projects, environments, services, databases, servers, and backups |
+| `servers.md` | Deployment servers, build servers, capacity, security, validation |
+| `domains.md` | Public routing, HTTPS, DNS owner, Traefik behavior |
+| `variables.md` | Variable names, scope, purpose, sensitivity, rotation owner |
+| `deployments.md` | Source, auto deploy, build server, deployment server, rollback |
+| `backups.md` | Org-managed service, database, and volume backups plus restore evidence |
+| `access.md` | Roles, credential labels, external access notes, no secrets |
+| `settings/` | Git sources, registries, SSH keys, certificates, S3 destinations, notifications |
+| `runbooks.md` | Org-specific procedures |
+| `decisions.md` | Durable operational decisions |
+
+Service detail belongs under the environment where the service runs:
+
+```text
+docs/orgs/<org>/projects/<project-slug>/environments/<environment-slug>/services/<service-slug>.md
+```
+
+Project and org files such as `services.md`, `domains.md`, `variables.md`, `deployments.md`, and `backups.md` are rollups or indexes.
+
+Shared Dokploy panel/control-plane facts live in `docs/shared/instance.md`; shared instance backup evidence lives in `docs/shared/instance-backups.md`.
+
+Use `docs/templates/` when creating new files.
+
+## Discovery Workflow
+
+1. Declare session focus: `alltius`, `zapix`, or `global`.
+2. Run read-only CLI or MCP discovery with the matching org credential.
+3. Update org-level inventory before creating project-level docs.
+4. Create or update project docs only for resources observed in Dokploy.
+5. Record decisions separately from inventory so facts and rationale stay distinct.
+6. Run verification commands and keep secrets out of Git.
 
 ## Safety Rules
 
 - Do not commit `.env.local` or API keys.
 - Keep `DOKPLOY_REDACT_ENV=true` for MCP sessions.
-- Before delete, prune, rebuild, rollback, or credential rotation, collect current state and backup status.
+- Follow `docs/shared/mutation-safety.md` before any mutating operation.
+- Before delete, prune, rebuild, rollback, restore, or credential rotation, collect current state and backup status.
 - Prefer official Dokploy docs and `https://dokploy.alltius.dev/swagger` before assuming command or API shape.
