@@ -26,6 +26,16 @@ Use the wrapper scripts so each operation runs with the intended organization cr
 
 Store only the raw API key value in `.env.local`; do not include the visible key label or prefix from the Dokploy UI.
 
+## Session Focus
+
+Every operational session should declare one focus before making changes:
+
+- `alltius`: use only Alltius CLI/MCP and document under `docs/orgs/alltius/`.
+- `zapix`: use only Zapix CLI/MCP and document under `docs/orgs/zapix/`.
+- `global`: compare or coordinate both orgs and document under `docs/shared/`.
+
+Default to read-only discovery. If the work needs to cross org boundaries, state that explicitly before running commands against the second org.
+
 ## CLI Checks
 
 ```bash
@@ -75,6 +85,12 @@ When discovering resources, document durable information here or in a focused fi
 - Known operational risks and maintenance windows.
 
 Prefer read-only discovery first. Mutating operations require explicit confirmation.
+
+Use these paths:
+
+- Alltius inventory and decisions: `docs/orgs/alltius/`
+- Zapix inventory and decisions: `docs/orgs/zapix/`
+- Cross-org/shared procedures: `docs/shared/`
 
 ## Safety Rules
 

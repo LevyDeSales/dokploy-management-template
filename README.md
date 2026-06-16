@@ -27,6 +27,31 @@ Current organization contexts:
 
 Document server inventory, deployments, backups, and operational decisions in `docs/`.
 
+## Working Model
+
+Use one repository and one normal working directory as the control plane for both organizations. Separate work by session focus and documentation path, not by duplicating the repository.
+
+Session focus examples:
+
+```text
+Foco desta sessão: alltius
+Use scripts/dokploy-cli.sh alltius ... and MCP dokploy-alltius-org-alltius.
+Document decisions in docs/orgs/alltius/.
+```
+
+```text
+Foco desta sessão: zapix
+Use scripts/dokploy-cli.sh zapix ... and MCP dokploy-alltius-org-zapix.
+Document decisions in docs/orgs/zapix/.
+```
+
+```text
+Foco desta sessão: global
+Compare both orgs and document shared decisions in docs/shared/.
+```
+
+Use Git worktrees only for parallel or larger branch work. Do not use worktrees as the default org separation mechanism.
+
 ## Local Environment
 
 Credentials live in `.env.local`, which is ignored by Git. Store only raw API key values, without visible key labels or prefixes from the Dokploy UI.
@@ -72,4 +97,8 @@ Restart Codex after changes, then run `/mcp` in the TUI and verify both servers 
 
 - Agent/project instructions: `AGENTS.md`
 - Operations runbook: `docs/dokploy-operations.md`
+- Session/workspace model: `docs/session-workspace-model.md`
+- Alltius org docs: `docs/orgs/alltius/`
+- Zapix org docs: `docs/orgs/zapix/`
+- Shared docs: `docs/shared/`
 - Implementation plan history: `docs/superpowers/plans/`

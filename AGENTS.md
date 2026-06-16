@@ -31,6 +31,19 @@ This repository is the Git-tracked operations and documentation workspace for ou
 - Codex MCP server for Zapix: `dokploy-alltius-org-zapix`
 - Project MCP config: `.codex/config.toml`
 - Operations runbook: `docs/dokploy-operations.md`
+- Session and workspace model: `docs/session-workspace-model.md`
+
+## Session Focus Model
+
+- Use this single repository and working directory as the control plane for both organizations.
+- At the start of operational work, establish one focus: `alltius`, `zapix`, or `global`.
+- For `alltius` focus, use only `scripts/dokploy-cli.sh alltius ...` and MCP server `dokploy-alltius-org-alltius` unless the user explicitly asks for cross-org comparison.
+- For `zapix` focus, use only `scripts/dokploy-cli.sh zapix ...` and MCP server `dokploy-alltius-org-zapix` unless the user explicitly asks for cross-org comparison.
+- For `global` focus, read from both orgs and document cross-org decisions under `docs/shared/`.
+- Record org-specific findings and decisions under `docs/orgs/alltius/` or `docs/orgs/zapix/`.
+- Do not create separate permanent CWDs per org while both orgs share the same Dokploy instance and repository configuration.
+- Use Git worktrees only for parallel documentation or larger branch work. Do not use worktrees as the normal org-separation mechanism.
+- If using a worktree, remember `.env.local` is ignored and must be made available intentionally, for example through a safe local copy or a documented `.worktreeinclude` decision.
 
 ## Credentials
 
