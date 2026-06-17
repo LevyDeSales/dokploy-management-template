@@ -1,6 +1,6 @@
 # Dokploy Operations Runbook
 
-This document is the quick reference for managing and documenting a self-hosted Dokploy instance and the resources managed by its organizations.
+This document is the quick reference for managing and documenting a self-hosted Dokploy instance and the resources managed by its credential contexts.
 
 ## Targets
 
@@ -15,14 +15,16 @@ This document is the quick reference for managing and documenting a self-hosted 
 - API docs: `https://docs.dokploy.com/docs/api`
 - Templates docs: `https://docs.dokploy.com/docs/templates`
 
-## Organization Contexts
+## Credential Contexts
 
-Use the wrapper scripts so each operation runs with the intended organization credential.
+Use the wrapper scripts so each operation runs with the intended credential context.
 
-| Context | Credential label | Local env var | CLI wrapper |
+| Context | Local env var | CLI wrapper | MCP wrapper |
 | --- | --- | --- | --- |
-| `org-a` | `dokploy-org-a` | `DOKPLOY_CONTEXT_ORG_A_API_KEY` | `scripts/dokploy-cli.sh org-a ...` |
-| `org-b` | `dokploy-org-b` | `DOKPLOY_CONTEXT_ORG_B_API_KEY` | `scripts/dokploy-cli.sh org-b ...` |
+| `org-a` | `DOKPLOY_CONTEXT_ORG_A_API_KEY` | `scripts/dokploy-cli.sh org-a ...` | `scripts/mcp-dokploy-context.sh org-a` |
+| `org-b` | `DOKPLOY_CONTEXT_ORG_B_API_KEY` | `scripts/dokploy-cli.sh org-b ...` | `scripts/mcp-dokploy-context.sh org-b` |
+
+`org-a` and `org-b` are example contexts. Replace them with the values in `DOKPLOY_CONTEXTS` when using this template for a real instance.
 
 Store only the raw API key value in `.env.local`; do not include the visible key label or prefix from the Dokploy UI.
 
@@ -30,11 +32,10 @@ Store only the raw API key value in `.env.local`; do not include the visible key
 
 Every operational session should declare one focus before making changes:
 
-- `org-a`: use only Org A CLI/MCP and document under `docs/orgs/org-a/`.
-- `org-b`: use only Org B CLI/MCP and document under `docs/orgs/org-b/`.
-- `global`: compare or coordinate both orgs and document under `docs/shared/`.
+- `<context>`: use only the matching CLI/MCP wrappers and document under `docs/orgs/<context-slug>/`.
+- `global`: compare or coordinate multiple contexts only when explicitly requested, and document shared work under `docs/shared/`.
 
-Default to read-only discovery. If the work needs to cross org boundaries, state that explicitly before running commands against the second org.
+Default to read-only discovery. If the work needs to cross context boundaries, state that explicitly before running commands against another context.
 
 ## CLI Checks
 
@@ -68,14 +69,14 @@ Codex project MCP config is created from `.codex/config.toml.example`.
 - `dokploy-org-a`
 - `dokploy-org-b`
 
-After copying `.codex/config.toml.example` to `.codex/config.toml` and updating local paths, restart Codex and run `/mcp` to verify both servers are connected.
+After copying `.codex/config.toml.example` to `.codex/config.toml` and updating local paths, restart Codex and run `/mcp` to verify configured servers are connected.
 
 ## Server And Resource Documentation
 
 When discovering resources, document durable information here or in a focused file under `docs/`:
 
 - Organization name and credential context.
-- Servers managed by the org.
+- Servers managed by the context.
 - Projects and environments.
 - Applications and compose stacks.
 - Databases and persistent volumes.
@@ -88,9 +89,8 @@ Prefer read-only discovery first. Mutating operations require explicit confirmat
 
 Use these paths:
 
-- Org A inventory and decisions: `docs/orgs/org-a/`
-- Org B inventory and decisions: `docs/orgs/org-b/`
-- Cross-org/shared procedures: `docs/shared/`
+- Context inventory and decisions: `docs/orgs/<context-slug>/`
+- Cross-context/shared procedures: `docs/shared/`
 - Reusable documentation templates: `docs/templates/`
 
 ## Resource Taxonomy
@@ -101,7 +101,7 @@ Mirror Dokploy's hierarchy in the docs. `docs/shared/dokploy-reference.md` is th
 Organization -> Project -> Environment -> Service
 ```
 
-Org-level files:
+Context-level files:
 
 | File | Purpose |
 | --- | --- |
@@ -110,19 +110,19 @@ Org-level files:
 | `domains.md` | Public routing, HTTPS, DNS owner, Traefik behavior |
 | `variables.md` | Variable names, scope, purpose, sensitivity, rotation owner |
 | `deployments.md` | Source, auto deploy, build server, deployment server, rollback |
-| `backups.md` | Org-managed service, database, and volume backups plus restore evidence |
+| `backups.md` | Context-managed service, database, and volume backups plus restore evidence |
 | `access.md` | Roles, credential labels, external access notes, no secrets |
 | `settings/` | Git sources, registries, SSH keys, certificates, S3 destinations, notifications |
-| `runbooks.md` | Org-specific procedures |
+| `runbooks.md` | Context-specific procedures |
 | `decisions.md` | Durable operational decisions |
 
 Service detail belongs under the environment where the service runs:
 
 ```text
-docs/orgs/<org>/projects/<project-slug>/environments/<environment-slug>/services/<service-slug>.md
+docs/orgs/<context-slug>/projects/<project-slug>/environments/<environment-slug>/services/<service-slug>.md
 ```
 
-Project and org files such as `services.md`, `domains.md`, `variables.md`, `deployments.md`, and `backups.md` are rollups or indexes.
+Project and context files such as `services.md`, `domains.md`, `variables.md`, `deployments.md`, and `backups.md` are rollups or indexes.
 
 Shared Dokploy panel/control-plane facts live in `docs/shared/instance.md`; shared instance backup evidence lives in `docs/shared/instance-backups.md`.
 
@@ -130,9 +130,9 @@ Use `docs/templates/` when creating new files.
 
 ## Discovery Workflow
 
-1. Declare session focus: `org-a`, `org-b`, or `global`.
-2. Run read-only CLI or MCP discovery with the matching org credential.
-3. Update org-level inventory before creating project-level docs.
+1. Declare session focus: a context from `DOKPLOY_CONTEXTS`, or `global`.
+2. Run read-only CLI or MCP discovery with the matching context credential.
+3. Update context-level inventory before creating project-level docs.
 4. Create or update project docs only for resources observed in Dokploy.
 5. Record decisions separately from inventory so facts and rationale stay distinct.
 6. Run verification commands and keep secrets out of Git.

@@ -4,37 +4,29 @@ This repository is the single control plane for the Dokploy instance at `https:/
 
 ## Decision
 
-Use one Git repository and one normal working directory for both organizations. Separate work by session focus, wrapper commands, MCP server, and documentation path.
+Use one Git repository and one normal working directory for all contexts on a single self-hosted Dokploy instance. Separate work by declared session focus, wrapper commands, MCP server entries, and documentation path.
 
-Do not create permanent CWDs for `org-a` and `org-b` while both organizations share the same self-hosted Dokploy instance and the same operational scripts.
+Do not create permanent CWDs for individual contexts while they share the same self-hosted Dokploy instance and the same operational scripts.
 
-Do not use Git worktrees as the default org separation mechanism. Use worktrees only for parallel or larger branch work.
+Do not use Git worktrees as the default context separation mechanism. Use worktrees only for parallel or larger branch work.
 
 ## Session Focus Values
 
-### `org-a`
+### Context Focus
 
-- CLI: `scripts/dokploy-cli.sh org-a ...`
-- MCP: `dokploy-org-a`
-- Docs: `docs/orgs/org-a/`
+- CLI: `scripts/dokploy-cli.sh <context> ...`
+- MCP: the Codex MCP server entry whose `args` value is `["<context>"]`
+- Docs: `docs/orgs/<context-slug>/`
 
-Use this focus for inventory, deployments, backups, domains, servers, and operational decisions scoped to the Org A organization.
-
-### `org-b`
-
-- CLI: `scripts/dokploy-cli.sh org-b ...`
-- MCP: `dokploy-org-b`
-- Docs: `docs/orgs/org-b/`
-
-Use this focus for inventory, deployments, backups, domains, servers, and operational decisions scoped to the Org B organization.
+Use this focus for inventory, deployments, backups, domains, servers, and operational decisions scoped to one Dokploy organization or credential context.
 
 ### `global`
 
-- CLI: both wrappers, only when explicitly comparing or coordinating orgs.
-- MCP: both servers, only when explicitly comparing or coordinating orgs.
+- CLI: multiple context wrappers, only when explicitly comparing or coordinating contexts.
+- MCP: multiple context server entries, only when explicitly comparing or coordinating contexts.
 - Docs: `docs/shared/`
 
-Use this focus for shared policies, cross-org incident procedures, backup standards, naming conventions, and Dokploy instance-level documentation.
+Use this focus for shared policies, cross-context incident procedures, backup standards, naming conventions, and Dokploy instance-level documentation.
 
 ## Documentation Routing
 
@@ -42,19 +34,18 @@ Route documentation by scope:
 
 | Scope | Path |
 | --- | --- |
-| Org A facts and decisions | `docs/orgs/org-a/` |
-| Org B facts and decisions | `docs/orgs/org-b/` |
-| Cross-org policy and instance procedures | `docs/shared/` |
+| Context facts and decisions | `docs/orgs/<context-slug>/` |
+| Cross-context policy and instance procedures | `docs/shared/` |
 | New resource document models | `docs/templates/` |
 
-Within each org, start with `inventory.md` and then create project-level docs under `projects/<project-slug>/` only after the project is observed in Dokploy. Follow `docs/shared/dokploy-reference.md` for the current layout.
+Within each context, start with `inventory.md` and then create project-level docs under `projects/<project-slug>/` only after the project is observed in Dokploy. Follow `docs/shared/dokploy-reference.md` for the current layout.
 
 ## Prompt Pattern
 
 Use this pattern at the start of an operational session:
 
 ```text
-Foco desta sessão: org-a
+Foco desta sessão: <context>
 Objetivo: inventariar servidores e documentar decisões.
 Somente leitura até eu aprovar mutações.
 ```
@@ -62,16 +53,8 @@ Somente leitura até eu aprovar mutações.
 or:
 
 ```text
-Foco desta sessão: org-b
-Objetivo: revisar deployments e backups.
-Somente leitura até eu aprovar mutações.
-```
-
-or:
-
-```text
 Foco desta sessão: global
-Objetivo: comparar políticas de backup entre orgs.
+Objetivo: comparar políticas de backup entre contextos.
 Somente leitura até eu aprovar mutações.
 ```
 
@@ -83,7 +66,7 @@ Use a worktree when:
 - A larger change needs branch isolation before merge.
 - A Codex thread should work in the background without disturbing the foreground checkout.
 
-Do not use a worktree just to switch between `org-a` and `org-b`; use the wrapper commands and documentation paths instead.
+Do not use a worktree just to switch between contexts; use the wrapper commands and documentation paths instead.
 
 Because `.env.local` is ignored, a worktree will not automatically have credentials. If a worktree needs live CLI or MCP checks:
 

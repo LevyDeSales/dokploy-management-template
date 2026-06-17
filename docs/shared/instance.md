@@ -8,8 +8,7 @@ This file documents the shared self-hosted Dokploy control plane.
 | --- | --- |
 | Panel | `https://dokploy.example.com` |
 | Swagger/API | `https://dokploy.example.com/swagger` |
-| Session focus | `global` |
-| Managed org contexts | `org-a`, `org-b` |
+| Example managed contexts | `org-a`, `org-b` |
 
 ## Architecture Notes
 
@@ -26,17 +25,17 @@ Use official architecture docs before changing control-plane assumptions:
 
 ## Instance-Level Responsibilities
 
-Keep these topics in shared docs, not org docs:
+Keep these topics in shared docs, not context docs:
 
 - Dokploy panel access and allowlist posture.
 - Control-plane backup and restore evidence.
 - Instance upgrades and maintenance windows.
-- Shared MCP/CLI setup that affects both org contexts.
-- Cross-org incident response.
+- Shared MCP/CLI setup that affects multiple contexts.
+- Cross-context incident response.
 
 ## Change Rules
 
 - Use `global` session focus for instance-level changes.
 - Follow `docs/shared/mutation-safety.md` for any mutating action.
-- Keep org-specific service, database, and volume backup docs under `docs/orgs/<org>/backups.md`.
+- Keep context-specific service, database, and volume backup docs under `docs/orgs/<context-slug>/backups.md`.
 - Keep instance backup and restore evidence in `docs/shared/instance-backups.md`.

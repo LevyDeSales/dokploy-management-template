@@ -21,7 +21,7 @@ Before approval is requested, collect and document:
 
 | Field | Required |
 | --- | --- |
-| Session focus | `org-a`, `org-b`, or `global` |
+| Session focus | A declared context from `DOKPLOY_CONTEXTS`, or `global` |
 | Target scope | Organization, project, environment, service, server, or instance |
 | Current state | Read-only CLI/MCP/API evidence |
 | Backup posture | Latest relevant backup and restore constraints |

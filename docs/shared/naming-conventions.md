@@ -4,20 +4,21 @@ Use stable, lowercase slugs for docs paths and explicit display names for Dokplo
 
 ## Context Names
 
-| Context | Meaning | CLI wrapper | MCP server |
+| Example context | Meaning | CLI | MCP |
 | --- | --- | --- | --- |
-| `org-a` | Org A organization | `scripts/dokploy-cli.sh org-a ...` | `dokploy-org-a` |
-| `org-b` | Org B organization | `scripts/dokploy-cli.sh org-b ...` | `dokploy-org-b` |
-| `global` | Cross-org or instance-level work | Both wrappers, read-only first | Both MCP servers |
+| `org-a` | First example organization context | `scripts/dokploy-cli.sh org-a ...` | MCP server with `args = ["org-a"]` |
+| `org-b` | Second example organization context | `scripts/dokploy-cli.sh org-b ...` | MCP server with `args = ["org-b"]` |
+
+Use `global` only for cross-context or instance-level work.
 
 ## Doc Path Names
 
-- Organization slugs: `org-a`, `org-b`.
+- Context slugs: `org-a`, `org-b`.
 - Project slugs: use the Dokploy project name normalized to lowercase kebab-case.
 - Environment names: prefer `production`, `staging`, `development`, or an explicit client/region/feature name.
 - Service names: use the exact Dokploy service name in tables and a normalized slug in environment-level file paths.
 - Service slugs only need to be unique inside their environment path, for example `projects/<project>/environments/production/services/api.md`.
-- Decision files: keep durable org-wide decisions in `decisions.md`; split only when the file becomes hard to scan.
+- Decision files: keep durable context-wide decisions in `decisions.md`; split only when the file becomes hard to scan.
 
 ## Dokploy Resource Names
 
@@ -29,9 +30,10 @@ Use stable, lowercase slugs for docs paths and explicit display names for Dokplo
 
 ## Credential Labels
 
-Credential labels must match the intended organization:
+Credential variables must match the intended context:
 
-- `dokploy-org-a` -> `DOKPLOY_CONTEXT_ORG_A_API_KEY`
-- `dokploy-org-b` -> `DOKPLOY_CONTEXT_ORG_B_API_KEY`
+- `org-a` -> `DOKPLOY_CONTEXT_ORG_A_API_KEY`
+- `org-b` -> `DOKPLOY_CONTEXT_ORG_B_API_KEY`
+- `<context>` -> `DOKPLOY_CONTEXT_<NORMALIZED_CONTEXT>_API_KEY`
 
 Do not paste API key values into documentation.

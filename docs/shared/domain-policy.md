@@ -6,9 +6,9 @@ Use this policy when documenting or changing Dokploy domains.
 
 Record these fields for every domain. Rollup tables may link to a per-domain detail doc when the full field set would make the table hard to scan.
 
-| Field | Required | Notes |
+| Field | Required | Example |
 | --- | --- | --- |
-| Organization | Yes | `org-a` or `org-b` |
+| Organization/context | Yes | `org-a`, `org-b`, or your real context slug |
 | Project | Yes | Dokploy project name |
 | Environment | Yes | Runtime environment |
 | Service | Yes | Application or Docker Compose service |
