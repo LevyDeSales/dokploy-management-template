@@ -6,8 +6,8 @@ Use stable, lowercase slugs for docs paths and explicit display names for Dokplo
 
 | Context | Meaning | CLI wrapper | MCP server |
 | --- | --- | --- | --- |
-| `org-a` | Org A organization | `scripts/dokploy-cli.sh org-a ...` | `dokploy-example-org-a` |
-| `org-b` | Org B organization | `scripts/dokploy-cli.sh org-b ...` | `dokploy-example-org-b` |
+| `org-a` | Org A organization | `scripts/dokploy-cli.sh org-a ...` | `dokploy-org-a` |
+| `org-b` | Org B organization | `scripts/dokploy-cli.sh org-b ...` | `dokploy-org-b` |
 | `global` | Cross-org or instance-level work | Both wrappers, read-only first | Both MCP servers |
 
 ## Doc Path Names
@@ -31,7 +31,7 @@ Use stable, lowercase slugs for docs paths and explicit display names for Dokplo
 
 Credential labels must match the intended organization:
 
-- `dokploy-example-org-a` -> `DOKPLOY_CONTEXT_ORG_A_API_KEY`
-- `dokploy-example-org-b` -> `DOKPLOY_CONTEXT_ORG_B_API_KEY`
+- `dokploy-org-a` -> `DOKPLOY_CONTEXT_ORG_A_API_KEY`
+- `dokploy-org-b` -> `DOKPLOY_CONTEXT_ORG_B_API_KEY`
 
 Do not paste API key values into documentation.

@@ -1,6 +1,6 @@
 # Org B Inventory
 
-Use this file for read-only inventory snapshots from `scripts/dokploy-cli.sh org-b ...` or MCP server `dokploy-example-org-b`.
+Use this file for read-only inventory snapshots from `scripts/dokploy-cli.sh org-b ...` or MCP server `dokploy-org-b`.
 
 Do not paste raw command dumps unless they are sanitized and reviewed for secrets.
 
@@ -10,7 +10,7 @@ Do not paste raw command dumps unless they are sanitized and reviewed for secret
 | --- | --- |
 | Dokploy instance | `https://dokploy.example.com` |
 | Context | `org-b` |
-| Credential label | `dokploy-example-org-b` |
+| Credential label | `dokploy-org-b` |
 | Observed at |  |
 | Source command/tool |  |
 | Redaction reviewed |  |

@@ -5,8 +5,8 @@ Use this directory for documentation specific to the Org B organization in `http
 ## Operating Context
 
 - CLI wrapper: `scripts/dokploy-cli.sh org-b ...`
-- MCP server: `dokploy-example-org-b`
-- Credential label: `dokploy-example-org-b`
+- MCP server: `dokploy-org-b`
+- Credential label: `dokploy-org-b`
 - Local env var: `DOKPLOY_CONTEXT_ORG_B_API_KEY`
 
 ## Files To Add As We Discover State

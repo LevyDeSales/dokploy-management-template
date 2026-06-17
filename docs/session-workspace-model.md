@@ -15,7 +15,7 @@ Do not use Git worktrees as the default org separation mechanism. Use worktrees 
 ### `org-a`
 
 - CLI: `scripts/dokploy-cli.sh org-a ...`
-- MCP: `dokploy-example-org-a`
+- MCP: `dokploy-org-a`
 - Docs: `docs/orgs/org-a/`
 
 Use this focus for inventory, deployments, backups, domains, servers, and operational decisions scoped to the Org A organization.
@@ -23,7 +23,7 @@ Use this focus for inventory, deployments, backups, domains, servers, and operat
 ### `org-b`
 
 - CLI: `scripts/dokploy-cli.sh org-b ...`
-- MCP: `dokploy-example-org-b`
+- MCP: `dokploy-org-b`
 - Docs: `docs/orgs/org-b/`
 
 Use this focus for inventory, deployments, backups, domains, servers, and operational decisions scoped to the Org B organization.

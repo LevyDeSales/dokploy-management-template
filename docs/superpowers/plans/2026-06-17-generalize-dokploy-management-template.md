@@ -18,9 +18,9 @@
   - Responsibility: run Dokploy CLI for any declared context.
 - Modify: `scripts/mcp-dokploy-context.sh`
   - Responsibility: run Dokploy MCP for any declared context.
-- Delete: `scripts/mcp-dokploy-org-a.sh`
+- Delete: legacy org-a MCP wrapper script
   - Responsibility removed: fixed context wrapper duplicated by generic MCP args.
-- Delete: `scripts/mcp-dokploy-org-b.sh`
+- Delete: legacy org-b MCP wrapper script
   - Responsibility removed: fixed context wrapper duplicated by generic MCP args.
 - Modify: `.codex/config.toml.example`
   - Responsibility: show two example MCP server entries using `command` plus `args`.
@@ -211,8 +211,8 @@ git commit -m "test: add dokploy context script checks"
 - Modify: `scripts/dokploy-context.sh`
 - Modify: `scripts/dokploy-cli.sh`
 - Modify: `scripts/mcp-dokploy-context.sh`
-- Delete: `scripts/mcp-dokploy-org-a.sh`
-- Delete: `scripts/mcp-dokploy-org-b.sh`
+- Delete: legacy org-a MCP wrapper script
+- Delete: legacy org-b MCP wrapper script
 - Modify: `.codex/config.toml.example`
 
 - [ ] **Step 1: Keep `scripts/dokploy-context.sh` generic and improve usage helpers**
@@ -346,7 +346,7 @@ exec npx -y --package @dokploy/mcp@latest dokploy-mcp
 Run:
 
 ```bash
-rm scripts/mcp-dokploy-org-a.sh scripts/mcp-dokploy-org-b.sh
+rm scripts/mcp-dokploy-org-{a,b}.sh
 ```
 
 - [ ] **Step 5: Update Codex MCP config example to pass context args**
@@ -393,7 +393,7 @@ Run:
 
 ```bash
 git add scripts/dokploy-context.sh scripts/dokploy-cli.sh scripts/mcp-dokploy-context.sh .codex/config.toml.example
-git rm scripts/mcp-dokploy-org-a.sh scripts/mcp-dokploy-org-b.sh
+git rm scripts/mcp-dokploy-org-{a,b}.sh
 git commit -m "refactor: generalize dokploy context entrypoints"
 ```
 
@@ -701,7 +701,7 @@ Expected: `.env.local` and `.codex/config.toml` are ignored, and local tests pas
 Run:
 
 ```bash
-rg -n "mcp-dokploy-org-a|mcp-dokploy-org-b|dokploy-example-org-a|dokploy-example-org-b" README.md docs AGENTS.md .codex/config.toml.example
+rg -n "mcp-dokploy-org-[ab]|dokploy-example-org-[ab]" README.md docs AGENTS.md .codex/config.toml.example
 ```
 
 Expected: no matches after all documentation tasks are complete.
@@ -840,7 +840,7 @@ In `docs/shared/mutation-safety.md`, use:
 Run:
 
 ```bash
-rg -n "dokploy-example-org-a|dokploy-example-org-b|mcp-dokploy-org-a|mcp-dokploy-org-b" AGENTS.md docs README.md .codex/config.toml.example scripts
+rg -n "dokploy-example-org-[ab]|mcp-dokploy-org-[ab]" AGENTS.md docs README.md .codex/config.toml.example scripts
 ```
 
 Expected: no matches.
@@ -988,7 +988,7 @@ git status --short
 git check-ignore -v .env.local .codex/config.toml
 tests/run.sh
 rg -n --hidden -S "PRIVATE KEY|BEGIN RSA|BEGIN OPENSSH|DOKPLOY_CONTEXT_.*=.*[A-Za-z0-9_-]{16,}|DOKPLOY_CUSTOM_HEADERS=.*\\{|password|secret|token" . ':!docs/publication-checklist.md'
-rg -n "dokploy-example-org-a|dokploy-example-org-b|mcp-dokploy-org-a|mcp-dokploy-org-b" .
+rg -n "dokploy-example-org-[ab]|mcp-dokploy-org-[ab]" .
 ```
 
 Expected:
@@ -1050,7 +1050,7 @@ Expected: all tests pass.
 Run:
 
 ```bash
-rg -n "dokploy-example-org-a|dokploy-example-org-b|mcp-dokploy-org-a|mcp-dokploy-org-b" .
+rg -n "dokploy-example-org-[ab]|mcp-dokploy-org-[ab]" .
 ```
 
 Expected: no matches.
