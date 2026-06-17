@@ -24,17 +24,19 @@ Run:
 ```bash
 git status --short
 git check-ignore -v .env.local .codex/config.toml
+git ls-files .env .env.local '.env.*.local' .codex/config.toml
 tests/run.sh
-rg -n --hidden -i -g '!.git/**' -g '!docs/publication-checklist.md' -g '!docs/superpowers/plans/**' "PRIVATE KEY|BEGIN RSA|BEGIN OPENSSH|DOKPLOY_CONTEXT_.*=.*[A-Za-z0-9_-]{16,}|DOKPLOY_CUSTOM_HEADERS=.*\\{|password|secret|token" .
-rg -n --hidden -g '!.git/**' -g '!docs/publication-checklist.md' -g '!docs/superpowers/plans/**' "dokploy-example-org-[ab]|mcp-dokploy-org-[ab]" .
+git grep -n -I -i -E "PRIVATE KEY|BEGIN RSA|BEGIN OPENSSH|(DOKPLOY_CONTEXT_[A-Z0-9_]+_API_KEY|DOKPLOY_API_KEY|DOKPLOY_CUSTOM_HEADERS)=.+|password|secret|token" -- . ':(exclude)docs/publication-checklist.md' ':(exclude)docs/superpowers/plans/**'
+git grep -n -I -E "dokploy-example-org-[ab]|mcp-dokploy-org-[ab]" -- . ':(exclude)docs/publication-checklist.md' ':(exclude)docs/superpowers/plans/**'
 ```
 
 Expected:
 
 - `git check-ignore` reports ignore rules for `.env.local` and `.codex/config.toml`.
+- `git ls-files` prints no tracked local secret/config files.
 - `tests/run.sh` passes.
-- Secret-oriented search shows only public-safe instructional text.
-- Obsolete fixed MCP wrapper search has no matches. `rg` exits `1` when no matches are found; that is the expected clean result for this check.
+- Secret-oriented search shows only public-safe instructional text, code-internal variable references, or explicit test placeholders. It must not show real credential values, private keys, service-token headers, customer hostnames, or copied command output.
+- Obsolete fixed MCP wrapper search has no matches. `git grep` exits `1` when no matches are found; that is the expected clean result for this check.
 
 ## First-Use Smoke Test
 
