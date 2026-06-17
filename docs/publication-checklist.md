@@ -25,7 +25,7 @@ Run:
 git status --short
 git check-ignore -v .env.local .codex/config.toml
 tests/run.sh
-rg -n --hidden -S -g '!.git/**' -g '!docs/publication-checklist.md' -g '!docs/superpowers/plans/**' "PRIVATE KEY|BEGIN RSA|BEGIN OPENSSH|DOKPLOY_CONTEXT_.*=.*[A-Za-z0-9_-]{16,}|DOKPLOY_CUSTOM_HEADERS=.*\\{|password|secret|token" .
+rg -n --hidden -i -g '!.git/**' -g '!docs/publication-checklist.md' -g '!docs/superpowers/plans/**' "PRIVATE KEY|BEGIN RSA|BEGIN OPENSSH|DOKPLOY_CONTEXT_.*=.*[A-Za-z0-9_-]{16,}|DOKPLOY_CUSTOM_HEADERS=.*\\{|password|secret|token" .
 rg -n --hidden -g '!.git/**' -g '!docs/publication-checklist.md' -g '!docs/superpowers/plans/**' "dokploy-example-org-[ab]|mcp-dokploy-org-[ab]" .
 ```
 
