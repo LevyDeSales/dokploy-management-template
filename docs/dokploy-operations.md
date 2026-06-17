@@ -113,7 +113,7 @@ Context-level files:
 | `variables.md` | Variable names, scope, purpose, sensitivity, rotation owner |
 | `deployments.md` | Source, auto deploy, build server, deployment server, rollback |
 | `backups.md` | Context-managed service, database, and volume backups plus restore evidence |
-| `access.md` | Roles, credential labels, external access notes, no secrets |
+| `access.md` | Roles, local env vars, credential references, external access notes, no secrets |
 | `settings/` | Git sources, registries, SSH keys, certificates, S3 destinations, notifications |
 | `runbooks.md` | Context-specific procedures |
 | `decisions.md` | Durable operational decisions |

@@ -56,7 +56,7 @@ Use these context-level files before creating narrower project docs:
 - `variables.md`: variable names, scope, purpose, and rotation notes, without values.
 - `deployments.md`: source, auto deploy, build server, deployment server, and rollback notes.
 - `backups.md`: context-managed service, database, and volume backup policy and restore evidence.
-- `access.md`: roles, credential labels, and external access notes, without secrets.
+- `access.md`: roles, local env vars, credential references, and external access notes, without secrets.
 - `runbooks.md`: context-specific operational procedures.
 - `decisions.md`: durable context decisions and rationale.
 - `settings/`: Git sources, registries, SSH keys, certificates, S3 destinations, and notifications.
