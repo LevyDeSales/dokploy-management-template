@@ -26,8 +26,8 @@ git status --short
 git check-ignore -v .env.local .codex/config.toml
 git ls-files .env .env.local '.env.*.local' .codex/config.toml
 tests/run.sh
-git grep -n -I -i -E "PRIVATE KEY|BEGIN RSA|BEGIN OPENSSH|(DOKPLOY_CONTEXT_[A-Z0-9_]+_API_KEY|DOKPLOY_API_KEY|DOKPLOY_CUSTOM_HEADERS)=.+|password|secret|token" -- . ':(exclude)docs/publication-checklist.md' ':(exclude)docs/superpowers/plans/**'
-git grep -n -I -E "dokploy-example-org-[ab]|mcp-dokploy-org-[ab]" -- . ':(exclude)docs/publication-checklist.md' ':(exclude)docs/superpowers/plans/**'
+git grep -n -I -i -E "PRIVATE KEY|BEGIN RSA|BEGIN OPENSSH|(DOKPLOY_CONTEXT_[A-Z0-9_]+_API_KEY|DOKPLOY_API_KEY|DOKPLOY_CUSTOM_HEADERS)=.+|password|secret|token" -- . ':(exclude)docs/publication-checklist.md'
+git grep -n -I -E "dokploy-example-org-[ab]|mcp-dokploy-org-[ab]" -- . ':(exclude)docs/publication-checklist.md'
 ```
 
 Expected:

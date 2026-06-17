@@ -72,7 +72,7 @@ Because `.env.local` is ignored, a worktree will not automatically have credenti
 
 1. Create an untracked `.env.local` inside that worktree.
 2. Set restrictive permissions with `chmod 600 .env.local`.
-3. Store only the raw API key values already documented in `.env.example`.
+3. Set raw API key values only for the variable names shown in `.env.example`.
 4. Run `git check-ignore -v .env.local` before using it.
 5. Never commit copied credentials or command output containing credentials.
 
