@@ -1,6 +1,6 @@
 # Runbook: <procedure-name>
 
-Org: `<alltius|zapix|global>`
+Org: `<org-a|org-b|global>`
 
 Risk: `read-only|low|medium|high`
 

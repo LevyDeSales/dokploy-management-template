@@ -1,6 +1,6 @@
 # Integration: <integration-name>
 
-Org: `<alltius|zapix|global>`
+Org: `<org-a|org-b|global>`
 
 Type: `git-source|registry|ssh-key|certificate|s3-destination|notification|other`
 

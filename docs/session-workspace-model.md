@@ -1,32 +1,32 @@
 # Session And Workspace Model
 
-This repository is the single control plane for the Dokploy instance at `https://dokploy.alltius.dev`.
+This repository is the single control plane for the Dokploy instance at `https://dokploy.example.com`.
 
 ## Decision
 
 Use one Git repository and one normal working directory for both organizations. Separate work by session focus, wrapper commands, MCP server, and documentation path.
 
-Do not create permanent CWDs for `alltius` and `zapix` while both organizations share the same self-hosted Dokploy instance and the same operational scripts.
+Do not create permanent CWDs for `org-a` and `org-b` while both organizations share the same self-hosted Dokploy instance and the same operational scripts.
 
 Do not use Git worktrees as the default org separation mechanism. Use worktrees only for parallel or larger branch work.
 
 ## Session Focus Values
 
-### `alltius`
+### `org-a`
 
-- CLI: `scripts/dokploy-cli.sh alltius ...`
-- MCP: `dokploy-alltius-org-alltius`
-- Docs: `docs/orgs/alltius/`
+- CLI: `scripts/dokploy-cli.sh org-a ...`
+- MCP: `dokploy-example-org-a`
+- Docs: `docs/orgs/org-a/`
 
-Use this focus for inventory, deployments, backups, domains, servers, and operational decisions scoped to the Alltius organization.
+Use this focus for inventory, deployments, backups, domains, servers, and operational decisions scoped to the Org A organization.
 
-### `zapix`
+### `org-b`
 
-- CLI: `scripts/dokploy-cli.sh zapix ...`
-- MCP: `dokploy-alltius-org-zapix`
-- Docs: `docs/orgs/zapix/`
+- CLI: `scripts/dokploy-cli.sh org-b ...`
+- MCP: `dokploy-example-org-b`
+- Docs: `docs/orgs/org-b/`
 
-Use this focus for inventory, deployments, backups, domains, servers, and operational decisions scoped to the Zapix organization.
+Use this focus for inventory, deployments, backups, domains, servers, and operational decisions scoped to the Org B organization.
 
 ### `global`
 
@@ -42,8 +42,8 @@ Route documentation by scope:
 
 | Scope | Path |
 | --- | --- |
-| Alltius org facts and decisions | `docs/orgs/alltius/` |
-| Zapix org facts and decisions | `docs/orgs/zapix/` |
+| Org A facts and decisions | `docs/orgs/org-a/` |
+| Org B facts and decisions | `docs/orgs/org-b/` |
 | Cross-org policy and instance procedures | `docs/shared/` |
 | New resource document models | `docs/templates/` |
 
@@ -54,7 +54,7 @@ Within each org, start with `inventory.md` and then create project-level docs un
 Use this pattern at the start of an operational session:
 
 ```text
-Foco desta sessão: alltius
+Foco desta sessão: org-a
 Objetivo: inventariar servidores e documentar decisões.
 Somente leitura até eu aprovar mutações.
 ```
@@ -62,7 +62,7 @@ Somente leitura até eu aprovar mutações.
 or:
 
 ```text
-Foco desta sessão: zapix
+Foco desta sessão: org-b
 Objetivo: revisar deployments e backups.
 Somente leitura até eu aprovar mutações.
 ```
@@ -83,7 +83,7 @@ Use a worktree when:
 - A larger change needs branch isolation before merge.
 - A Codex thread should work in the background without disturbing the foreground checkout.
 
-Do not use a worktree just to switch between `alltius` and `zapix`; use the wrapper commands and documentation paths instead.
+Do not use a worktree just to switch between `org-a` and `org-b`; use the wrapper commands and documentation paths instead.
 
 Because `.env.local` is ignored, a worktree will not automatically have credentials. If a worktree needs live CLI or MCP checks:
 

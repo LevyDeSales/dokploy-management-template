@@ -1,6 +1,6 @@
 # Deployment: <service-name>
 
-Org: `<alltius|zapix>`
+Org: `<org-a|org-b>`
 
 Project:
 

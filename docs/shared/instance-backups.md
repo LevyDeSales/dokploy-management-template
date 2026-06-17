@@ -1,6 +1,6 @@
 # Dokploy Instance Backups
 
-This file is for backups of the shared Dokploy control plane at `https://dokploy.alltius.dev`.
+This file is for backups of the shared Dokploy control plane at `https://dokploy.example.com`.
 
 Org-specific application, database, and volume backups live in `docs/orgs/<org>/backups.md`.
 

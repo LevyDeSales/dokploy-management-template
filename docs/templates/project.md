@@ -1,6 +1,6 @@
 # Project: <project-name>
 
-Org: `<alltius|zapix>`
+Org: `<org-a|org-b>`
 
 ## Summary
 

@@ -1,6 +1,6 @@
 # Backup: <backup-name>
 
-Org: `<alltius|zapix>`
+Org: `<org-a|org-b>`
 
 Scope:
 

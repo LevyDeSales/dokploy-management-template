@@ -1,19 +1,19 @@
 # AGENTS.md
 
-This repository is the Git-tracked operations and documentation workspace for our self-hosted Dokploy.
+This repository is a Git-tracked operations and documentation workspace for a self-hosted Dokploy instance.
 
 ## Project Scope
 
-- Manage and document the Alltius Dokploy installation at `https://dokploy.alltius.dev`.
-- Manage and document the Dokploy organizations available through this instance, currently `Alltius` and `Zapix`.
+- Manage and document one self-hosted Dokploy installation, using `https://dokploy.example.com` as the placeholder URL.
+- Manage and document the Dokploy organizations available through this instance, using `Org A` and `Org B` as example contexts.
 - Treat servers, projects, environments, applications, databases, domains, deployments, backups, and notifications managed by those organizations as part of this operations scope.
 - Keep repeatable runbooks for Dokploy CLI and MCP usage.
 - Treat this repository as an operations control plane and documentation base, not as an application codebase.
 
 ## Dokploy Targets
 
-- Self-hosted panel: `https://dokploy.alltius.dev`
-- Swagger/API reference: `https://dokploy.alltius.dev/swagger`
+- Self-hosted panel: `https://dokploy.example.com`
+- Swagger/API reference: `https://dokploy.example.com/swagger`
 
 ## Official Documentation
 
@@ -25,11 +25,11 @@ This repository is the Git-tracked operations and documentation workspace for ou
 
 ## Local Tooling
 
-- CLI wrapper for Alltius: `scripts/dokploy-cli.sh alltius <dokploy command...>`
-- CLI wrapper for Zapix: `scripts/dokploy-cli.sh zapix <dokploy command...>`
-- Codex MCP server for Alltius: `dokploy-alltius-org-alltius`
-- Codex MCP server for Zapix: `dokploy-alltius-org-zapix`
-- Project MCP config: `.codex/config.toml`
+- CLI wrapper for Org A: `scripts/dokploy-cli.sh org-a <dokploy command...>`
+- CLI wrapper for Org B: `scripts/dokploy-cli.sh org-b <dokploy command...>`
+- Codex MCP server for Org A: `dokploy-example-org-a`
+- Codex MCP server for Org B: `dokploy-example-org-b`
+- Project MCP config example: `.codex/config.toml.example`
 - Operations runbook: `docs/dokploy-operations.md`
 - Session and workspace model: `docs/session-workspace-model.md`
 
@@ -41,7 +41,7 @@ Document Dokploy resources with the same hierarchy used by Dokploy:
 Organization -> Project -> Environment -> Service
 ```
 
-- Organization docs live in `docs/orgs/alltius/` and `docs/orgs/zapix/`.
+- Organization docs live in `docs/orgs/org-a/` and `docs/orgs/org-b/`.
 - Project docs live in `docs/orgs/<org>/projects/<project-slug>/`.
 - Service detail lives under `docs/orgs/<org>/projects/<project-slug>/environments/<environment-slug>/services/<service-slug>.md`.
 - Shared instance and policy docs live in `docs/shared/`.
@@ -67,24 +67,24 @@ Keep shared panel/control-plane docs in `docs/shared/instance.md` and shared pan
 ## Session Focus Model
 
 - Use this single repository and working directory as the control plane for both organizations.
-- At the start of operational work, establish one focus: `alltius`, `zapix`, or `global`.
-- For `alltius` focus, use only `scripts/dokploy-cli.sh alltius ...` and MCP server `dokploy-alltius-org-alltius` unless the user explicitly asks for cross-org comparison.
-- For `zapix` focus, use only `scripts/dokploy-cli.sh zapix ...` and MCP server `dokploy-alltius-org-zapix` unless the user explicitly asks for cross-org comparison.
+- At the start of operational work, establish one focus: `org-a`, `org-b`, or `global`.
+- For `org-a` focus, use only `scripts/dokploy-cli.sh org-a ...` and MCP server `dokploy-example-org-a` unless the user explicitly asks for cross-org comparison.
+- For `org-b` focus, use only `scripts/dokploy-cli.sh org-b ...` and MCP server `dokploy-example-org-b` unless the user explicitly asks for cross-org comparison.
 - For `global` focus, read from both orgs and document cross-org decisions under `docs/shared/`.
-- Record org-specific findings and decisions under `docs/orgs/alltius/` or `docs/orgs/zapix/`.
+- Record org-specific findings and decisions under `docs/orgs/org-a/` or `docs/orgs/org-b/`.
 - Do not create separate permanent CWDs per org while both orgs share the same Dokploy instance and repository configuration.
 - Use Git worktrees only for parallel documentation or larger branch work. Do not use worktrees as the normal org-separation mechanism.
 - If using a worktree, remember `.env.local` is ignored. Create an untracked `.env.local` inside that worktree with restrictive permissions; never commit copied credentials.
 
 ## Credentials
 
-- Do not commit real API keys, optional Cloudflare Access secrets, `.env`, `.env.local`, or command output containing secrets.
+- Do not commit real API keys, optional access proxy secrets, `.env`, `.env.local`, or command output containing secrets.
 - `.env.local` is intentionally ignored by Git and is the local source for Dokploy credentials.
-- Credential label `dokploy-alltius-org-Alltius` maps to local env var `DOKPLOY_ALLTIUS_ORG_ALLTIUS_API_KEY`.
-- Credential label `dokploy-alltius-org-Zapix` maps to local env var `DOKPLOY_ALLTIUS_ORG_ZAPIX_API_KEY`.
+- Credential label `dokploy-example-org-a` maps to local env var `DOKPLOY_CONTEXT_ORG_A_API_KEY`.
+- Credential label `dokploy-example-org-b` maps to local env var `DOKPLOY_CONTEXT_ORG_B_API_KEY`.
 - The env var value must be the raw API key only, without the visible key label or prefix copied from the Dokploy UI.
 - The Dokploy MCP and CLI expect `DOKPLOY_API_KEY`; use wrapper scripts to map organization-specific variables into that generic name.
-- IP allowlist is the primary access path. Use `DOKPLOY_ALLTIUS_CUSTOM_HEADERS` only as a fallback if Cloudflare Access requires a service token.
+- IP allowlist or direct network access is the preferred access path. Use `DOKPLOY_CUSTOM_HEADERS` only as a fallback if an access proxy requires service-token headers.
 
 ## Operating Rules
 

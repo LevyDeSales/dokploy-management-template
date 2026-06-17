@@ -1,6 +1,6 @@
 # Schedule Job: <job-name>
 
-Org: `<alltius|zapix>`
+Org: `<org-a|org-b>`
 
 Project:
 

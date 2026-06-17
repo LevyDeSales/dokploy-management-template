@@ -1,11 +1,11 @@
 # Dokploy Operations Runbook
 
-This document is the quick reference for managing and documenting the Alltius self-hosted Dokploy instance and the resources managed by its organizations.
+This document is the quick reference for managing and documenting a self-hosted Dokploy instance and the resources managed by its organizations.
 
 ## Targets
 
-- Dokploy panel: `https://dokploy.alltius.dev`
-- Swagger/API reference: `https://dokploy.alltius.dev/swagger`
+- Dokploy panel: `https://dokploy.example.com`
+- Swagger/API reference: `https://dokploy.example.com/swagger`
 
 ## Official References
 
@@ -21,8 +21,8 @@ Use the wrapper scripts so each operation runs with the intended organization cr
 
 | Context | Credential label | Local env var | CLI wrapper |
 | --- | --- | --- | --- |
-| `alltius` | `dokploy-alltius-org-Alltius` | `DOKPLOY_ALLTIUS_ORG_ALLTIUS_API_KEY` | `scripts/dokploy-cli.sh alltius ...` |
-| `zapix` | `dokploy-alltius-org-Zapix` | `DOKPLOY_ALLTIUS_ORG_ZAPIX_API_KEY` | `scripts/dokploy-cli.sh zapix ...` |
+| `org-a` | `dokploy-example-org-a` | `DOKPLOY_CONTEXT_ORG_A_API_KEY` | `scripts/dokploy-cli.sh org-a ...` |
+| `org-b` | `dokploy-example-org-b` | `DOKPLOY_CONTEXT_ORG_B_API_KEY` | `scripts/dokploy-cli.sh org-b ...` |
 
 Store only the raw API key value in `.env.local`; do not include the visible key label or prefix from the Dokploy UI.
 
@@ -30,8 +30,8 @@ Store only the raw API key value in `.env.local`; do not include the visible key
 
 Every operational session should declare one focus before making changes:
 
-- `alltius`: use only Alltius CLI/MCP and document under `docs/orgs/alltius/`.
-- `zapix`: use only Zapix CLI/MCP and document under `docs/orgs/zapix/`.
+- `org-a`: use only Org A CLI/MCP and document under `docs/orgs/org-a/`.
+- `org-b`: use only Org B CLI/MCP and document under `docs/orgs/org-b/`.
 - `global`: compare or coordinate both orgs and document under `docs/shared/`.
 
 Default to read-only discovery. If the work needs to cross org boundaries, state that explicitly before running commands against the second org.
@@ -39,36 +39,36 @@ Default to read-only discovery. If the work needs to cross org boundaries, state
 ## CLI Checks
 
 ```bash
-scripts/dokploy-cli.sh alltius project all --json
-scripts/dokploy-cli.sh alltius organization all --json
-scripts/dokploy-cli.sh zapix project all --json
-scripts/dokploy-cli.sh zapix organization all --json
+scripts/dokploy-cli.sh org-a project all --json
+scripts/dokploy-cli.sh org-a organization all --json
+scripts/dokploy-cli.sh org-b project all --json
+scripts/dokploy-cli.sh org-b organization all --json
 ```
 
 Useful discovery commands:
 
 ```bash
-scripts/dokploy-cli.sh alltius server --help
-scripts/dokploy-cli.sh alltius project --help
-scripts/dokploy-cli.sh alltius environment --help
-scripts/dokploy-cli.sh alltius application --help
-scripts/dokploy-cli.sh alltius compose --help
+scripts/dokploy-cli.sh org-a server --help
+scripts/dokploy-cli.sh org-a project --help
+scripts/dokploy-cli.sh org-a environment --help
+scripts/dokploy-cli.sh org-a application --help
+scripts/dokploy-cli.sh org-a compose --help
 
-scripts/dokploy-cli.sh zapix server --help
-scripts/dokploy-cli.sh zapix project --help
-scripts/dokploy-cli.sh zapix environment --help
-scripts/dokploy-cli.sh zapix application --help
-scripts/dokploy-cli.sh zapix compose --help
+scripts/dokploy-cli.sh org-b server --help
+scripts/dokploy-cli.sh org-b project --help
+scripts/dokploy-cli.sh org-b environment --help
+scripts/dokploy-cli.sh org-b application --help
+scripts/dokploy-cli.sh org-b compose --help
 ```
 
 ## MCP Servers
 
-Codex project MCP config lives in `.codex/config.toml`.
+Codex project MCP config is created from `.codex/config.toml.example`.
 
-- `dokploy-alltius-org-alltius`
-- `dokploy-alltius-org-zapix`
+- `dokploy-example-org-a`
+- `dokploy-example-org-b`
 
-After changing `.codex/config.toml` or `.env.local`, restart Codex and run `/mcp` to verify both servers are connected.
+After copying `.codex/config.toml.example` to `.codex/config.toml` and updating local paths, restart Codex and run `/mcp` to verify both servers are connected.
 
 ## Server And Resource Documentation
 
@@ -88,8 +88,8 @@ Prefer read-only discovery first. Mutating operations require explicit confirmat
 
 Use these paths:
 
-- Alltius inventory and decisions: `docs/orgs/alltius/`
-- Zapix inventory and decisions: `docs/orgs/zapix/`
+- Org A inventory and decisions: `docs/orgs/org-a/`
+- Org B inventory and decisions: `docs/orgs/org-b/`
 - Cross-org/shared procedures: `docs/shared/`
 - Reusable documentation templates: `docs/templates/`
 
@@ -130,7 +130,7 @@ Use `docs/templates/` when creating new files.
 
 ## Discovery Workflow
 
-1. Declare session focus: `alltius`, `zapix`, or `global`.
+1. Declare session focus: `org-a`, `org-b`, or `global`.
 2. Run read-only CLI or MCP discovery with the matching org credential.
 3. Update org-level inventory before creating project-level docs.
 4. Create or update project docs only for resources observed in Dokploy.
@@ -143,4 +143,4 @@ Use `docs/templates/` when creating new files.
 - Keep `DOKPLOY_REDACT_ENV=true` for MCP sessions.
 - Follow `docs/shared/mutation-safety.md` before any mutating operation.
 - Before delete, prune, rebuild, rollback, restore, or credential rotation, collect current state and backup status.
-- Prefer official Dokploy docs and `https://dokploy.alltius.dev/swagger` before assuming command or API shape.
+- Prefer official Dokploy docs and `https://dokploy.example.com/swagger` before assuming command or API shape.

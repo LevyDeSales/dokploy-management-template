@@ -1,6 +1,6 @@
 # Services Index: <project-name>
 
-Org: `<alltius|zapix>`
+Org: `<org-a|org-b>`
 
 Project:
 

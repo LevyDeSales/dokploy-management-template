@@ -1,6 +1,7 @@
 .env
 .env.local
 .env.*.local
+.codex/config.toml
 node_modules/
 npm-debug.log*
 .DS_Store

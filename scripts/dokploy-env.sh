@@ -11,8 +11,8 @@ if [ -f "$PROJECT_ROOT/.env.local" ]; then
   set +a
 fi
 
-export DOKPLOY_URL="${DOKPLOY_ALLTIUS_URL:-https://dokploy.alltius.dev}"
+export DOKPLOY_URL="${DOKPLOY_URL:-https://dokploy.example.com}"
 
-if [ -n "${DOKPLOY_ALLTIUS_CUSTOM_HEADERS:-}" ]; then
-  export DOKPLOY_CUSTOM_HEADERS="$DOKPLOY_ALLTIUS_CUSTOM_HEADERS"
+if [ -n "${DOKPLOY_CUSTOM_HEADERS:-}" ]; then
+  export DOKPLOY_CUSTOM_HEADERS="$DOKPLOY_CUSTOM_HEADERS"
 fi

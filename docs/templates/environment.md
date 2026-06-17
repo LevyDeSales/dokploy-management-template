@@ -1,6 +1,6 @@
 # Environment: <environment-name>
 
-Org: `<alltius|zapix>`
+Org: `<org-a|org-b>`
 
 Project: `<project-name>`
 

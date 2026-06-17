@@ -1,6 +1,6 @@
-# Dokploy Alltius Operations
+# Dokploy Management Template
 
-This workspace manages and documents the Alltius self-hosted Dokploy server through:
+This template creates an operations and documentation workspace for a self-hosted Dokploy instance through:
 
 - Dokploy CLI for explicit terminal operations.
 - Dokploy MCP for Codex-assisted workflows.
@@ -13,19 +13,27 @@ This workspace manages and documents the Alltius self-hosted Dokploy server thro
 - CLI docs: `https://docs.dokploy.com/docs/cli`
 - API docs: `https://docs.dokploy.com/docs/api`
 - Templates docs: `https://docs.dokploy.com/docs/templates`
-- Alltius Dokploy: `https://dokploy.alltius.dev`
-- Alltius Swagger: `https://dokploy.alltius.dev/swagger`
+- Example Dokploy: `https://dokploy.example.com`
+- Example Swagger: `https://dokploy.example.com/swagger`
 
 ## Scope
 
-This repository is the operations base for the Dokploy instance at `https://dokploy.alltius.dev`.
+This repository is the operations base for one Dokploy instance. Replace `https://dokploy.example.com` with your real self-hosted Dokploy URL.
 
 Current organization contexts:
 
-- `alltius`: Alltius organization credential and managed resources.
-- `zapix`: Zapix organization credential and managed resources.
+- `org-a`: Org A organization credential and managed resources.
+- `org-b`: Org B organization credential and managed resources.
 
 Document server inventory, deployments, backups, and operational decisions in `docs/`.
+
+## Bootstrap
+
+1. Copy `.env.example` to `.env.local`.
+2. Set `DOKPLOY_URL` and one `DOKPLOY_CONTEXT_<NAME>_API_KEY` per context.
+3. Copy `.codex/config.toml.example` to `.codex/config.toml` and replace the absolute paths.
+4. Rename `docs/orgs/org-a/` and `docs/orgs/org-b/` or keep them as example contexts.
+5. Run read-only CLI checks before documenting live state.
 
 ## Working Model
 
@@ -34,15 +42,15 @@ Use one repository and one normal working directory as the control plane for bot
 Session focus examples:
 
 ```text
-Foco desta sessão: alltius
-Use scripts/dokploy-cli.sh alltius ... and MCP dokploy-alltius-org-alltius.
-Document decisions in docs/orgs/alltius/.
+Foco desta sessão: org-a
+Use scripts/dokploy-cli.sh org-a ... and MCP dokploy-example-org-a.
+Document decisions in docs/orgs/org-a/.
 ```
 
 ```text
-Foco desta sessão: zapix
-Use scripts/dokploy-cli.sh zapix ... and MCP dokploy-alltius-org-zapix.
-Document decisions in docs/orgs/zapix/.
+Foco desta sessão: org-b
+Use scripts/dokploy-cli.sh org-b ... and MCP dokploy-example-org-b.
+Document decisions in docs/orgs/org-b/.
 ```
 
 ```text
@@ -59,53 +67,54 @@ Credentials live in `.env.local`, which is ignored by Git. Store only raw API ke
 Required variables:
 
 ```bash
-DOKPLOY_ALLTIUS_URL="https://dokploy.alltius.dev"
-DOKPLOY_ALLTIUS_ORG_ALLTIUS_API_KEY="raw-alltius-api-key"
-DOKPLOY_ALLTIUS_ORG_ZAPIX_API_KEY="raw-zapix-api-key"
+DOKPLOY_URL="https://dokploy.example.com"
+DOKPLOY_CONTEXTS="org-a org-b"
+DOKPLOY_CONTEXT_ORG_A_API_KEY="raw-org-a-api-key"
+DOKPLOY_CONTEXT_ORG_B_API_KEY="raw-org-b-api-key"
 ```
 
 Optional fallback if IP allowlist is not sufficient:
 
 ```bash
-DOKPLOY_ALLTIUS_CUSTOM_HEADERS='{"CF-Access-Client-Id":"client-id.access","CF-Access-Client-Secret":"client-secret"}'
+DOKPLOY_CUSTOM_HEADERS='{"Header-Name":"header-value"}'
 ```
 
 ## CLI Smoke Checks
 
 ```bash
-scripts/dokploy-cli.sh alltius project all --json
-scripts/dokploy-cli.sh zapix project all --json
+scripts/dokploy-cli.sh org-a project all --json
+scripts/dokploy-cli.sh org-b project all --json
 ```
 
 Run arbitrary Dokploy CLI commands through the org wrapper:
 
 ```bash
-scripts/dokploy-cli.sh alltius server --help
-scripts/dokploy-cli.sh zapix application --help
+scripts/dokploy-cli.sh org-a server --help
+scripts/dokploy-cli.sh org-b application --help
 ```
 
 ## Codex MCP Servers
 
-Project-scoped MCP config is in `.codex/config.toml`.
+Project-scoped MCP config is generated from `.codex/config.toml.example`. Keep `.codex/config.toml` local and untracked because it contains machine-specific paths.
 
-- `dokploy-alltius-org-alltius`
-- `dokploy-alltius-org-zapix`
+- `dokploy-example-org-a`
+- `dokploy-example-org-b`
 
 Restart Codex after changes, then run `/mcp` in the TUI and verify both servers are connected.
 
 ## Documentation
 
 - Agent/project instructions: `AGENTS.md`
+- Template setup: `docs/template-setup.md`
 - Operations runbook: `docs/dokploy-operations.md`
 - Session/workspace model: `docs/session-workspace-model.md`
 - Dokploy concept map: `docs/shared/dokploy-reference.md`
 - Shared instance docs: `docs/shared/instance.md`
 - Mutation safety rules: `docs/shared/mutation-safety.md`
-- Alltius org docs: `docs/orgs/alltius/`
-- Zapix org docs: `docs/orgs/zapix/`
+- Org A docs: `docs/orgs/org-a/`
+- Org B docs: `docs/orgs/org-b/`
 - Shared docs: `docs/shared/`
 - Reusable templates: `docs/templates/`
-- Implementation plan history: `docs/superpowers/plans/`
 
 ## Documentation Architecture
 

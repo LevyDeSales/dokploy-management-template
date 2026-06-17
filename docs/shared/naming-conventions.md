@@ -6,13 +6,13 @@ Use stable, lowercase slugs for docs paths and explicit display names for Dokplo
 
 | Context | Meaning | CLI wrapper | MCP server |
 | --- | --- | --- | --- |
-| `alltius` | Alltius organization | `scripts/dokploy-cli.sh alltius ...` | `dokploy-alltius-org-alltius` |
-| `zapix` | Zapix organization | `scripts/dokploy-cli.sh zapix ...` | `dokploy-alltius-org-zapix` |
+| `org-a` | Org A organization | `scripts/dokploy-cli.sh org-a ...` | `dokploy-example-org-a` |
+| `org-b` | Org B organization | `scripts/dokploy-cli.sh org-b ...` | `dokploy-example-org-b` |
 | `global` | Cross-org or instance-level work | Both wrappers, read-only first | Both MCP servers |
 
 ## Doc Path Names
 
-- Organization slugs: `alltius`, `zapix`.
+- Organization slugs: `org-a`, `org-b`.
 - Project slugs: use the Dokploy project name normalized to lowercase kebab-case.
 - Environment names: prefer `production`, `staging`, `development`, or an explicit client/region/feature name.
 - Service names: use the exact Dokploy service name in tables and a normalized slug in environment-level file paths.
@@ -31,7 +31,7 @@ Use stable, lowercase slugs for docs paths and explicit display names for Dokplo
 
 Credential labels must match the intended organization:
 
-- `dokploy-alltius-org-Alltius` -> `DOKPLOY_ALLTIUS_ORG_ALLTIUS_API_KEY`
-- `dokploy-alltius-org-Zapix` -> `DOKPLOY_ALLTIUS_ORG_ZAPIX_API_KEY`
+- `dokploy-example-org-a` -> `DOKPLOY_CONTEXT_ORG_A_API_KEY`
+- `dokploy-example-org-b` -> `DOKPLOY_CONTEXT_ORG_B_API_KEY`
 
 Do not paste API key values into documentation.

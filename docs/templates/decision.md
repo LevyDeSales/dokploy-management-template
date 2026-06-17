@@ -2,7 +2,7 @@
 
 Date:
 
-Org: `<alltius|zapix|global>`
+Org: `<org-a|org-b|global>`
 
 Status: `proposed|accepted|superseded`
 

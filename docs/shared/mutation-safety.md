@@ -21,7 +21,7 @@ Before approval is requested, collect and document:
 
 | Field | Required |
 | --- | --- |
-| Session focus | `alltius`, `zapix`, or `global` |
+| Session focus | `org-a`, `org-b`, or `global` |
 | Target scope | Organization, project, environment, service, server, or instance |
 | Current state | Read-only CLI/MCP/API evidence |
 | Backup posture | Latest relevant backup and restore constraints |
@@ -34,7 +34,7 @@ Before approval is requested, collect and document:
 Approval should name the action and scope, for example:
 
 ```text
-Aprovado: redeploy do service api no projeto acme, environment production, org alltius.
+Aprovado: redeploy do service api no projeto acme, environment production, org org-a.
 ```
 
 If approval is broad or ambiguous, narrow the action before mutating state.

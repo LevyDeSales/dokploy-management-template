@@ -1,6 +1,6 @@
 # Domain: <host><path>
 
-Org: `<alltius|zapix>`
+Org: `<org-a|org-b>`
 
 Project:
 

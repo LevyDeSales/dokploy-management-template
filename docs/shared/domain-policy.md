@@ -8,7 +8,7 @@ Record these fields for every domain. Rollup tables may link to a per-domain det
 
 | Field | Required | Notes |
 | --- | --- | --- |
-| Organization | Yes | `alltius` or `zapix` |
+| Organization | Yes | `org-a` or `org-b` |
 | Project | Yes | Dokploy project name |
 | Environment | Yes | Runtime environment |
 | Service | Yes | Application or Docker Compose service |
@@ -18,7 +18,7 @@ Record these fields for every domain. Rollup tables may link to a per-domain det
 | Strip path | If configured | Note redirect risk |
 | Container port | Yes | Traefik target port, not public exposure |
 | HTTPS/certificate | Yes | LetsEncrypt, custom certificate, or none |
-| DNS owner | Yes | Cloudflare or other provider |
+| DNS owner | Yes | DNS provider or internal owner |
 | DNS target | Yes | IP, CNAME, load balancer, or provider record target |
 | Verification date | Yes | Date of last check |
 

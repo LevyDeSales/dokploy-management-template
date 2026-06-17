@@ -7,7 +7,7 @@ Use this runbook for production-impacting Dokploy incidents.
 Declare the session focus before running commands:
 
 ```text
-Foco desta sessao: alltius|zapix|global
+Foco desta sessao: org-a|org-b|global
 Objetivo: incident response
 Somente leitura ate aprovar mutacoes.
 ```

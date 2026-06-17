@@ -1,6 +1,6 @@
 # Variables: <scope-name>
 
-Org: `<alltius|zapix>`
+Org: `<org-a|org-b>`
 
 Scope: `project|environment|service`
 

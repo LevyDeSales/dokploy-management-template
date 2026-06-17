@@ -1,6 +1,6 @@
 # Docker Compose Service: <service-name>
 
-Org: `<alltius|zapix>`
+Org: `<org-a|org-b>`
 
 Project: `<project-name>`
 

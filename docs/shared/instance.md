@@ -6,10 +6,10 @@ This file documents the shared self-hosted Dokploy control plane.
 
 | Field | Value |
 | --- | --- |
-| Panel | `https://dokploy.alltius.dev` |
-| Swagger/API | `https://dokploy.alltius.dev/swagger` |
+| Panel | `https://dokploy.example.com` |
+| Swagger/API | `https://dokploy.example.com/swagger` |
 | Session focus | `global` |
-| Managed org contexts | `alltius`, `zapix` |
+| Managed org contexts | `org-a`, `org-b` |
 
 ## Architecture Notes
 
