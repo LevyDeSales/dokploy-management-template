@@ -9,7 +9,7 @@ Dokploy variables can be defined at these levels:
 | Level | Use for | Docs path |
 | --- | --- | --- |
 | Project | Shared values reused by services in a project | `docs/orgs/<context-slug>/projects/<project-slug>/variables.md` |
-| Environment | Stage-specific overrides such as production vs staging | `docs/orgs/<context-slug>/projects/<project-slug>/environments/<environment>.md` |
+| Environment | Stage-specific overrides such as production vs staging | `docs/orgs/<context-slug>/projects/<project-slug>/environments/<environment-slug>/variables.md` |
 | Service | Service-specific values and overrides | Service docs under `services/` |
 
 ## Reference Syntax

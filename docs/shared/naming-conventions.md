@@ -28,7 +28,7 @@ Use `global` only for cross-context or instance-level work.
 - Domains should be documented by host and path, not only by service.
 - Backup names should include scope and cadence, for example `api-postgres-daily` or `n8n-volume-nightly`.
 
-## Credential Labels
+## Credential Variables
 
 Credential variables must match the intended context:
 
