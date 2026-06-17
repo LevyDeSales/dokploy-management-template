@@ -101,6 +101,7 @@ Use Git worktrees only for parallel documentation or larger branch work.
 - Dokploy concept map: `docs/shared/dokploy-reference.md`
 - Shared instance docs: `docs/shared/instance.md`
 - Mutation safety rules: `docs/shared/mutation-safety.md`
+- Publication checklist: `docs/publication-checklist.md`
 - Example org docs: `docs/orgs/org-a/` and `docs/orgs/org-b/`
 - Shared docs: `docs/shared/`
 - Reusable templates: `docs/templates/`
