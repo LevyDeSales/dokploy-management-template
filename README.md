@@ -121,3 +121,7 @@ Copy from `docs/templates/` for new project, environment, service, domain, varia
 - Prefer read-only discovery before any mutating operation.
 - Follow `docs/shared/mutation-safety.md` before destructive or state-changing work.
 - Use official Dokploy docs and your panel Swagger page before assuming CLI or API shape.
+
+## License
+
+MIT. See `LICENSE`.
