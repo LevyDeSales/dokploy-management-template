@@ -66,10 +66,12 @@ scripts/dokploy-cli.sh org-b compose --help
 
 Codex project MCP config is created from `.codex/config.toml.example`.
 
-- `dokploy-org-a`
-- `dokploy-org-b`
+Each declared context should have one MCP server entry whose `args` value matches that context. Example entries:
 
-After copying `.codex/config.toml.example` to `.codex/config.toml` and updating local paths, restart Codex and run `/mcp` to verify configured servers are connected.
+- `dokploy-org-a` with `args = ["org-a"]`
+- `dokploy-org-b` with `args = ["org-b"]`
+
+After copying `.codex/config.toml.example` to `.codex/config.toml` and updating local paths/context args, restart Codex and run `/mcp` to verify the expected servers are connected.
 
 ## Server And Resource Documentation
 

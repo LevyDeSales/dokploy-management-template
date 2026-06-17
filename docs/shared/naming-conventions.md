@@ -13,7 +13,7 @@ Use `global` only for cross-context or instance-level work.
 
 ## Doc Path Names
 
-- Context slugs: `org-a`, `org-b`.
+- Context slugs: use values from `DOKPLOY_CONTEXTS`, such as `org-a` or `org-b` in this template.
 - Project slugs: use the Dokploy project name normalized to lowercase kebab-case.
 - Environment names: prefer `production`, `staging`, `development`, or an explicit client/region/feature name.
 - Service names: use the exact Dokploy service name in tables and a normalized slug in environment-level file paths.
