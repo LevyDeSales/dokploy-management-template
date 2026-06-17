@@ -7,7 +7,7 @@ Use this runbook for production-impacting Dokploy incidents.
 Declare the session focus before running commands:
 
 ```text
-Foco desta sessao: <context>|global
+Foco desta sessao: <context-slug|global>
 Objetivo: incident response
 Somente leitura ate aprovar mutacoes.
 ```
