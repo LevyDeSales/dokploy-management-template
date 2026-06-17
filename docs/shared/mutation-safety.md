@@ -34,7 +34,7 @@ Before approval is requested, collect and document:
 Approval should name the action and scope, for example:
 
 ```text
-Aprovado: redeploy do service api no projeto acme, environment production, org org-a.
+Aprovado: redeploy do service api no projeto acme, environment production, context org-a.
 ```
 
 If approval is broad or ambiguous, narrow the action before mutating state.

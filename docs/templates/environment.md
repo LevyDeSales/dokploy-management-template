@@ -1,10 +1,10 @@
 # Environment: <environment-name>
 
-Org: `<org-a|org-b>`
+Context: `<context>`
 
 Project: `<project-name>`
 
-Path: `docs/orgs/<org>/projects/<project-slug>/environments/<environment-slug>/README.md`
+Path: `docs/orgs/<context-slug>/projects/<project-slug>/environments/<environment-slug>/README.md`
 
 ## Summary
 

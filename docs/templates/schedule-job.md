@@ -1,6 +1,6 @@
 # Schedule Job: <job-name>
 
-Org: `<org-a|org-b>`
+Context: `<context>`
 
 Project:
 

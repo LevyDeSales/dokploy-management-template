@@ -1,6 +1,6 @@
 # Project: <project-name>
 
-Org: `<org-a|org-b>`
+Context: `<context>`
 
 ## Summary
 

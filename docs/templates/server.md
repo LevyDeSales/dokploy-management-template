@@ -1,6 +1,6 @@
 # Server: <server-name>
 
-Org: `<org-a|org-b>`
+Context: `<context>`
 
 ## Identity
 

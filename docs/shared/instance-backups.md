@@ -2,7 +2,7 @@
 
 This file is for backups of the shared Dokploy control plane at `https://dokploy.example.com`.
 
-Org-specific application, database, and volume backups live in `docs/orgs/<org>/backups.md`.
+Context-specific application, database, and volume backups live in `docs/orgs/<context-slug>/backups.md`.
 
 ## Instance Backup Matrix
 
@@ -24,7 +24,7 @@ After restore:
 
 - Verify panel login.
 - Verify API/Swagger access.
-- Verify both org credentials through read-only CLI checks.
+- Verify declared context credentials through read-only CLI checks.
 - Verify domains, deployments, and backup schedules for affected services.
 
 ## Verification Log

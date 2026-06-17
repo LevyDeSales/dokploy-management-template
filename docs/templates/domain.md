@@ -1,6 +1,6 @@
 # Domain: <host><path>
 
-Org: `<org-a|org-b>`
+Context: `<context>`
 
 Project:
 

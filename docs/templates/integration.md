@@ -1,6 +1,6 @@
 # Integration: <integration-name>
 
-Org: `<org-a|org-b|global>`
+Context: `<context>|global`
 
 Type: `git-source|registry|ssh-key|certificate|s3-destination|notification|other`
 

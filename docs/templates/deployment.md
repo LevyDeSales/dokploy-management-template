@@ -1,6 +1,6 @@
 # Deployment: <service-name>
 
-Org: `<org-a|org-b>`
+Context: `<context>`
 
 Project:
 

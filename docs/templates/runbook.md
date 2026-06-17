@@ -1,6 +1,6 @@
 # Runbook: <procedure-name>
 
-Org: `<org-a|org-b|global>`
+Context: `<context>|global`
 
 Risk: `read-only|low|medium|high`
 

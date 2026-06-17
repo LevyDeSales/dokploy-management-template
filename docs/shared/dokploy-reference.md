@@ -36,33 +36,33 @@ Organization
 | Shared Dokploy instance | `docs/shared/instance.md` |
 | Shared instance backups | `docs/shared/instance-backups.md` |
 | Canonical mutation rules | `docs/shared/mutation-safety.md` |
-| Organization | `docs/orgs/<org>/README.md` |
-| Organization inventory | `docs/orgs/<org>/inventory.md` |
-| Organization settings | `docs/orgs/<org>/settings/` |
-| Servers | `docs/orgs/<org>/servers.md` |
-| Org domains rollup | `docs/orgs/<org>/domains.md` |
-| Org variables rollup | `docs/orgs/<org>/variables.md` |
-| Org deployments rollup | `docs/orgs/<org>/deployments.md` |
-| Org service/database/volume backups | `docs/orgs/<org>/backups.md` |
-| Project | `docs/orgs/<org>/projects/<project-slug>/README.md` |
-| Project cross-environment service index | `docs/orgs/<org>/projects/<project-slug>/services.md` |
-| Project shared variables | `docs/orgs/<org>/projects/<project-slug>/variables.md` |
-| Project domain rollup | `docs/orgs/<org>/projects/<project-slug>/domains.md` |
-| Environment | `docs/orgs/<org>/projects/<project-slug>/environments/<environment-slug>/README.md` |
-| Environment service | `docs/orgs/<org>/projects/<project-slug>/environments/<environment-slug>/services/<service-slug>.md` |
-| Environment domains | `docs/orgs/<org>/projects/<project-slug>/environments/<environment-slug>/domains.md` |
-| Environment variables | `docs/orgs/<org>/projects/<project-slug>/environments/<environment-slug>/variables.md` |
-| Environment deployments | `docs/orgs/<org>/projects/<project-slug>/environments/<environment-slug>/deployments.md` |
-| Environment backups | `docs/orgs/<org>/projects/<project-slug>/environments/<environment-slug>/backups.md` |
-| Environment schedules | `docs/orgs/<org>/projects/<project-slug>/environments/<environment-slug>/schedules.md` |
-| Environment decisions | `docs/orgs/<org>/projects/<project-slug>/environments/<environment-slug>/decisions.md` |
+| Organization/context | `docs/orgs/<context-slug>/README.md` |
+| Context inventory | `docs/orgs/<context-slug>/inventory.md` |
+| Context settings | `docs/orgs/<context-slug>/settings/` |
+| Servers | `docs/orgs/<context-slug>/servers.md` |
+| Context domains rollup | `docs/orgs/<context-slug>/domains.md` |
+| Context variables rollup | `docs/orgs/<context-slug>/variables.md` |
+| Context deployments rollup | `docs/orgs/<context-slug>/deployments.md` |
+| Context service/database/volume backups | `docs/orgs/<context-slug>/backups.md` |
+| Project | `docs/orgs/<context-slug>/projects/<project-slug>/README.md` |
+| Project cross-environment service index | `docs/orgs/<context-slug>/projects/<project-slug>/services.md` |
+| Project shared variables | `docs/orgs/<context-slug>/projects/<project-slug>/variables.md` |
+| Project domain rollup | `docs/orgs/<context-slug>/projects/<project-slug>/domains.md` |
+| Environment | `docs/orgs/<context-slug>/projects/<project-slug>/environments/<environment-slug>/README.md` |
+| Environment service | `docs/orgs/<context-slug>/projects/<project-slug>/environments/<environment-slug>/services/<service-slug>.md` |
+| Environment domains | `docs/orgs/<context-slug>/projects/<project-slug>/environments/<environment-slug>/domains.md` |
+| Environment variables | `docs/orgs/<context-slug>/projects/<project-slug>/environments/<environment-slug>/variables.md` |
+| Environment deployments | `docs/orgs/<context-slug>/projects/<project-slug>/environments/<environment-slug>/deployments.md` |
+| Environment backups | `docs/orgs/<context-slug>/projects/<project-slug>/environments/<environment-slug>/backups.md` |
+| Environment schedules | `docs/orgs/<context-slug>/projects/<project-slug>/environments/<environment-slug>/schedules.md` |
+| Environment decisions | `docs/orgs/<context-slug>/projects/<project-slug>/environments/<environment-slug>/decisions.md` |
 
 ## Project Layout
 
 Use this layout for each discovered Dokploy project:
 
 ```text
-docs/orgs/<org>/projects/<project-slug>/
+docs/orgs/<context-slug>/projects/<project-slug>/
   README.md
   services.md
   domains.md
@@ -83,20 +83,20 @@ docs/orgs/<org>/projects/<project-slug>/
       decisions.md
 ```
 
-The environment-level service file is the source of detail for a service. Project and org files are rollups or indexes.
+The environment-level service file is the source of detail for a service. Project and context files are rollups or indexes.
 
 ## Cross-Cutting Resources
 
-Some Dokploy resources are not owned cleanly by a single project. Keep these at org or shared level:
+Some Dokploy resources are not owned cleanly by a single project. Keep these at context or shared level:
 
 | Resource | Path |
 | --- | --- |
-| Git sources | `docs/orgs/<org>/settings/git-sources.md` |
-| Registries | `docs/orgs/<org>/settings/registries.md` |
-| SSH keys | `docs/orgs/<org>/settings/ssh-keys.md` |
-| Certificates | `docs/orgs/<org>/settings/certificates.md` |
-| S3 destinations | `docs/orgs/<org>/settings/s3-destinations.md` |
-| Notifications | `docs/orgs/<org>/settings/notifications.md` |
+| Git sources | `docs/orgs/<context-slug>/settings/git-sources.md` |
+| Registries | `docs/orgs/<context-slug>/settings/registries.md` |
+| SSH keys | `docs/orgs/<context-slug>/settings/ssh-keys.md` |
+| Certificates | `docs/orgs/<context-slug>/settings/certificates.md` |
+| S3 destinations | `docs/orgs/<context-slug>/settings/s3-destinations.md` |
+| Notifications | `docs/orgs/<context-slug>/settings/notifications.md` |
 | Naming policy | `docs/shared/naming-conventions.md` |
 | Domain policy | `docs/shared/domain-policy.md` |
 | Variable policy | `docs/shared/variable-policy.md` |

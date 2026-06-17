@@ -1,6 +1,6 @@
 # Variables: <scope-name>
 
-Org: `<org-a|org-b>`
+Context: `<context>`
 
 Scope: `project|environment|service`
 

@@ -2,7 +2,7 @@
 
 Date:
 
-Org: `<org-a|org-b|global>`
+Context: `<context>|global`
 
 Status: `proposed|accepted|superseded`
 

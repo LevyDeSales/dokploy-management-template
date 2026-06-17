@@ -1,6 +1,6 @@
 # Backup: <backup-name>
 
-Org: `<org-a|org-b>`
+Context: `<context>`
 
 Scope:
 

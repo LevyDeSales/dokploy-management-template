@@ -7,12 +7,12 @@ Use this runbook for production-impacting Dokploy incidents.
 Declare the session focus before running commands:
 
 ```text
-Foco desta sessao: org-a|org-b|global
+Foco desta sessao: <context>|global
 Objetivo: incident response
 Somente leitura ate aprovar mutacoes.
 ```
 
-Use only the matching CLI wrapper and MCP server unless the incident is explicitly cross-org.
+Use only the matching CLI wrapper and MCP server unless the incident is explicitly cross-context.
 
 ## 2. Capture Current State
 

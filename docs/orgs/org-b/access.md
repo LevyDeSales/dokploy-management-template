@@ -7,8 +7,7 @@ Do not store secrets in this file.
 | Purpose | Value |
 | --- | --- |
 | CLI wrapper | `scripts/dokploy-cli.sh org-b ...` |
-| MCP server | `dokploy-org-b` |
-| Credential label | `dokploy-org-b` |
+| MCP server | Codex MCP server with `args = ["org-b"]` |
 | Local env var | `DOKPLOY_CONTEXT_ORG_B_API_KEY` |
 
 ## Dokploy Access Model

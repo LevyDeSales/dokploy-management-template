@@ -1,6 +1,6 @@
 # Application Service: <service-name>
 
-Org: `<org-a|org-b>`
+Context: `<context>`
 
 Project: `<project-name>`
 
