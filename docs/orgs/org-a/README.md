@@ -1,5 +1,7 @@
 # Org A Organization
 
+This directory is an example context shipped with the public template. Rename or duplicate it to match a real context from `DOKPLOY_CONTEXTS`.
+
 Use this directory for documentation specific to the Org A organization in `https://dokploy.example.com`.
 
 ## Operating Context
