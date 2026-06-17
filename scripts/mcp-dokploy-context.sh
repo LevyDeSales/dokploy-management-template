@@ -6,8 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/dokploy-context.sh"
 
 if [ "$#" -ne 1 ]; then
-  echo "Usage: scripts/mcp-dokploy-context.sh <context>" >&2
-  echo "Available contexts: $(available_contexts)" >&2
+  print_context_usage "scripts/mcp-dokploy-context.sh" ""
   exit 2
 fi
 

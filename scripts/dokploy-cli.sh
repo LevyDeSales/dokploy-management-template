@@ -6,8 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/dokploy-context.sh"
 
 if [ "$#" -lt 2 ]; then
-  echo "Usage: scripts/dokploy-cli.sh <context> <dokploy command...>" >&2
-  echo "Available contexts: $(available_contexts)" >&2
+  print_context_usage "scripts/dokploy-cli.sh" "<dokploy command...>"
   exit 2
 fi
 
