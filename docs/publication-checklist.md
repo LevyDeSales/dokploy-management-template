@@ -25,8 +25,8 @@ Run:
 git status --short
 git check-ignore -v .env.local .codex/config.toml
 tests/run.sh
-rg -n --hidden -S -g '!docs/publication-checklist.md' -g '!docs/superpowers/plans/**' "PRIVATE KEY|BEGIN RSA|BEGIN OPENSSH|DOKPLOY_CONTEXT_.*=.*[A-Za-z0-9_-]{16,}|DOKPLOY_CUSTOM_HEADERS=.*\\{|password|secret|token" .
-rg -n -g '!docs/publication-checklist.md' -g '!docs/superpowers/plans/**' "dokploy-example-org-[ab]|mcp-dokploy-org-[ab]" .
+rg -n --hidden -S -g '!.git/**' -g '!docs/publication-checklist.md' -g '!docs/superpowers/plans/**' "PRIVATE KEY|BEGIN RSA|BEGIN OPENSSH|DOKPLOY_CONTEXT_.*=.*[A-Za-z0-9_-]{16,}|DOKPLOY_CUSTOM_HEADERS=.*\\{|password|secret|token" .
+rg -n --hidden -g '!.git/**' -g '!docs/publication-checklist.md' -g '!docs/superpowers/plans/**' "dokploy-example-org-[ab]|mcp-dokploy-org-[ab]" .
 ```
 
 Expected:
@@ -34,7 +34,7 @@ Expected:
 - `git check-ignore` reports ignore rules for `.env.local` and `.codex/config.toml`.
 - `tests/run.sh` passes.
 - Secret-oriented search shows only public-safe instructional text.
-- Obsolete fixed MCP wrapper search has no matches.
+- Obsolete fixed MCP wrapper search has no matches. `rg` exits `1` when no matches are found; that is the expected clean result for this check.
 
 ## First-Use Smoke Test
 
