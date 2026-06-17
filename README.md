@@ -43,13 +43,13 @@ Session focus examples:
 
 ```text
 Foco desta sessão: org-a
-Use scripts/dokploy-cli.sh org-a ... and MCP dokploy-example-org-a.
+Use scripts/dokploy-cli.sh org-a ... and MCP dokploy-org-a.
 Document decisions in docs/orgs/org-a/.
 ```
 
 ```text
 Foco desta sessão: org-b
-Use scripts/dokploy-cli.sh org-b ... and MCP dokploy-example-org-b.
+Use scripts/dokploy-cli.sh org-b ... and MCP dokploy-org-b.
 Document decisions in docs/orgs/org-b/.
 ```
 
@@ -97,8 +97,8 @@ scripts/dokploy-cli.sh org-b application --help
 
 Project-scoped MCP config is generated from `.codex/config.toml.example`. Keep `.codex/config.toml` local and untracked because it contains machine-specific paths.
 
-- `dokploy-example-org-a`
-- `dokploy-example-org-b`
+- `dokploy-org-a`
+- `dokploy-org-b`
 
 Restart Codex after changes, then run `/mcp` in the TUI and verify both servers are connected.
 

@@ -27,8 +27,8 @@ This repository is a Git-tracked operations and documentation workspace for a se
 
 - CLI wrapper for Org A: `scripts/dokploy-cli.sh org-a <dokploy command...>`
 - CLI wrapper for Org B: `scripts/dokploy-cli.sh org-b <dokploy command...>`
-- Codex MCP server for Org A: `dokploy-example-org-a`
-- Codex MCP server for Org B: `dokploy-example-org-b`
+- Codex MCP server for Org A: `dokploy-org-a`
+- Codex MCP server for Org B: `dokploy-org-b`
 - Project MCP config example: `.codex/config.toml.example`
 - Operations runbook: `docs/dokploy-operations.md`
 - Session and workspace model: `docs/session-workspace-model.md`
@@ -68,8 +68,8 @@ Keep shared panel/control-plane docs in `docs/shared/instance.md` and shared pan
 
 - Use this single repository and working directory as the control plane for both organizations.
 - At the start of operational work, establish one focus: `org-a`, `org-b`, or `global`.
-- For `org-a` focus, use only `scripts/dokploy-cli.sh org-a ...` and MCP server `dokploy-example-org-a` unless the user explicitly asks for cross-org comparison.
-- For `org-b` focus, use only `scripts/dokploy-cli.sh org-b ...` and MCP server `dokploy-example-org-b` unless the user explicitly asks for cross-org comparison.
+- For `org-a` focus, use only `scripts/dokploy-cli.sh org-a ...` and MCP server `dokploy-org-a` unless the user explicitly asks for cross-org comparison.
+- For `org-b` focus, use only `scripts/dokploy-cli.sh org-b ...` and MCP server `dokploy-org-b` unless the user explicitly asks for cross-org comparison.
 - For `global` focus, read from both orgs and document cross-org decisions under `docs/shared/`.
 - Record org-specific findings and decisions under `docs/orgs/org-a/` or `docs/orgs/org-b/`.
 - Do not create separate permanent CWDs per org while both orgs share the same Dokploy instance and repository configuration.
@@ -80,8 +80,8 @@ Keep shared panel/control-plane docs in `docs/shared/instance.md` and shared pan
 
 - Do not commit real API keys, optional access proxy secrets, `.env`, `.env.local`, or command output containing secrets.
 - `.env.local` is intentionally ignored by Git and is the local source for Dokploy credentials.
-- Credential label `dokploy-example-org-a` maps to local env var `DOKPLOY_CONTEXT_ORG_A_API_KEY`.
-- Credential label `dokploy-example-org-b` maps to local env var `DOKPLOY_CONTEXT_ORG_B_API_KEY`.
+- Credential label `dokploy-org-a` maps to local env var `DOKPLOY_CONTEXT_ORG_A_API_KEY`.
+- Credential label `dokploy-org-b` maps to local env var `DOKPLOY_CONTEXT_ORG_B_API_KEY`.
 - The env var value must be the raw API key only, without the visible key label or prefix copied from the Dokploy UI.
 - The Dokploy MCP and CLI expect `DOKPLOY_API_KEY`; use wrapper scripts to map organization-specific variables into that generic name.
 - IP allowlist or direct network access is the preferred access path. Use `DOKPLOY_CUSTOM_HEADERS` only as a fallback if an access proxy requires service-token headers.

@@ -21,8 +21,8 @@ Use the wrapper scripts so each operation runs with the intended organization cr
 
 | Context | Credential label | Local env var | CLI wrapper |
 | --- | --- | --- | --- |
-| `org-a` | `dokploy-example-org-a` | `DOKPLOY_CONTEXT_ORG_A_API_KEY` | `scripts/dokploy-cli.sh org-a ...` |
-| `org-b` | `dokploy-example-org-b` | `DOKPLOY_CONTEXT_ORG_B_API_KEY` | `scripts/dokploy-cli.sh org-b ...` |
+| `org-a` | `dokploy-org-a` | `DOKPLOY_CONTEXT_ORG_A_API_KEY` | `scripts/dokploy-cli.sh org-a ...` |
+| `org-b` | `dokploy-org-b` | `DOKPLOY_CONTEXT_ORG_B_API_KEY` | `scripts/dokploy-cli.sh org-b ...` |
 
 Store only the raw API key value in `.env.local`; do not include the visible key label or prefix from the Dokploy UI.
 
@@ -65,8 +65,8 @@ scripts/dokploy-cli.sh org-b compose --help
 
 Codex project MCP config is created from `.codex/config.toml.example`.
 
-- `dokploy-example-org-a`
-- `dokploy-example-org-b`
+- `dokploy-org-a`
+- `dokploy-org-b`
 
 After copying `.codex/config.toml.example` to `.codex/config.toml` and updating local paths, restart Codex and run `/mcp` to verify both servers are connected.
 

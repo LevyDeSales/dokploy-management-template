@@ -32,9 +32,14 @@ context_is_declared() {
 
 print_context_usage() {
   local command_name="$1"
+  local suffix="${2:-}"
 
   {
-    printf 'Usage: %s <context> %s\n' "$command_name" "${2:-}"
+    if [ -n "$suffix" ]; then
+      printf 'Usage: %s <context> %s\n' "$command_name" "$suffix"
+    else
+      printf 'Usage: %s <context>\n' "$command_name"
+    fi
     printf 'Available contexts: %s\n' "$(available_contexts)"
     printf 'Context API key variable format: DOKPLOY_CONTEXT_<NORMALIZED_CONTEXT>_API_KEY\n'
   } >&2
