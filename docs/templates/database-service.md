@@ -1,6 +1,6 @@
 # Database Service: <service-name>
 
-Context: `<context>`
+Context: `<context-slug>`
 
 Project: `<project-name>`
 

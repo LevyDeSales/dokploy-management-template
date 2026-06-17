@@ -1,6 +1,6 @@
 # Integration: <integration-name>
 
-Context: `<context>|global`
+Scope: `<context-slug|global>`
 
 Type: `git-source|registry|ssh-key|certificate|s3-destination|notification|other`
 

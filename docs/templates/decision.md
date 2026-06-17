@@ -2,7 +2,7 @@
 
 Date:
 
-Context: `<context>|global`
+Scope: `<context-slug|global>`
 
 Status: `proposed|accepted|superseded`
 

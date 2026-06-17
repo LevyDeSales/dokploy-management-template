@@ -1,6 +1,6 @@
 # Backup: <backup-name>
 
-Context: `<context>`
+Context: `<context-slug>`
 
 Scope:
 

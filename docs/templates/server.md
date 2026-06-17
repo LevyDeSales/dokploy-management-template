@@ -1,6 +1,6 @@
 # Server: <server-name>
 
-Context: `<context>`
+Context: `<context-slug>`
 
 ## Identity
 

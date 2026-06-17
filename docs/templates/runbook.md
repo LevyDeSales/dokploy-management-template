@@ -1,6 +1,6 @@
 # Runbook: <procedure-name>
 
-Context: `<context>|global`
+Scope: `<context-slug|global>`
 
 Risk: `read-only|low|medium|high`
 

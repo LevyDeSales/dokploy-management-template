@@ -1,6 +1,6 @@
 # Services Index: <project-name>
 
-Context: `<context>`
+Context: `<context-slug>`
 
 Project:
 

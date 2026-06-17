@@ -1,6 +1,6 @@
 # Domain: <host><path>
 
-Context: `<context>`
+Context: `<context-slug>`
 
 Project:
 

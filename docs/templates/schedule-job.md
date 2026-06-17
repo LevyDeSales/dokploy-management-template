@@ -1,6 +1,6 @@
 # Schedule Job: <job-name>
 
-Context: `<context>`
+Context: `<context-slug>`
 
 Project:
 

@@ -1,6 +1,6 @@
 # Project: <project-name>
 
-Context: `<context>`
+Context: `<context-slug>`
 
 ## Summary
 
@@ -49,4 +49,4 @@ This is a project rollup. Use `docs/templates/domain.md` for detailed domain doc
 
 ## Decisions
 
-Link org or project decisions that affect this project.
+Link context or project decisions that affect this project.

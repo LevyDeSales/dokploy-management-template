@@ -1,6 +1,6 @@
 # Variables: <scope-name>
 
-Context: `<context>`
+Context: `<context-slug>`
 
 Scope: `project|environment|service`
 

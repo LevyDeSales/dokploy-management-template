@@ -1,6 +1,6 @@
 # Deployment: <service-name>
 
-Context: `<context>`
+Context: `<context-slug>`
 
 Project:
 
