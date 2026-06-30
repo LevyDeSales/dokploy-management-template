@@ -29,6 +29,7 @@ assert_eq() {
 reset_dokploy_env() {
   unset DOKPLOY_CONTEXT
   unset DOKPLOY_CONTEXT_ENV
+  unset DOKPLOY_URL
   unset DOKPLOY_CONTEXTS
   unset DOKPLOY_CONTEXT_ORG_A_API_KEY
   unset DOKPLOY_CONTEXT_ORG_B_API_KEY
@@ -39,6 +40,7 @@ reset_dokploy_env() {
 }
 
 # shellcheck source=../scripts/dokploy-context.sh
+# shellcheck disable=SC1091
 source "$PROJECT_ROOT/scripts/dokploy-context.sh"
 
 reset_dokploy_env
@@ -46,9 +48,19 @@ assert_eq "normalizes hyphenated context names" "$(normalize_context "customer-p
 assert_eq "normalizes dotted context names" "$(normalize_context "read.only")" "READ_ONLY"
 
 reset_dokploy_env
-assert_eq "defaults to example contexts" "$(available_contexts)" "org-a org-b"
+assert_eq "does not default contexts" "$(available_contexts)" ""
 
 reset_dokploy_env
+export DOKPLOY_CONTEXTS="prod"
+export DOKPLOY_CONTEXT_PROD_API_KEY="raw-test-key"
+if resolve_dokploy_context "prod" >/tmp/dokploy-context-test.err 2>&1; then
+  fail "missing Dokploy URL exits nonzero"
+else
+  assert_eq "missing Dokploy URL exits with code 2" "$?" "2"
+fi
+
+reset_dokploy_env
+export DOKPLOY_URL="https://dokploy.example.com"
 export DOKPLOY_CONTEXTS="prod customer-prod"
 if context_is_declared "customer-prod"; then
   pass "finds declared context"
@@ -57,6 +69,7 @@ else
 fi
 
 reset_dokploy_env
+export DOKPLOY_URL="https://dokploy.example.com"
 export DOKPLOY_CONTEXTS="prod customer-prod"
 if context_is_declared "staging"; then
   fail "rejects undeclared context"
@@ -65,14 +78,17 @@ else
 fi
 
 reset_dokploy_env
+export DOKPLOY_URL="https://dokploy.example.com"
 export DOKPLOY_CONTEXTS="prod customer-prod"
 export DOKPLOY_CONTEXT_CUSTOMER_PROD_API_KEY="raw-test-key"
 resolve_dokploy_context "customer-prod"
+# shellcheck disable=SC2153
 assert_eq "exports selected context" "$DOKPLOY_CONTEXT" "customer-prod"
 assert_eq "exports normalized context name" "$DOKPLOY_CONTEXT_ENV" "CUSTOMER_PROD"
 assert_eq "maps selected context API key" "$DOKPLOY_API_KEY" "raw-test-key"
 
 reset_dokploy_env
+export DOKPLOY_URL="https://dokploy.example.com"
 export DOKPLOY_CONTEXTS="prod"
 if resolve_dokploy_context "missing" >/tmp/dokploy-context-test.err 2>&1; then
   fail "unknown context exits nonzero"
@@ -81,6 +97,7 @@ else
 fi
 
 reset_dokploy_env
+export DOKPLOY_URL="https://dokploy.example.com"
 export DOKPLOY_CONTEXTS="prod"
 if resolve_dokploy_context "prod" >/tmp/dokploy-context-test.err 2>&1; then
   fail "missing API key exits nonzero"

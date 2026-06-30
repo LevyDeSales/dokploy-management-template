@@ -18,4 +18,4 @@ export DOKPLOY_TIMEOUT="${DOKPLOY_TIMEOUT:-30000}"
 export DOKPLOY_RETRY_ATTEMPTS="${DOKPLOY_RETRY_ATTEMPTS:-2}"
 export DOKPLOY_RETRY_DELAY="${DOKPLOY_RETRY_DELAY:-1000}"
 
-exec npx -y --package @dokploy/mcp@latest dokploy-mcp
+exec npx -y --package "@dokploy/mcp@${DOKPLOY_MCP_VERSION}" dokploy-mcp

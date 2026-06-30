@@ -18,9 +18,12 @@ DOKPLOY_URL=https://dokploy.example.com
 DOKPLOY_CONTEXTS="org-a org-b"
 DOKPLOY_CONTEXT_ORG_A_API_KEY=
 DOKPLOY_CONTEXT_ORG_B_API_KEY=
+DOKPLOY_CLI_VERSION=0.29.4
+DOKPLOY_MCP_VERSION=0.29.3
 ```
 
-Store only raw API key values. Do not commit `.env.local`.
+Store only raw API key values. Do not commit `.env.local`. Treat
+`.env.local` as trusted local shell input.
 
 ## 2. Rename Or Add Contexts
 
@@ -28,7 +31,7 @@ If your real contexts are not `org-a` and `org-b`:
 
 1. Update `DOKPLOY_CONTEXTS`.
 2. Add matching `DOKPLOY_CONTEXT_<NORMALIZED_CONTEXT>_API_KEY` variables.
-3. Rename or duplicate directories under `docs/orgs/`.
+3. Copy or adapt scaffolding from `examples/orgs/` into `docs/orgs/`.
 4. Update the MCP server names and `args` in `.codex/config.toml`.
 
 Context normalization uppercases names and changes non-alphanumeric characters to `_`.
@@ -83,7 +86,8 @@ Run:
 
 ```bash
 git check-ignore -v .env.local .codex/config.toml
-tests/run.sh
+scripts/validate-repo.sh
 ```
 
-Expected: `.env.local` and `.codex/config.toml` are ignored, and local tests pass.
+Expected: `.env.local` and `.codex/config.toml` are ignored, local tests pass,
+links resolve, and public-safety checks pass.

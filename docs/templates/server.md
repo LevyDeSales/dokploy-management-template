@@ -11,8 +11,8 @@ Context: `<context-slug>`
 | Dokploy role | `ui|deployment|build|cluster-node` |
 | Provider |  |
 | Region |  |
-| Public IP |  |
-| Private IP |  |
+| Public IP | `<public-ip-or-redacted>` |
+| Private IP | `<private-ip-or-redacted>` |
 | SSH key label |  |
 | SSH port |  |
 | Observed at |  |

@@ -1,9 +1,59 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Local secrets and environment files
 .env
+.env.*
+**/.env
+**/.env.*
+!**/.env.example
+!**/*.env.example
+!**/.env.*.example
 .env.local
 .env.*.local
+
+# Local Codex and MCP configuration
 .codex/config.toml
+
+# Terraform local state, plans, and provider cache
+**/.terraform/
+**/.terraform.lock.hcl.bak
+**/terraform.tfstate
+**/terraform.tfstate.*
+**/terraform.tfvars
+!**/terraform.tfvars.example
+**/*.tfplan
+**/*tfplan*.json
+
+# Backups, dumps, and generated operational artifacts
+backups/
+**/backups/
+**/*.dump
+**/*.sql
+**/*.tar
+**/*.tar.gz
+**/*.tgz
+**/*.zip
+**/*.bak
+
+# Runtime/cache directories
 node_modules/
 npm-debug.log*
-.DS_Store
+.cache/
+.tmp/
 tmp/
 logs/
+*.log
+
+# Local machine-only secret material
+.secrets/
+secrets/
+*.pem
+*.key
+id_rsa*
+id_ed25519*

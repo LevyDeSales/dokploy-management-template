@@ -10,7 +10,7 @@ Use this checklist for every Dokploy-managed server and build server.
 | Role | Dokploy UI, deployment server, build server, or cluster node |
 | Provider | VPS or cloud provider |
 | Region | Physical or provider region |
-| Public IP | Redact only if policy requires it |
+| Public IP | Use placeholders or masked values in public repos; store real values only in private operations repos |
 | SSH port | Document if non-standard |
 | Firewall owner | UFW, provider firewall, or both |
 | Traefik status | Local or remote Traefik |

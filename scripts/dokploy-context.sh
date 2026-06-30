@@ -10,11 +10,7 @@ normalize_context() {
 }
 
 available_contexts() {
-  if [ -n "${DOKPLOY_CONTEXTS:-}" ]; then
-    printf '%s\n' "$DOKPLOY_CONTEXTS"
-  else
-    printf 'org-a org-b\n'
-  fi
+  printf '%s\n' "${DOKPLOY_CONTEXTS:-}"
 }
 
 context_is_declared() {
@@ -40,7 +36,11 @@ print_context_usage() {
     else
       printf 'Usage: %s <context>\n' "$command_name"
     fi
-    printf 'Available contexts: %s\n' "$(available_contexts)"
+    if [ -n "${DOKPLOY_CONTEXTS:-}" ]; then
+      printf 'Available contexts: %s\n' "$(available_contexts)"
+    else
+      printf 'Available contexts: none; set DOKPLOY_CONTEXTS in .env.local\n'
+    fi
     printf 'Context API key variable format: DOKPLOY_CONTEXT_<NORMALIZED_CONTEXT>_API_KEY\n'
   } >&2
 }
@@ -50,6 +50,8 @@ resolve_dokploy_context() {
   local normalized
   local key_var
   local key_value
+
+  require_dokploy_env || return $?
 
   if ! context_is_declared "$context"; then
     echo "Unknown Dokploy context '$context'. Available contexts: $(available_contexts)" >&2

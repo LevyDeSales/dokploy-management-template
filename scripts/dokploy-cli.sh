@@ -15,4 +15,4 @@ shift
 
 resolve_dokploy_context "$context"
 
-exec npx -y @dokploy/cli@latest "$@"
+exec npx -y "@dokploy/cli@${DOKPLOY_CLI_VERSION}" "$@"

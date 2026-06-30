@@ -45,17 +45,17 @@ Within each context, start with `inventory.md` and then create project-level doc
 Use this pattern at the start of an operational session:
 
 ```text
-Foco desta sessão: <context>
-Objetivo: inventariar servidores e documentar decisões.
-Somente leitura até eu aprovar mutações.
+Foco desta sessao: <context>
+Objetivo: inventariar servidores e documentar decisoes.
+Somente leitura ate eu aprovar mutacoes.
 ```
 
 or:
 
 ```text
-Foco desta sessão: global
-Objetivo: comparar políticas de backup entre contextos.
-Somente leitura até eu aprovar mutações.
+Foco desta sessao: global
+Objetivo: comparar politicas de backup entre contextos.
+Somente leitura ate eu aprovar mutacoes.
 ```
 
 ## Worktree Rules
