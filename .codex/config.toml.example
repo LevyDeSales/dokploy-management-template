@@ -1,0 +1,21 @@
+# Copy this file to `.codex/config.toml` and replace `/absolute/path/to/dokploy-management-template`
+# with this repository's absolute path.
+#
+# Keep `.codex/config.toml` local and untracked because it contains machine-specific paths.
+# Add one mcp_servers entry per Dokploy context listed in DOKPLOY_CONTEXTS.
+
+[mcp_servers.dokploy-org-a]
+command = "/absolute/path/to/dokploy-management-template/scripts/mcp-dokploy-context.sh"
+args = ["org-a"]
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+default_tools_approval_mode = "prompt"
+enabled = true
+
+[mcp_servers.dokploy-org-b]
+command = "/absolute/path/to/dokploy-management-template/scripts/mcp-dokploy-context.sh"
+args = ["org-b"]
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+default_tools_approval_mode = "prompt"
+enabled = true
