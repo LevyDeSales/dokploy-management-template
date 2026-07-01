@@ -130,6 +130,31 @@ Shared Dokploy panel/control-plane facts live in `docs/shared/instance.md`; shar
 
 Use `docs/templates/` when creating new files.
 
+## Operational Branching
+
+This public template keeps `main` as the reusable, public-safe source. A
+private repository created from the template should use `operations` as the
+canonical operational ledger and recommended default branch.
+
+For mutating or multi-step real infrastructure work:
+
+1. Start from `operations` and pull the remote state.
+2. Create a checkpoint tag before high-risk work.
+3. Create a focused temporary branch such as `op/YYYY-MM-DD-deploy-service` or
+   `incident/YYYY-MM-DD-routing-failure`.
+4. Record preflight, approval, actions, evidence, and verification without
+   secrets.
+5. Commit the intended documentation changes on the temporary branch.
+6. Merge durable documentation back into `operations`.
+7. Push `operations` so the remote branch can be used to resume operations.
+8. Delete temporary branches after the operation is canonized.
+
+Use `sync/template-YYYY-MM-DD` only to import updates from the public template
+into a private operations repository.
+
+See `docs/guides/operational-branching.md` for commands, tag naming, branch
+protection recommendations, and agent behavior.
+
 ## Discovery Workflow
 
 1. Declare session focus: a context from `DOKPLOY_CONTEXTS`, or `global`.

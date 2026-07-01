@@ -10,6 +10,11 @@ Do not create permanent CWDs for individual contexts while they share the same s
 
 Do not use Git worktrees as the default context separation mechanism. Use worktrees only for parallel or larger branch work.
 
+Session focus chooses the Dokploy credential context and documentation path.
+Branches isolate a concrete operation. In a private operations repository, keep
+durable state on `operations` and use focused temporary branches for mutating or
+multi-step work. See `docs/guides/operational-branching.md`.
+
 ## Session Focus Values
 
 ### Context Focus
@@ -67,6 +72,16 @@ Use a worktree when:
 - A Codex thread should work in the background without disturbing the foreground checkout.
 
 Do not use a worktree just to switch between contexts; use the wrapper commands and documentation paths instead.
+
+For most operations, one normal checkout is enough:
+
+```bash
+git switch operations
+git pull --ff-only
+git switch -c op/YYYY-MM-DD-type-slug
+```
+
+Create a worktree only when another branch must stay active in parallel.
 
 Because `.env.local` is ignored, a worktree will not automatically have credentials. If a worktree needs live CLI or MCP checks:
 

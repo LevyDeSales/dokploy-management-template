@@ -2,7 +2,23 @@
 
 Use this checklist after creating a repository from this template.
 
-## 1. Configure Local Secrets
+## 1. Choose Repository Mode
+
+If this repository remains the public template, keep `main` as the only
+permanent branch.
+
+If this is a private repository for a real Dokploy instance, create an
+`operations` branch and make it the default branch in the repository settings:
+
+```bash
+git switch -c operations
+git push -u origin operations
+```
+
+Use `main` only as an optional template baseline for importing future template
+updates. See `docs/guides/operational-branching.md`.
+
+## 2. Configure Local Secrets
 
 Copy `.env.example` to `.env.local`:
 
@@ -25,7 +41,7 @@ DOKPLOY_MCP_VERSION=0.29.3
 Store only raw API key values. Do not commit `.env.local`. Treat
 `.env.local` as trusted local shell input.
 
-## 2. Rename Or Add Contexts
+## 3. Rename Or Add Contexts
 
 If your real contexts are not `org-a` and `org-b`:
 
@@ -43,7 +59,7 @@ Examples:
 | `customer-prod` | `DOKPLOY_CONTEXT_CUSTOMER_PROD_API_KEY` |
 | `read.only` | `DOKPLOY_CONTEXT_READ_ONLY_API_KEY` |
 
-## 3. Configure MCP
+## 4. Configure MCP
 
 Copy `.codex/config.toml.example` to `.codex/config.toml`:
 
@@ -67,7 +83,7 @@ enabled = true
 
 Keep `.codex/config.toml` untracked because it contains local paths.
 
-## 4. Verify Read-Only Access
+## 5. Verify Read-Only Access
 
 Run:
 
@@ -80,7 +96,7 @@ Replace `org-a` with each context listed in `DOKPLOY_CONTEXTS`.
 
 Only update inventories after read-only checks work.
 
-## 5. Verify Git Safety
+## 6. Verify Git Safety
 
 Run:
 

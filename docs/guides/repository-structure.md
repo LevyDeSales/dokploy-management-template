@@ -46,6 +46,10 @@ infra/dokploy-apps/<stack>/
 `-- BACKUP_AND_STORAGE.md
 ```
 
+Use `operations` as the canonical branch for the private operational record and
+temporary `op/*`, `incident/*`, or `sync/template-*` branches for focused work.
+See `docs/guides/operational-branching.md`.
+
 ## Public-Safety Rule
 
 Public repos should use placeholders. Private repos may replace placeholders
