@@ -11,8 +11,10 @@ runtime state.
 2. Read `docs/index.md`.
 3. Read `docs/template-setup.md`.
 4. Read `docs/dokploy-operations.md`.
-5. Read `docs/shared/mutation-safety.md` before any live change.
-6. Ask for real values only when needed: Dokploy URL, context names, domain,
+5. Read `docs/guides/operational-branching.md` before multi-step or mutating
+   work in a real operations repository.
+6. Read `docs/shared/mutation-safety.md` before any live change.
+7. Ask for real values only when needed: Dokploy URL, context names, domain,
    provider, VPS names, SSH user, DNS provider, backup destination, and access
    model.
 
@@ -32,9 +34,15 @@ runtime state.
 
 - Never ask the user to paste secrets into committed files.
 - Never generate real `.env` files in the repo; generate `.env.example` only.
+- In this public template, never commit real customer names, private hostnames,
+  real IPs, credential references, or live operational evidence.
+- In a private operations repository created from this template, document only
+  approved operational identifiers that are intentionally part of the
+  infrastructure record.
 - Never commit `.env.local`, `.codex/config.toml`, private keys, API keys,
-  `tfstate`, database dumps, backup archives, raw MCP output, real customer
-  names, real hostnames, or real IPs.
+  service-token headers, auth headers, cookies, `DOKPLOY_CUSTOM_HEADERS`
+  values, `tfstate`, database dumps, backup archives, raw MCP output, or command
+  output containing secrets.
 - Keep real inventory in `docs/orgs/` only after the repository has been copied
   into a private or intentionally public operations repo.
 - Use `examples/orgs/` as scaffolding and examples only.
@@ -111,6 +119,27 @@ Use these context-level files before creating narrower project docs:
 - Do not create separate permanent CWDs per context while contexts share the
   same Dokploy instance and repository configuration.
 
+## Operational Branch Model
+
+- In this public template, use `main` as the public-safe template branch.
+- In a private repository created from this template, use `operations` as the
+  canonical operational ledger and recommended default branch.
+- Before mutating or multi-step real infrastructure work, start from
+  `operations`, pull the remote state, and create a focused temporary branch:
+  `op/YYYY-MM-DD-type-slug` for planned work or
+  `incident/YYYY-MM-DD-slug` for incident response.
+- Use `sync/template-YYYY-MM-DD` only to import updates from the public template
+  into a private operations repository.
+- Push active temporary branches when work must be resumed later by another
+  operator, another machine, or another Codex thread.
+- Merge or summarize durable findings into `operations`, push `operations`,
+  and delete temporary branches after the operation is canonized.
+- Create and push `checkpoint/YYYY-MM-DD-before-slug` tags before high-risk
+  operations such as upgrades, destructive changes, domain cutovers,
+  credential rotations, restores, migrations, or bulk deploys.
+- Branches are not a permission boundary. Never commit a secret to a temporary
+  branch that would be forbidden on `operations`.
+
 ## Credentials
 
 - `.env.local` is intentionally ignored by Git and is the local source for
@@ -130,6 +159,8 @@ Use these context-level files before creating narrower project docs:
 ## Operating Rules
 
 - Prefer read-only discovery before any mutating operation.
+- For real multi-step operations, work on a focused `op/*` or `incident/*`
+  branch and canonize durable records into `operations`.
 - Follow `docs/shared/mutation-safety.md` before any mutating operation.
 - Before destructive operations, collect current organization, project,
   environment, service, server, and backup state.

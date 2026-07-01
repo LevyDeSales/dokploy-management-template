@@ -38,6 +38,7 @@
 | Need | Document |
 | --- | --- |
 | Session focus model | `session-workspace-model.md` |
+| Operational branch model | `guides/operational-branching.md` |
 | Incident flow | `shared/incident-runbook.md` |
 | Backup policy | `shared/backup-policy.md` |
 | Domain policy | `shared/domain-policy.md` |

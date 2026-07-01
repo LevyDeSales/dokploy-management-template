@@ -68,6 +68,19 @@ scripts/dokploy-cli.sh org-a organization all --json
 
 Replace `org-a` with a context listed in `DOKPLOY_CONTEXTS`.
 
+## Operational Branching
+
+This public template keeps `main` as the reusable, public-safe source.
+
+After creating a private repository for a real Dokploy instance, use an
+`operations` branch as the canonical operational ledger and recommended default
+branch. Use temporary branches such as `op/YYYY-MM-DD-deploy-service`,
+`incident/YYYY-MM-DD-routing-failure`, and `sync/template-YYYY-MM-DD` for
+specific work, then merge durable findings back into `operations`.
+
+See `docs/guides/operational-branching.md` for the full workflow, including
+checkpoint tags, agent behavior, and safety rules.
+
 ## Documentation Map
 
 Start here:
@@ -86,6 +99,7 @@ Adoption and migration guides:
 - `docs/guides/networking.md`
 - `docs/guides/remote-agent-preparation.md`
 - `docs/guides/remote-servers.md`
+- `docs/guides/operational-branching.md`
 - `docs/guides/docker-compose-patterns.md`
 - `docs/guides/backups-restore.md`
 - `docs/migration/portainer-to-dokploy.md`
@@ -121,9 +135,14 @@ Use `examples/orgs/` only as scaffolding. Real inventory belongs in
 
 ## Safety
 
-- Do not commit `.env.local`, `.codex/config.toml`, real API keys, service-token
-  headers, private keys, real IPs/domains, customer names, backups, dumps,
-  `tfstate`, or raw command output containing secrets.
+- In this public template, do not commit real IPs/domains, customer names,
+  private hostnames, credential references, or live operational evidence.
+- In a private operations repository created from this template, document only
+  approved real operational identifiers that are intentionally part of the
+  infrastructure record.
+- Never commit `.env.local`, `.codex/config.toml`, real API keys,
+  service-token headers, auth headers, cookies, private keys, backups, dumps,
+  `tfstate`, raw MCP output, or command output containing secrets.
 - Keep `DOKPLOY_REDACT_ENV=true` for MCP sessions.
 - Prefer read-only discovery before any mutating operation.
 - Follow `docs/shared/mutation-safety.md` before destructive or state-changing
