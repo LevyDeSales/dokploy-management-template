@@ -36,6 +36,9 @@ Keep these topics in shared docs, not context docs:
 ## Change Rules
 
 - Use `global` session focus for instance-level changes.
+- Consult Graphify at the reviewed revision and record target CIs and
+  relationships; the agent's external profile decides direct execution,
+  approval, or read-only behavior.
 - Follow `docs/shared/mutation-safety.md` for any mutating action.
 - Keep context-specific service, database, and volume backup docs under `docs/orgs/<context-slug>/backups.md`.
 - Keep instance backup and restore evidence in `docs/shared/instance-backups.md`.

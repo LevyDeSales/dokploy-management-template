@@ -1,6 +1,7 @@
 # Org A Projects
 
-Create one directory per Dokploy project after read-only discovery.
+Create one directory per Dokploy project after reconciling discovery evidence or
+recording a reviewed canonized source in the CMDB.
 
 Use `docs/shared/dokploy-reference.md` as the canonical layout.
 

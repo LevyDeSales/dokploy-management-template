@@ -2,8 +2,8 @@
 
 This policy defines the CMDB-as-code contract for the canonized operational
 graph. The repository persists the reviewed graph; Graphify is the
-authoritative interface for consulting and navigating that graph at the
-checked-out revision.
+authoritative source of operational truth for consulting and navigating that
+canonized graph at the checked-out revision.
 
 ## Responsibility Boundaries
 

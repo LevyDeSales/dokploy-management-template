@@ -1,8 +1,9 @@
 # Operational Context Graph
 
 The CMDB-as-code records the canonized operational graph. Graphify is the
-authoritative interface for consulting, navigating, and making operational
-decisions from that graph at the checked-out, reviewed revision.
+authoritative source of operational truth for consulting, navigating, and
+making operational decisions from that graph at the checked-out, reviewed
+revision.
 
 The graph describes canonized operational knowledge. It does not claim that a
 live platform cannot have changed since that revision. Dokploy, APIs, SSH, and

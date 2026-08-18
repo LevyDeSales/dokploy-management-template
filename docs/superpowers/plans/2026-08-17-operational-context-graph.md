@@ -299,7 +299,7 @@ Change the runbook template to consult the graph, record its revision, and execu
 Run:
 
 ~~~bash
-rg -n -i "mutating operations require explicit confirmation|ask for explicit approval before changing|approval captured for mutating|requires explicit approval for mutating|do not start a restore without explicit approval" README.md AGENTS.md docs examples
+rg -n -i "mutating operations require explicit confirmation|ask for explicit approval before changing|approval captured for mutating|requires explicit approval for mutating|do not start a restore without explicit approval|somente leitura ate" README.md AGENTS.md docs examples -g '!docs/superpowers/**'
 scripts/validate-repo.sh
 git diff --check
 ~~~

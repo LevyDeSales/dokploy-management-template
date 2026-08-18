@@ -12,16 +12,22 @@ What this procedure accomplishes.
 
 - Session focus declared.
 - Correct CLI wrapper or MCP server selected.
-- Backup and current state captured when the procedure is mutating.
-- Approval captured for mutating actions.
+- Graphify revision, target CIs, and target relationships recorded when the
+  procedure is mutating.
+- Direct mutation uses only canonical `declared` or `verified` relationships
+  with evidence and `observed_at`; other relationship states require
+  investigation.
+- Backup posture, blast radius, rollback path, and verification plan recorded.
+- The agent's external profile determines direct execution, approval, or
+  read-only behavior.
 
 ## Steps
 
-1. Read current state.
-2. Record findings.
-3. Apply approved action.
+1. Query Graphify at the recorded revision.
+2. Record the relationship evidence used for the decision.
+3. Apply the action according to the agent's external profile.
 4. Verify result.
-5. Update docs.
+5. Create a sanitized reconciliation observation and update docs.
 
 ## Verification
 

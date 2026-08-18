@@ -20,7 +20,7 @@ Keep the public template simple:
 Do not create permanent real-operation branches in the public template. The
 public template must use placeholders and public-safe examples only.
 
-A private operations repository may document approved real inventory, hostnames,
+A private operations repository may document reviewed real inventory, hostnames,
 IP references, credential names, ownership, and operational evidence when those
 details are part of the intended infrastructure record. Secret values, tokens,
 keys, dumps, backup archives, and raw sensitive command output still stay out of
@@ -118,12 +118,16 @@ git switch -c op/2026-07-01-deploy-n8n
 During the operation:
 
 1. Declare the session focus: one context from `DOKPLOY_CONTEXTS`, or `global`.
-2. Record the objective, current state, backup posture, blast radius, approval
-   requirement, and rollback path.
-3. Run read-only discovery before mutation.
-4. Ask for explicit approval before changing live infrastructure.
-5. Execute the operation.
-6. Record evidence without secrets.
+2. Record the objective, Graphify revision, target CIs and relationships,
+   evidence, backup posture, blast radius, rollback path, and verification plan.
+3. Query Graphify. A `declared` or `verified` relationship with
+   `status: canonical` is operational truth for the action; `inferred`,
+   `ambiguous`, `conflict`, and `stale` relationships require investigation.
+4. Let the agent's external profile decide whether it executes directly, asks
+   for approval, or remains read-only.
+5. Execute the operation without mandatory live discovery when the reviewed
+   graph provides canonized truth.
+6. Record sanitized results and a reconciliation observation.
 7. Update durable docs under `docs/orgs/`, `docs/shared/`, or `docs/templates/`.
 8. Run repository validation.
 9. Commit the intended documentation changes on the temporary branch.
@@ -161,8 +165,8 @@ Record:
 
 - trigger and time discovered;
 - affected contexts, projects, environments, services, domains, and users;
-- read-only observations;
-- emergency approval or operator instruction;
+- Graphify revision plus affected CIs and relationships;
+- observations, evidence, and any detected graph divergence;
 - commands or Dokploy actions performed;
 - rollback options considered;
 - final state and follow-up work.
@@ -209,8 +213,11 @@ An AI agent operating a real private repository should:
 - create a focused `op/*` or `incident/*` branch for mutating or multi-step
   operations;
 - push active temporary branches when work must be resumable;
-- keep read-only discovery separate from mutation;
-- ask for approval before live changes;
+- consult Graphify at the reviewed revision before live changes;
+- treat canonical `declared` and `verified` relationships as operational truth,
+  while following its external profile for approval or direct execution;
+- record reconciliation observations after execution and investigate `conflict`
+  or `stale` relationships before depending on them again;
 - commit only durable operational records;
 - keep the temporary branch worktree clean before switching back to
   `operations`;
@@ -224,7 +231,7 @@ An AI agent operating a real private repository should:
   `sync/template-*`.
 - In the public template, do not commit real customer names, private hostnames,
   real IPs, credential references, or live operational evidence.
-- In a private operations repository, document only approved operational
+- In a private operations repository, document only reviewed operational
   identifiers that are intentionally part of the infrastructure record.
 - Never commit `.env.local`, `.codex/config.toml`, API keys, private keys,
   service-token headers, auth headers, cookies, `DOKPLOY_CUSTOM_HEADERS`

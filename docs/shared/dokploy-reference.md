@@ -111,10 +111,10 @@ Some Dokploy resources are not owned cleanly by a single project. Keep these at 
 ## Provenance Rule
 
 The repository CMDB-as-code is the reviewed, canonized operational graph.
-Graphify is the authoritative interface for consulting that graph at the
-checked-out revision. Live Dokploy panels, APIs, SSH, and containers execute
-actions and reconcile divergence after an operation; they are not mandatory
-discovery before a mutation.
+Graphify is the authoritative source of operational truth for consulting that
+graph at the checked-out revision. Live Dokploy panels, APIs, SSH, and
+containers execute actions and reconcile divergence after an operation; they
+are not mandatory discovery before a mutation.
 
 When documenting live state, include:
 

@@ -142,7 +142,7 @@ Use `examples/orgs/` only as scaffolding. Real inventory belongs in
 - In this public template, do not commit real IPs/domains, customer names,
   private hostnames, credential references, or live operational evidence.
 - In a private operations repository created from this template, document only
-  approved real operational identifiers that are intentionally part of the
+  reviewed real operational identifiers that are intentionally part of the
   infrastructure record.
 - Never commit `.env.local`, `.codex/config.toml`, real API keys,
   service-token headers, auth headers, cookies, private keys, backups, dumps,
