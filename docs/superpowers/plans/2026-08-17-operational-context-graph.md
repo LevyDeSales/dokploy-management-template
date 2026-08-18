@@ -25,7 +25,7 @@
 
 | Path | Responsibility |
 | --- | --- |
-| docs/shared/cmdb-policy.md | Canonized CI, relationship, provenance, confidence, and reconciliation policy |
+| docs/shared/cmdb-policy.md | Canonized CI, relationship semantics, provenance, and reconciliation policy |
 | docs/guides/operational-context-graph.md | Graphify consultation/generation guide and external-profile separation |
 | docs/templates/configuration-item.yaml | Machine-readable CI contract |
 | docs/templates/configuration-relationship.yaml | Machine-readable edge contract |
@@ -161,19 +161,19 @@ git commit -m "chore: validate operational graph contract"
 
 **Interfaces:**
 - CI ids use ci:<kind>:<scope>:<slug>.
-- Relationship ids use rel:<from-slug>:<type>:<to-slug>.
+- Relationship ids use rel:<from-slug>:<relationship-type-slug>:<to-slug>, where `_` in the canonical type becomes `-`.
 - Assertion values are declared, verified, inferred, or ambiguous.
 - Status values are canonical, conflict, or stale.
 - Reconciliation outcome values are match, added, changed, missing, stale, conflict, unverified, or redacted.
 
 - [x] **Step 1: Add the policy and templates**
 
-Write docs/shared/cmdb-policy.md with source-of-truth boundaries, allowed CI and relationship fields, confidence meanings, lifecycle rules, no-secret rules, and reconciliation outcomes. Add the six templates with placeholders.
+Write docs/shared/cmdb-policy.md with source-of-truth boundaries, allowed CI and relationship fields, relationship semantics, lifecycle rules, no-secret rules, and reconciliation outcomes. Add the six templates with placeholders.
 
 The relationship template contains these fields:
 
 ~~~yaml
-id: rel:<from-slug>:<relationship-type>:<to-slug>
+id: rel:<from-slug>:<relationship-type-slug>:<to-slug>
 from: ci:<source-kind>:<scope>:<source-slug>
 type: depends_on
 to: ci:<target-kind>:<scope>:<target-slug>
@@ -183,7 +183,6 @@ observed_at: <YYYY-MM-DDTHH:MM:SSZ>
 evidence:
   source: <document|dokploy-api|cloudflare-api|ssh|checkmate-api>
   reference: <sanitized-reference>
-  confidence: verified
 ~~~
 
 - [x] **Step 2: Add a connected public-safe RAGFlow graph**
@@ -365,4 +364,47 @@ git push -u origin agent/operational-context-graph
 gh pr create --draft --base main --title "docs: add operational context graph template"
 ~~~
 
-The PR body includes Summary, Canonized Graph Decision, Relationship Confidence, Authorization Boundary, Graphify Handling, Reconciliation Scope, Validation, and Follow-ups. It explicitly requests human validation and does not request automatic merge.
+The PR body includes Summary, Canonized Graph Decision, Relationship Semantics, Authorization Boundary, Graphify Handling, Reconciliation Scope, Validation, and Follow-ups. It explicitly requests human validation and does not request automatic merge.
+
+## Task 6: Apply review corrections without expanding the contract
+
+**Files:**
+- Modify: scripts/validate-markdown-links.sh
+- Modify: tests/markdown-link-validation-test.sh
+- Modify: docs/shared/cmdb-policy.md
+- Modify: docs/guides/operational-context-graph.md
+- Modify: docs/templates/configuration-item.yaml
+- Modify: docs/templates/configuration-relationship.yaml
+- Modify: docs/templates/reconciliation-observation.yaml
+- Modify: examples/orgs/org-a/cmdb/relationships.yaml
+- Modify: docs/superpowers/specs/2026-08-17-operational-context-graph-design.md
+- Modify: this plan
+
+**Interfaces:**
+- Every Markdown link on one source line is validated independently.
+- CMDB relationship semantics have only assertion, status, and evidence.
+- Graphify provenance is distinct from the CMDB contract and connects through
+  graph_revision, not a CI or operational relationship.
+
+- [x] **Step 1: Add the multi-link regression test**
+
+Create a fixture line containing a broken local link followed by a valid local
+link. Verify the current validator fails the test before changing production
+code.
+
+- [x] **Step 2: Emit and validate every Markdown link occurrence**
+
+Use `grep -o` to emit each link occurrence while retaining its source file,
+then run the focused test and shell syntax validation.
+
+- [x] **Step 3: Simplify CMDB semantics and clarify Graphify provenance**
+
+Remove `evidence.confidence` from the contract, examples, specification, and
+plan. Define assertion, status, and evidence in the CMDB policy. State that
+Graphify extraction tags do not populate CMDB fields automatically and that
+Graphify is not a CI or operational relationship.
+
+- [x] **Step 4: Align placeholders and perform final verification**
+
+Complete the CI kind enumeration, document the relationship-type slug rule, and
+run the full repository validation, diff checks, and no-confidence scan.

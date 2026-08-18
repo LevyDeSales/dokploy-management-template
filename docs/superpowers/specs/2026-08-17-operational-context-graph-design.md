@@ -68,7 +68,7 @@ deployed_from, routes_to, and uses_certificate.
 
 Each record contains id, from, type, to, assertion, status, observed_at, and
 an evidence object with source and reference. It contains no approval,
-permission, or agent-capability fields.
+permission, agent-capability, or secondary confidence fields.
 
 ~~~yaml
 id: rel:app:ragflow:production:monitored-by:health
@@ -81,7 +81,6 @@ observed_at: 2026-08-17T10:15:00Z
 evidence:
   source: checkmate-api
   reference: monitor/ragflow-health
-  confidence: verified
 ~~~
 
 | Field | Value | Meaning | Eligible to direct an action? |
@@ -96,6 +95,12 @@ evidence:
 Assertion records how the relationship entered the canonized graph. Status
 represents its current reconciliation condition. A relation used for action
 must be declared or verified and neither conflict nor stale.
+
+Graphify provenance tags (`EXTRACTED`, `INFERRED`, and `AMBIGUOUS`) explain how
+the tool found an edge in the consulted revision. They are not CMDB assertion
+or status values and do not update those values automatically. Graphify is not
+a CI or operational relationship; `graph_revision` links a change or
+reconciliation record to the commit consulted for the decision.
 
 ## Operational Flow
 
@@ -112,9 +117,9 @@ must be declared or verified and neither conflict nor stale.
    conflict or stale; a later action requires investigation and a new
    canonized review.
 
-Graphify relationships marked inferred or ambiguous are useful for discovery,
-investigation, and reconciliation proposals, but cannot alone trigger an
-automatic operational action.
+CMDB relationships whose assertion is inferred or ambiguous are useful for
+discovery, investigation, and reconciliation proposals, but cannot alone
+trigger an automatic operational action.
 
 ## Graphify Integration
 
@@ -138,7 +143,7 @@ material before building a private graph.
 The first implementation PR adds:
 
 - docs/shared/cmdb-policy.md for CMDB-as-code, provenance, lifecycle, and
-  relationship-confidence rules;
+  relationship-semantics rules;
 - docs/guides/operational-context-graph.md for Graphify consultation,
   generation, reconciliation, and safe private-repository usage;
 - templates for a CI, relationship, business service, change record, and

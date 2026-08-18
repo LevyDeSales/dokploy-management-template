@@ -39,21 +39,18 @@ Use the templates in docs/templates/ and the public-safe Org A example as the
 starting point. Every change record and reconciliation observation names the
 Git revision that supplied the graph used for that decision.
 
-## Relationship Confidence
+## Canonized Relationship Semantics
 
-Declared and verified relationships with evidence and observed_at are
-operational truth for the reviewed revision. They can guide a direct mutation;
-the external agent profile decides whether that specific agent executes or
-requests approval.
-
-Inferred and ambiguous relationships are discovery signals only. Conflict and
-stale relationships require investigation before another action. See
-docs/shared/cmdb-policy.md for field definitions and allowed values.
+`docs/shared/cmdb-policy.md` is the canonical definition of CMDB `assertion`,
+`status`, and `evidence`, including the boundary between that classification and
+Graphify extraction provenance. Do not map Graphify tags to CMDB fields
+automatically.
 
 ## Graph-First Mutation Flow
 
 1. Query Graphify for target CIs, relationships, evidence, and graph revision.
-2. Use a declared or verified canonical relationship as operational truth.
+2. Apply the CMDB policy to determine whether the reviewed relationship can
+   orient the action.
 3. Let the external agent profile decide execution behavior.
 4. Execute with Dokploy, an API, SSH, or the appropriate runtime mechanism.
 5. Record a sanitized result in a change record and reconciliation observation.

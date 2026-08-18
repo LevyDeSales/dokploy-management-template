@@ -1,5 +1,5 @@
 id: ci:<kind>:<scope>:<slug>
-kind: <business-service|application|database|server|domain|monitor|backup-destination|secret-reference>
+kind: <business-service|organization|project|environment|application|compose|database|server|volume|domain|certificate|monitor|backup-destination|secret-reference|registry|source-repository|integration>
 name: <human-readable-name>
 lifecycle: <active|retired|planned|unverified>
 criticality: <low|medium|high|critical>

@@ -40,8 +40,11 @@ cookies, dumps, or raw command output.
 Relationships are first-class records. Use a stable id in the form:
 
 ~~~text
-rel:<from-slug>:<relationship-type>:<to-slug>
+rel:<from-slug>:<relationship-type-slug>:<to-slug>
 ~~~
+
+`relationship-type-slug` is the canonical `type` value with `_` replaced by
+`-`. For example, `depends_on` becomes `depends-on` in the relationship ID.
 
 Initial relationship types are:
 
@@ -57,19 +60,29 @@ Initial relationship types are:
 - uses_certificate
 
 A relationship records from, type, to, assertion, status, observed_at, and
-sanitized evidence.
+sanitized evidence. These are the canonical relationship semantics:
 
-| Field | Values | Meaning |
+| Concept | Meaning | Operational effect |
 | --- | --- | --- |
-| assertion | declared, verified | Canonized operational truth eligible to guide an action when status is canonical |
-| assertion | inferred, ambiguous | Discovery and reconciliation proposal only |
-| status | canonical | No known divergence from the canonized graph |
-| status | conflict, stale | Investigation is required before a later action |
+| assertion | Reviewed CMDB classification of the relationship | Only `declared` or `verified`, together with `status: canonical`, can orient an action under the external agent profile |
+| status | Current reconciliation condition of the relationship | `conflict` and `stale` block a later action that depends on the relationship until investigation and review |
+| evidence | Sanitized `source` and `reference` that support the record | Proof for the record; it is not another classification |
 
-Declared and verified relationships require evidence and an observation date.
-They may guide direct mutation; the agent external profile decides whether that
-agent executes directly or asks for approval. Inferred and ambiguous
+`assertion` values are `declared`, `verified`, `inferred`, and `ambiguous`.
+`status` values are `canonical`, `conflict`, and `stale`. Declared and verified
+relationships require evidence and an observation date. Inferred and ambiguous
 relationships never independently guide automatic action.
+
+Graphify is not a CI and does not add an operational relationship. Its link to
+the CMDB is revision-based: `graph_revision` in a change record or
+reconciliation observation identifies the reviewed commit that Graphify
+consulted or generated.
+
+Graphify uses provenance tags for its own extraction: `EXTRACTED`, `INFERRED`,
+and `AMBIGUOUS`. These tags explain how Graphify found an edge in the consulted
+commit. They do not populate or alter `assertion` or `status` automatically.
+The CMDB classification is decided by review of the record and its sanitized
+evidence.
 
 Do not add authority, direct_actions, approval_required, permission, or
 permissions fields to a relationship record.

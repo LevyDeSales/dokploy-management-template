@@ -6,7 +6,7 @@ scope:
   cis:
     - ci:<kind>:<scope>:<slug>
   relationships:
-    - rel:<from-slug>:<relationship-type>:<to-slug>
+    - rel:<from-slug>:<relationship-type-slug>:<to-slug>
 outcome: <match|added|changed|missing|stale|conflict|unverified|redacted>
 evidence:
   reference: <sanitized-reference>
