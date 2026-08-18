@@ -108,7 +108,7 @@ Expected: FAIL because scripts/validate-operational-graph.sh does not exist.
 Create scripts/validate-operational-graph.sh. Its root selection avoids non-portable dependencies:
 
 ~~~bash
-root="$1"
+root="${1-}"
 if [ -z "$root" ]; then
   root="$(cd "$(dirname "$0")/.." && pwd)"
 fi
@@ -195,7 +195,7 @@ The change record identifies graph revision, affected CIs/relationships, request
 
 - [ ] **Step 4: Run the graph validator and inspect records**
 
-Run: scripts/validate-operational-graph.sh && rg -n "authority:|direct_actions:|approval_required:|permission:|permissions:" docs/templates examples/orgs/org-a/cmdb
+Run: scripts/validate-operational-graph.sh && ! rg -n "authority:|direct_actions:|approval_required:|permission:|permissions:" docs/templates examples/orgs/org-a/cmdb
 
 Expected: validator exits 0 and rg prints no matching fields.
 

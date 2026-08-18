@@ -62,9 +62,9 @@ a secret value, token, cookie, key, header, dump, or raw command output.
 
 ### Relationships
 
-Relationships are first-class records. Initial types are depends_on, runs_on,
-exposes, monitored_by, backed_up_to, uses_secret_ref, deployed_from, routes_to,
-and uses_certificate.
+Relationships are first-class records. Initial types are delivered_by,
+depends_on, runs_on, exposes, monitored_by, backed_up_to, uses_secret_ref,
+deployed_from, routes_to, and uses_certificate.
 
 Each record contains id, from, type, to, assertion, status, observed_at, and
 an evidence object with source and reference. It contains no approval,
