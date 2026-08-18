@@ -156,6 +156,7 @@ git commit -m "chore: validate operational graph contract"
 - Create: examples/orgs/org-a/cmdb/business-services/ragflow.md
 - Create: examples/orgs/org-a/cmdb/changes/CHG-2026-08-17-ragflow-redeploy.md
 - Create: examples/orgs/org-a/cmdb/reconciliations/2026-08-17-ragflow-monitor.yaml
+- Create: .graphifyignore
 - Modify: examples/orgs/org-a/README.md
 
 **Interfaces:**
@@ -193,13 +194,20 @@ Create five placeholder CIs and relations: business service delivered_by applica
 
 The change record identifies graph revision, affected CIs/relationships, requested mutation, rollback plan, execution result, and reconciliation link. It has no approval field. The reconciliation record shows outcome match without raw output.
 
-- [ ] **Step 4: Run the graph validator and inspect records**
+- [ ] **Step 4: Add the Graphify extraction boundary and inspect records**
 
-Run: scripts/validate-operational-graph.sh && ! rg -n "authority:|direct_actions:|approval_required:|permission:|permissions:" docs/templates examples/orgs/org-a/cmdb
+Create .graphifyignore with the required local-secret, raw-evidence, and
+generated-graph patterns. Keep Graphify output excluded from extraction while
+leaving Git artifact policy to Task 3.
 
-Expected: validator exits 0 and rg prints no matching fields.
+- [ ] **Step 5: Run the fixture test and inspect records**
 
-- [ ] **Step 5: Commit the data-contract milestone**
+Run: bash tests/operational-context-graph-test.sh && ! rg -n "authority:|direct_actions:|approval_required:|permission:|permissions:" docs/templates examples/orgs/org-a/cmdb
+
+Expected: fixture test passes and rg prints no matching fields. The repository
+validator is exercised after Task 3 adds the Graphify guide it requires.
+
+- [ ] **Step 6: Commit the data-contract milestone**
 
 ~~~bash
 git add docs/shared/cmdb-policy.md docs/templates examples/orgs/org-a
@@ -210,7 +218,6 @@ git commit -m "docs: add canonized CMDB graph contract"
 
 **Files:**
 - Create: docs/guides/operational-context-graph.md
-- Create: .graphifyignore
 - Modify: .gitignore
 - Modify: README.md
 - Modify: docs/index.md
@@ -245,7 +252,7 @@ Update README.md, docs/index.md, docs/shared/README.md, and docs/shared/dokploy-
 
 - [ ] **Step 4: Verify links and ignore contract**
 
-Run: scripts/validate-repo.sh && git check-ignore -q graphify-out/cost.json && git check-ignore -q graphify-out/cache/example && ! git check-ignore -q graphify-out/graph.json
+Run: scripts/validate-operational-graph.sh && scripts/validate-repo.sh && git check-ignore -q graphify-out/cost.json && git check-ignore -q graphify-out/cache/example && ! git check-ignore -q graphify-out/graph.json
 
 Expected: repository validation passes; cost/cache are ignored; graph.json is eligible for an intentional private-repository commit.
 
