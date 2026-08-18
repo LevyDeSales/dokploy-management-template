@@ -27,6 +27,16 @@ else
   fail "accepts a valid relative markdown link"
 fi
 
+printf '[broken](missing.md) and [valid](../cis/example.yaml)\n' >"$fixture/docs/guide/multiple-links.md"
+if "$PROJECT_ROOT/scripts/validate-markdown-links.sh" "$fixture" >"$fixture/output" 2>&1; then
+  fail "rejects a broken link when followed by a valid link"
+elif grep -Fq "docs/guide/multiple-links.md" "$fixture/output"; then
+  pass "rejects a broken link when followed by a valid link"
+else
+  fail "reports source file for a broken link among multiple links"
+fi
+rm "$fixture/docs/guide/multiple-links.md"
+
 rm "$fixture/docs/cis/example.yaml"
 if "$PROJECT_ROOT/scripts/validate-markdown-links.sh" "$fixture" >"$fixture/output" 2>&1; then
   fail "rejects a broken relative markdown link"

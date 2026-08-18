@@ -39,6 +39,14 @@ while IFS=$'\t' read -r file link; do
     exit 1
   fi
 done < <(
-  grep -RInE '\[[^]]+\]\(([^)]+)\)' -- "${search_paths[@]}" 2>/dev/null |
-    sed -E 's/^([^:]+):[0-9]+:.*\]\(([^)]+)\).*$/\1\t\2/' || true
+  while IFS= read -r match; do
+    file="${match%%:*}"
+    remainder="${match#*:}"
+    content="${remainder#*:}"
+    while IFS= read -r markdown_link; do
+      link="${markdown_link##*\](}"
+      link="${link%)}"
+      printf '%s\t%s\n' "$file" "$link"
+    done < <(printf '%s\n' "$content" | grep -oE '\[[^]]+\]\([^)]+\)')
+  done < <(grep -RInE '\[[^]]+\]\(([^)]+)\)' -- "${search_paths[@]}" 2>/dev/null || true)
 )
