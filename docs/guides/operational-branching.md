@@ -121,8 +121,8 @@ During the operation:
 2. Record the objective, Graphify revision, target CIs and relationships,
    evidence, backup posture, blast radius, rollback path, and verification plan.
 3. Query Graphify. A `declared` or `verified` relationship with
-   `status: canonical` is operational truth for the action; `inferred`,
-   `ambiguous`, `conflict`, and `stale` relationships require investigation.
+   `reconciliation_status: canonical` is in the current canonized relationship
+   subset; other assertions and reconciliation conditions retain graph context.
 4. Let the agent's external profile decide whether it executes directly, asks
    for approval, or remains read-only.
 5. Execute the operation without mandatory live discovery when the reviewed
@@ -216,8 +216,8 @@ An AI agent operating a real private repository should:
 - consult Graphify at the reviewed revision before live changes;
 - treat canonical `declared` and `verified` relationships as operational truth,
   while following its external profile for approval or direct execution;
-- record reconciliation observations after execution and investigate `conflict`
-  or `stale` relationships before depending on them again;
+- record reconciliation observations after execution, including reviewed
+  `conflict` or `stale` relationship conditions;
 - commit only durable operational records;
 - keep the temporary branch worktree clean before switching back to
   `operations`;

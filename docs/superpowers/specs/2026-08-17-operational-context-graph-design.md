@@ -21,15 +21,14 @@ authorization belongs to the agent deployment profile.
 The CMDB-as-code records the canonized operational graph; Graphify is its
 authoritative consultation, navigation, and operational-decision layer.
 Declared and verified relationships with evidence and an observation date are
-sufficient operational truth to begin a mutation. Dokploy APIs, SSH, and
-containers execute the mutation and reconcile divergence; they are not a
-mandatory live-discovery preflight.
+canonized operational truth. An external agent profile decides whether and how
+to act on that truth. Dokploy APIs, SSH, and containers execute the mutation
+and reconcile divergence; they are not a mandatory live-discovery preflight.
 
 This truth claim is limited to the Graphify graph generated from the exact
 reviewed repository revision being consulted. It does not claim that a live
-platform has not changed after that revision. A later observation that differs
-from the canonized graph changes the relationship to conflict or stale until it
-is investigated and canonized again.
+platform has not changed after that revision. A reviewed reconciliation can
+record a later divergence as `conflict` or `stale` graph context.
 
 ## Responsibility Boundaries
 
@@ -66,9 +65,9 @@ Relationships are first-class records. Initial types are delivered_by,
 depends_on, runs_on, exposes, monitored_by, backed_up_to, uses_secret_ref,
 deployed_from, routes_to, and uses_certificate.
 
-Each record contains id, from, type, to, assertion, status, observed_at, and
-an evidence object with source and reference. It contains no approval,
-permission, agent-capability, or secondary confidence fields.
+Each record contains id, from, type, to, assertion, reconciliation_status,
+observed_at, and an evidence object with source and reference. It contains no
+approval, permission, agent-capability, or secondary confidence fields.
 
 ~~~yaml
 id: rel:ragflow-production:monitored-by:ragflow-health
@@ -76,50 +75,52 @@ from: ci:application:org-a:ragflow-production
 type: monitored_by
 to: ci:monitor:org-a:ragflow-health
 assertion: declared
-status: canonical
+reconciliation_status: canonical
 observed_at: 2026-08-17T10:15:00Z
 evidence:
   source: checkmate-api
   reference: monitor/ragflow-health
 ~~~
 
-| Field | Value | Meaning | Eligible to direct an action? |
-| --- | --- | --- | --- |
-| assertion | declared | Reviewed operational assertion with evidence and observation date | Yes, if status is canonical and the external agent profile allows it |
-| assertion | verified | Reviewed assertion confirmed by an observation | Yes, if status is canonical and the external agent profile allows it |
-| assertion | inferred | Plausible connection derived by Graphify or an operator | No; use for discovery and reconciliation proposals |
-| assertion | ambiguous | Evidence supports more than one interpretation | No; investigate first |
-| status | conflict | A later observation disagrees with the canonized relationship | No; investigate first |
-| status | stale | Relationship exceeded its review window or source is unavailable | No; investigate first |
+| Field | Value | Meaning in the graph |
+| --- | --- | --- |
+| assertion | declared | Reviewed operational assertion with evidence and observation date |
+| assertion | verified | Reviewed assertion confirmed by an observation |
+| assertion | inferred | Plausible connection derived by Graphify or an operator |
+| assertion | ambiguous | Evidence supports more than one interpretation |
+| reconciliation_status | canonical | Latest reviewed reconciliation has no recorded divergence |
+| reconciliation_status | conflict | A reviewed observation records divergence from the canonized relationship |
+| reconciliation_status | stale | A review or reconciliation explicitly records that the relationship is not current; it has no implicit TTL |
 
-Assertion records how the relationship entered the canonized graph. Status
-represents its current reconciliation condition. A relation used for action
-must be declared or verified and neither conflict nor stale.
+`assertion` records how the relationship entered the canonized graph.
+`reconciliation_status` records the current condition of its reviewed
+reconciliation. Both fields describe graph knowledge; the external agent
+profile determines how an agent interprets them and whether it acts.
 
 Graphify provenance tags (`EXTRACTED`, `INFERRED`, and `AMBIGUOUS`) explain how
 the tool found an edge in the consulted revision. They are not CMDB assertion
-or status values and do not update those values automatically. Graphify is not
-a CI or operational relationship; `graph_revision` links a change or
+or reconciliation status values and do not update those values automatically.
+Graphify is not a CI or operational relationship; `graph_revision` links a change or
 reconciliation record to the commit consulted for the decision.
 
 ## Operational Flow
 
 1. The agent queries Graphify for the CI, relationships, evidence, and graph
    revision relevant to the requested action.
-2. If the relationship is declared or verified, the agent treats it as
-   operational truth for that revision.
-3. The external agent profile decides whether to execute directly or request
-   approval.
+2. The agent reads the relationship's assertion, reconciliation status,
+   evidence, and reviewed graph revision.
+3. The external agent profile decides how the agent interprets that graph
+   context, including whether to execute directly or request approval.
 4. The agent executes the mutation without mandatory live discovery.
 5. The result becomes a reconciliation observation with timestamp, source,
    outcome, and sanitized evidence reference.
-6. If the executing platform diverges from the graph, the relationship becomes
-   conflict or stale; a later action requires investigation and a new
-   canonized review.
+6. If the executing platform diverges from the graph, a reviewed
+   reconciliation can record `conflict` or `stale` without prescribing the
+   behavior of a later agent.
 
 CMDB relationships whose assertion is inferred or ambiguous are useful for
-discovery, investigation, and reconciliation proposals, but cannot alone
-trigger an automatic operational action.
+discovery, investigation, and reconciliation proposals. Their treatment by an
+agent remains external to this repository.
 
 ## Graphify Integration
 
@@ -209,10 +210,10 @@ selects a portable YAML runtime; no ad-hoc parser is added.
 
 1. The template describes a canonized operational graph with stable CIs and
    first-class typed relationships.
-2. Declared and verified relationships have evidence and observation dates and
-   can guide direct actions according to an external agent profile.
-3. Inferred, ambiguous, conflict, and stale relationships cannot alone guide
-   automatic actions.
+2. Declared and verified relationships have evidence and observation dates;
+   assertion and reconciliation status have distinct documented meanings.
+3. `stale` has no implicit TTL, and relationship classifications do not encode
+   agent behavior or approval policy.
 4. Repository documentation no longer imposes a single human-approval policy
    before every mutation.
 5. Graphify is documented as the authoritative source of operational truth for

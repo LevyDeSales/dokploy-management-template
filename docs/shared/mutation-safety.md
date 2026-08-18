@@ -12,16 +12,17 @@ Graphify at the Git revision being used for the operation. Record the graph
 revision, target CIs, target relationships, and the evidence that supports the
 decision.
 
-| Relationship state | Operational use |
+| Relationship condition | Graph meaning |
 | --- | --- |
-| `declared` or `verified` with `status: canonical` | Canonized operational truth; may orient direct mutation |
+| `declared` or `verified` with `reconciliation_status: canonical` | Current canonized relationship subset |
 | `inferred` or `ambiguous` | Discovery, investigation, or reconciliation proposal only |
-| `conflict` or `stale` | Investigate and reconcile before the next mutation that depends on it |
+| `reconciliation_status: conflict` or `stale` | Reviewed discrepancy or freshness context; the external profile decides its response |
 
-For direct mutation, the relationship must be `declared` or `verified`, have
-`status: canonical`, include evidence, and include `observed_at`. A live
-Dokploy, SSH, or container discovery is useful for reconciliation but is not a
-mandatory preflight when the reviewed graph already provides that truth.
+The current canonized relationship subset contains `declared` or `verified`
+relationships with `reconciliation_status: canonical`, evidence, and
+`observed_at`. A live Dokploy, SSH, or container discovery is useful for
+reconciliation but is not a mandatory preflight when the reviewed graph already
+provides that truth.
 
 ## Execution Preparation
 
@@ -56,8 +57,9 @@ After a mutating operation:
 1. Verify the expected result with the planned checks.
 2. Check logs, deployment status, domain routing, and backups when relevant.
 3. Create a sanitized change record and reconciliation observation.
-4. If platform state diverges from the graph, mark the affected relationship
-   `conflict` or `stale`; do not silently overwrite the canonized record.
+4. If platform state diverges from the graph, record a reviewed
+   `reconciliation_status: conflict` or `stale`; do not silently overwrite the
+   canonized record.
 5. Update the CMDB and supporting docs through review, then regenerate the
    private Graphify artifacts for that reviewed revision when they are used.
 6. Never commit secrets, raw sensitive output, backup archives, or dumps.

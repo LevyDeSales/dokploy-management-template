@@ -42,20 +42,20 @@ Git revision that supplied the graph used for that decision.
 ## Canonized Relationship Semantics
 
 `docs/shared/cmdb-policy.md` is the canonical definition of CMDB `assertion`,
-`status`, and `evidence`, including the boundary between that classification and
-Graphify extraction provenance. Do not map Graphify tags to CMDB fields
-automatically.
+`reconciliation_status`, and `evidence`, including the boundary between that
+classification and Graphify extraction provenance. Do not map Graphify tags to
+CMDB fields automatically.
 
 ## Graph-First Mutation Flow
 
 1. Query Graphify for target CIs, relationships, evidence, and graph revision.
-2. Apply the CMDB policy to determine whether the reviewed relationship can
-   orient the action.
+2. Read the reviewed relationship's assertion, reconciliation status, evidence,
+   and graph revision.
 3. Let the external agent profile decide execution behavior.
 4. Execute with Dokploy, an API, SSH, or the appropriate runtime mechanism.
 5. Record a sanitized result in a change record and reconciliation observation.
-6. Mark a divergent relationship conflict or stale until a reviewed update
-   canonizes the new state.
+6. Record a reviewed divergence as `reconciliation_status: conflict` or
+   `stale` when that condition applies.
 
 Live discovery is optional reconciliation evidence, not a mandatory preflight.
 
@@ -110,6 +110,6 @@ selected live resource with the canonized graph. Record one of match, added,
 changed, missing, stale, conflict, unverified, or redacted without pasting raw
 responses.
 
-A mismatch changes the related graph relationship to conflict or stale. The
-next action investigates and creates a new reviewed record; reconcilers do not
-delete CIs or relationships automatically.
+A reviewed mismatch may record `reconciliation_status: conflict` or `stale`.
+Those states preserve graph context and do not prescribe agent behavior;
+reconcilers do not delete CIs or relationships automatically.

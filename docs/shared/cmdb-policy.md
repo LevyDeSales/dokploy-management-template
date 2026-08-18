@@ -59,19 +59,23 @@ Initial relationship types are:
 - routes_to
 - uses_certificate
 
-A relationship records from, type, to, assertion, status, observed_at, and
+A relationship records from, type, to, assertion, reconciliation_status,
+observed_at, and
 sanitized evidence. These are the canonical relationship semantics:
 
-| Concept | Meaning | Operational effect |
+| Concept | Meaning | Graph meaning |
 | --- | --- | --- |
-| assertion | Reviewed CMDB classification of the relationship | Only `declared` or `verified`, together with `status: canonical`, can orient an action under the external agent profile |
-| status | Current reconciliation condition of the relationship | `conflict` and `stale` block a later action that depends on the relationship until investigation and review |
+| assertion | Reviewed CMDB classification of the relationship | `declared` and `verified` with `reconciliation_status: canonical` form the current canonized relationship subset |
+| reconciliation_status | Current reviewed reconciliation condition of the relationship | `conflict` and `stale` record discrepancy or freshness context; they do not prescribe agent behavior |
 | evidence | Sanitized `source` and `reference` that support the record | Proof for the record; it is not another classification |
 
 `assertion` values are `declared`, `verified`, `inferred`, and `ambiguous`.
-`status` values are `canonical`, `conflict`, and `stale`. Declared and verified
-relationships require evidence and an observation date. Inferred and ambiguous
-relationships never independently guide automatic action.
+`reconciliation_status` values are `canonical`, `conflict`, and `stale`.
+Declared and verified relationships require evidence and an observation date.
+`stale` is assigned by a reviewed reconciliation or review; it has no implicit
+TTL. Relationship fields describe graph knowledge, while the external agent
+profile decides runtime behavior. A change record `Result` and a reconciliation
+observation `outcome` report separate execution and comparison facts.
 
 Graphify is not a CI and does not add an operational relationship. Its link to
 the CMDB is revision-based: `graph_revision` in a change record or
@@ -80,7 +84,8 @@ consulted or generated.
 
 Graphify uses provenance tags for its own extraction: `EXTRACTED`, `INFERRED`,
 and `AMBIGUOUS`. These tags explain how Graphify found an edge in the consulted
-commit. They do not populate or alter `assertion` or `status` automatically.
+commit. They do not populate or alter `assertion` or
+`reconciliation_status` automatically.
 The CMDB classification is decided by review of the record and its sanitized
 evidence.
 
@@ -95,8 +100,8 @@ executes the action; it is not mandatory discovery before the action.
 
 After execution, record a sanitized reconciliation observation. Valid outcomes
 are match, added, changed, missing, stale, conflict, unverified, and redacted.
-A live divergence changes the relevant relationship to conflict or stale until
-a reviewed update canonizes the new graph. Reconcilers do not delete CIs or
+A reviewed reconciliation records a live divergence as
+`reconciliation_status: conflict` or `stale`. Reconcilers do not delete CIs or
 relationships automatically.
 
 ## Public Safety

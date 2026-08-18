@@ -4,7 +4,7 @@ relationships:
     type: delivered_by
     to: ci:application:org-a:ragflow-production
     assertion: declared
-    status: canonical
+    reconciliation_status: canonical
     observed_at: 2026-08-17T10:15:00Z
     evidence:
       source: document
@@ -14,7 +14,7 @@ relationships:
     type: depends_on
     to: ci:database:org-a:ragflow-postgres
     assertion: verified
-    status: canonical
+    reconciliation_status: canonical
     observed_at: 2026-08-17T10:15:00Z
     evidence:
       source: dokploy-api
@@ -24,7 +24,7 @@ relationships:
     type: runs_on
     to: ci:server:org-a:ragflow-production
     assertion: verified
-    status: canonical
+    reconciliation_status: canonical
     observed_at: 2026-08-17T10:15:00Z
     evidence:
       source: dokploy-api
@@ -34,7 +34,7 @@ relationships:
     type: monitored_by
     to: ci:monitor:org-a:ragflow-health
     assertion: declared
-    status: canonical
+    reconciliation_status: canonical
     observed_at: 2026-08-17T10:15:00Z
     evidence:
       source: checkmate-api

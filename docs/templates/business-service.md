@@ -26,7 +26,7 @@ Graph revision: <git-commit-or-tag>
 
 ## Operational Relationships
 
-| Relationship ID | Type | Assertion | Status | Observed at |
+| Relationship ID | Type | Assertion | Reconciliation status | Observed at |
 | --- | --- | --- | --- | --- |
 
 ## Operating Notes

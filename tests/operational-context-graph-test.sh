@@ -36,7 +36,7 @@ from: ci:source
 type: depends_on
 to: ci:target
 assertion: declared
-status: canonical
+reconciliation_status: canonical
 observed_at: 2026-08-17T00:00:00Z
 evidence:
   source: fixture
@@ -57,6 +57,19 @@ if "$PROJECT_ROOT/scripts/validate-operational-graph.sh" "$fixture" >/dev/null 2
 else
   fail "accepts complete graph contract"
 fi
+
+sed 's/^reconciliation_status:/status:/' "$fixture/docs/templates/configuration-relationship.yaml" >"$fixture/legacy-status.yaml"
+mv "$fixture/legacy-status.yaml" "$fixture/docs/templates/configuration-relationship.yaml"
+if "$PROJECT_ROOT/scripts/validate-operational-graph.sh" "$fixture" >"$fixture/output" 2>&1; then
+  fail "rejects legacy status relationship field"
+elif grep -Fq "reconciliation_status" "$fixture/output"; then
+  pass "rejects legacy status relationship field"
+else
+  fail "names missing reconciliation_status field"
+fi
+
+sed 's/^status:/reconciliation_status:/' "$fixture/docs/templates/configuration-relationship.yaml" >"$fixture/current-status.yaml"
+mv "$fixture/current-status.yaml" "$fixture/docs/templates/configuration-relationship.yaml"
 
 grep -v '^observed_at:' "$fixture/docs/templates/configuration-relationship.yaml" >"$fixture/relationship-without-observed-at.yaml"
 mv "$fixture/relationship-without-observed-at.yaml" "$fixture/docs/templates/configuration-relationship.yaml"

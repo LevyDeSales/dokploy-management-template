@@ -14,7 +14,7 @@
 
 - Keep every public-template value a placeholder; do not add real domains, IPs, customer names, credentials, tokens, dumps, raw output, or secret values.
 - Graphify is the authoritative source of operational truth for consultation of the canonized graph at the reviewed revision; it is not an authorization engine.
-- Declared and verified relationships require evidence and observed_at; inferred, ambiguous, conflict, and stale cannot independently guide an automatic action.
+- Declared and verified relationships require evidence and observed_at; `reconciliation_status` records canonical, conflict, or stale graph context without an implicit TTL or agent behavior.
 - Authorization and approval remain in an agent external profile; no relationship record may contain authority, direct_actions, approval_required, permission, or permissions fields.
 - Do not require a live API, SSH, Graphify installation, hook, MCP server, Neo4j, or generated graph artifact in this public template.
 - Preserve ASCII-only repository content and run scripts/validate-repo.sh plus git diff --check before every commit and before the pull request.
@@ -74,7 +74,7 @@ from: ci:source
 type: depends_on
 to: ci:target
 assertion: declared
-status: canonical
+reconciliation_status: canonical
 observed_at: 2026-08-17T00:00:00Z
 evidence:
   source: fixture
@@ -114,7 +114,7 @@ if [ -z "$root" ]; then
 fi
 ~~~
 
-Require all eight graph files, exact Graphify ignore patterns, and relationship keys id, from, type, to, assertion, status, observed_at, evidence, source, and reference. Reject the policy-field expression below only in docs/templates and examples/orgs.
+Require all eight graph files, exact Graphify ignore patterns, and relationship keys id, from, type, to, assertion, reconciliation_status, observed_at, evidence, source, and reference. Reject the policy-field expression below only in docs/templates and examples/orgs.
 
 ~~~bash
 '^[[:space:]]*(authority|direct_actions|approval_required|permission|permissions)[[:space:]]*:'
@@ -163,7 +163,7 @@ git commit -m "chore: validate operational graph contract"
 - CI ids use ci:<kind>:<scope>:<slug>.
 - Relationship ids use rel:<from-slug>:<relationship-type-slug>:<to-slug>, where `_` in the canonical type becomes `-`.
 - Assertion values are declared, verified, inferred, or ambiguous.
-- Status values are canonical, conflict, or stale.
+- `reconciliation_status` values are canonical, conflict, or stale.
 - Reconciliation outcome values are match, added, changed, missing, stale, conflict, unverified, or redacted.
 
 - [x] **Step 1: Add the policy and templates**
@@ -178,7 +178,7 @@ from: ci:<source-kind>:<scope>:<source-slug>
 type: depends_on
 to: ci:<target-kind>:<scope>:<target-slug>
 assertion: declared
-status: canonical
+reconciliation_status: canonical
 observed_at: <YYYY-MM-DDTHH:MM:SSZ>
 evidence:
   source: <document|dokploy-api|cloudflare-api|ssh|checkmate-api>
@@ -382,7 +382,7 @@ The PR body includes Summary, Canonized Graph Decision, Relationship Semantics, 
 
 **Interfaces:**
 - Every Markdown link on one source line is validated independently.
-- CMDB relationship semantics have only assertion, status, and evidence.
+- CMDB relationship semantics have only assertion, reconciliation_status, and evidence.
 - Graphify provenance is distinct from the CMDB contract and connects through
   graph_revision, not a CI or operational relationship.
 
@@ -400,7 +400,7 @@ then run the focused test and shell syntax validation.
 - [x] **Step 3: Simplify CMDB semantics and clarify Graphify provenance**
 
 Remove `evidence.confidence` from the contract, examples, specification, and
-plan. Define assertion, status, and evidence in the CMDB policy. State that
+plan. Define assertion, reconciliation_status, and evidence in the CMDB policy. State that
 Graphify extraction tags do not populate CMDB fields automatically and that
 Graphify is not a CI or operational relationship.
 

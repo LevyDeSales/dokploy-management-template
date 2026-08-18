@@ -58,7 +58,7 @@ required_relationship_fields=(
   '^type:'
   '^to:'
   '^assertion:'
-  '^status:'
+  '^reconciliation_status:'
   '^observed_at:'
   '^evidence:'
   '^[[:space:]]+source:'
