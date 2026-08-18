@@ -1,0 +1,22 @@
+# Local credentials and local Codex configuration
+.env*
+.codex/
+.secrets/
+secrets/
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+
+# Raw operational evidence and recoverable data
+backups/
+**/backups/
+**/*.dump
+**/*.sql
+**/*.bak
+**/evidence/raw/
+**/raw/
+**/*.log
+
+# Graphify reads source material, not its generated graph
+graphify-out/

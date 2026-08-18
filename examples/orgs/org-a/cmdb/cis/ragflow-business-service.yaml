@@ -1,0 +1,14 @@
+id: ci:business-service:org-a:ragflow
+kind: business-service
+name: RAGFlow
+lifecycle: active
+criticality: high
+owner: platform-team
+external_ids: {}
+documentation:
+  path: ../business-services/ragflow.md
+provenance:
+  observed_at: 2026-08-17T10:15:00Z
+  source: document
+  reference: examples/orgs/org-a/cmdb/business-services/ragflow.md
+  redaction_reviewed: true

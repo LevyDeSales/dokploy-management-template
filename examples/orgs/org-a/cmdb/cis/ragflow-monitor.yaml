@@ -1,0 +1,15 @@
+id: ci:monitor:org-a:ragflow-health
+kind: monitor
+name: RAGFlow health monitor
+lifecycle: active
+criticality: high
+owner: platform-team
+external_ids:
+  checkmate: <checkmate-monitor-id>
+documentation:
+  path: ../relationships.yaml
+provenance:
+  observed_at: 2026-08-17T10:15:00Z
+  source: checkmate-api
+  reference: monitor/<checkmate-monitor-id>
+  redaction_reviewed: true

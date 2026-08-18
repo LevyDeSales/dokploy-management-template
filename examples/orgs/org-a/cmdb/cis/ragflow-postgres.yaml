@@ -1,0 +1,15 @@
+id: ci:database:org-a:ragflow-postgres
+kind: database
+name: RAGFlow Postgres
+lifecycle: active
+criticality: high
+owner: platform-team
+external_ids:
+  dokploy: <dokploy-database-id>
+documentation:
+  path: ../../projects/<project-slug>/environments/production/services/ragflow-postgres.md
+provenance:
+  observed_at: 2026-08-17T10:15:00Z
+  source: dokploy-api
+  reference: database/<dokploy-database-id>
+  redaction_reviewed: true
