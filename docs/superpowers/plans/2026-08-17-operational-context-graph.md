@@ -356,7 +356,7 @@ git diff main...HEAD -- README.md AGENTS.md docs/shared/mutation-safety.md scrip
 
 Map every acceptance criterion in the spec to a changed file or a command result. Correct every omission before staging.
 
-- [ ] **Step 4: Commit integration and publish the PR**
+- [x] **Step 4: Commit integration and publish the PR**
 
 ~~~bash
 git add README.md AGENTS.md docs .gitignore .graphifyignore scripts tests examples
