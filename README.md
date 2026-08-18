@@ -19,6 +19,8 @@ template.
   servers, backups, Docker Compose patterns, and Portainer migration.
 - Documentation organized around Dokploy's model:
   `Organization -> Project -> Environment -> Service`.
+- A CMDB-as-code contract with canonized CIs and relationships that Graphify
+  consults as the operational graph for the reviewed revision.
 - Validation for public repository hygiene, links, shell scripts, and local
   tests.
 
@@ -100,6 +102,7 @@ Adoption and migration guides:
 - `docs/guides/remote-agent-preparation.md`
 - `docs/guides/remote-servers.md`
 - `docs/guides/operational-branching.md`
+- `docs/guides/operational-context-graph.md`
 - `docs/guides/docker-compose-patterns.md`
 - `docs/guides/backups-restore.md`
 - `docs/migration/portainer-to-dokploy.md`
@@ -108,7 +111,8 @@ Adoption and migration guides:
 Operations model:
 
 - `docs/shared/dokploy-reference.md`: canonical concept-to-path map.
-- `docs/shared/mutation-safety.md`: approval and preflight rules.
+- `docs/shared/cmdb-policy.md`: canonized graph and reconciliation rules.
+- `docs/shared/mutation-safety.md`: graph-first mutation and reconciliation rules.
 - `docs/shared/backup-policy.md`: backup and restore documentation rules.
 - `docs/shared/domain-policy.md`: domain change rules.
 - `docs/shared/variable-policy.md`: variable documentation rules.
@@ -144,7 +148,9 @@ Use `examples/orgs/` only as scaffolding. Real inventory belongs in
   service-token headers, auth headers, cookies, private keys, backups, dumps,
   `tfstate`, raw MCP output, or command output containing secrets.
 - Keep `DOKPLOY_REDACT_ENV=true` for MCP sessions.
-- Prefer read-only discovery before any mutating operation.
+- Consult Graphify for the reviewed canonized graph before any mutating
+  operation. The external agent profile decides whether to execute directly or
+  request approval.
 - Follow `docs/shared/mutation-safety.md` before destructive or state-changing
   work.
 - Use official Dokploy docs and your panel Swagger page before assuming CLI or

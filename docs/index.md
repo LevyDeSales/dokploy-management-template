@@ -8,6 +8,8 @@
 | Understand the operating model | `dokploy-operations.md` |
 | Choose where docs should live | `shared/dokploy-reference.md` |
 | Work safely with live resources | `shared/mutation-safety.md` |
+| Define canonized CIs and relationships | `shared/cmdb-policy.md` |
+| Query the operational graph | `guides/operational-context-graph.md` |
 | Validate public repository hygiene | `publication-checklist.md` |
 
 ## Build Or Rebuild Infrastructure
@@ -39,6 +41,8 @@
 | --- | --- |
 | Session focus model | `session-workspace-model.md` |
 | Operational branch model | `guides/operational-branching.md` |
+| Operational context graph | `guides/operational-context-graph.md` |
+| CMDB-as-code policy | `shared/cmdb-policy.md` |
 | Incident flow | `shared/incident-runbook.md` |
 | Backup policy | `shared/backup-policy.md` |
 | Domain policy | `shared/domain-policy.md` |
