@@ -4,8 +4,8 @@
 
 Extend the Dokploy Management Template with a public-safe CMDB-as-code contract
 that records a canonized operational graph. Graphify is the authoritative
-interface for consulting, navigating, and making operational decisions from
-that graph at the checked-out, reviewed revision.
+source of operational truth for consulting, navigating, and making operational
+decisions from that graph at the checked-out, reviewed revision.
 
 ## Problem
 
@@ -210,8 +210,8 @@ selects a portable YAML runtime; no ad-hoc parser is added.
    automatic actions.
 4. Repository documentation no longer imposes a single human-approval policy
    before every mutation.
-5. Graphify is documented as the authoritative consultation layer for the
-   reviewed graph revision, with safe opt-in generation guidance.
+5. Graphify is documented as the authoritative source of operational truth for
+   the reviewed graph revision, with safe opt-in generation guidance.
 6. Private operational repositories have instructions for versioning reviewed
    Graphify artifacts; the public template contains no generated artifact or
    live operational data.

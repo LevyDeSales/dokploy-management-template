@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (- [ ]) syntax for tracking.
 
-**Goal:** Add a public-safe CMDB-as-code contract and make Graphify the authoritative consultation layer for the reviewed operational graph.
+**Goal:** Add a public-safe CMDB-as-code contract and make Graphify the authoritative source of operational truth for the reviewed operational graph.
 
 **Architecture:** YAML CI and relationship records persist the canonized graph beside human-readable Markdown runbooks and decisions. Graphify reads the reviewed repository revision as the query and navigation interface; live platforms execute actions and produce reconciliation observations. A dependency-free Bash validator enforces the static public-template contract without parsing live data.
 
@@ -13,7 +13,7 @@
 ## Global Constraints
 
 - Keep every public-template value a placeholder; do not add real domains, IPs, customer names, credentials, tokens, dumps, raw output, or secret values.
-- Graphify is authoritative for consultation of the canonized graph at the reviewed revision; it is not an authorization engine.
+- Graphify is the authoritative source of operational truth for consultation of the canonized graph at the reviewed revision; it is not an authorization engine.
 - Declared and verified relationships require evidence and observed_at; inferred, ambiguous, conflict, and stale cannot independently guide an automatic action.
 - Authorization and approval remain in an agent external profile; no relationship record may contain authority, direct_actions, approval_required, permission, or permissions fields.
 - Do not require a live API, SSH, Graphify installation, hook, MCP server, Neo4j, or generated graph artifact in this public template.
@@ -56,7 +56,7 @@
 - Produces: exit code 0 for a complete safe graph contract; nonzero with a specific message for a missing file, missing Graphify ignore rule, missing required relationship field, or prohibited policy field.
 - Command: scripts/validate-operational-graph.sh [repository-root]
 
-- [ ] **Step 1: Write the failing contract test**
+- [x] **Step 1: Write the failing contract test**
 
 Create tests/operational-context-graph-test.sh. It creates a temporary fixture with all required contract files, a minimal relationship template, and .graphifyignore. It runs the validator once expecting success, appends approval_required: true to the relationship fixture, then requires a nonzero exit and an error naming approval_required.
 
@@ -97,13 +97,13 @@ else
 fi
 ~~~
 
-- [ ] **Step 2: Run the new test to verify it fails**
+- [x] **Step 2: Run the new test to verify it fails**
 
 Run: bash tests/operational-context-graph-test.sh
 
 Expected: FAIL because scripts/validate-operational-graph.sh does not exist.
 
-- [ ] **Step 3: Implement the smallest validator**
+- [x] **Step 3: Implement the smallest validator**
 
 Create scripts/validate-operational-graph.sh. Its root selection avoids non-portable dependencies:
 
@@ -120,17 +120,17 @@ Require all eight graph files, exact Graphify ignore patterns, and relationship 
 '^[[:space:]]*(authority|direct_actions|approval_required|permission|permissions)[[:space:]]*:'
 ~~~
 
-- [ ] **Step 4: Run the test and existing test runner**
+- [x] **Step 4: Run the test and existing test runner**
 
 Run: bash tests/operational-context-graph-test.sh && tests/run.sh
 
 Expected: PASS; the test observes both the valid fixture and rejected prohibited field, and Dokploy context tests remain green.
 
-- [ ] **Step 5: Integrate the validator into repository validation**
+- [x] **Step 5: Integrate the validator into repository validation**
 
 Append tests/operational-context-graph-test.sh to tests/run.sh. Add scripts/validate-operational-graph.sh to shell syntax validation, to the required file list, and invoke it in scripts/validate-repo.sh after shell tests.
 
-- [ ] **Step 6: Commit the validator milestone**
+- [x] **Step 6: Commit the validator milestone**
 
 ~~~bash
 git add scripts/validate-operational-graph.sh scripts/validate-repo.sh tests/run.sh tests/operational-context-graph-test.sh
@@ -166,7 +166,7 @@ git commit -m "chore: validate operational graph contract"
 - Status values are canonical, conflict, or stale.
 - Reconciliation outcome values are match, added, changed, missing, stale, conflict, unverified, or redacted.
 
-- [ ] **Step 1: Add the policy and templates**
+- [x] **Step 1: Add the policy and templates**
 
 Write docs/shared/cmdb-policy.md with source-of-truth boundaries, allowed CI and relationship fields, confidence meanings, lifecycle rules, no-secret rules, and reconciliation outcomes. Add the six templates with placeholders.
 
@@ -186,28 +186,28 @@ evidence:
   confidence: verified
 ~~~
 
-- [ ] **Step 2: Add a connected public-safe RAGFlow graph**
+- [x] **Step 2: Add a connected public-safe RAGFlow graph**
 
 Create five placeholder CIs and relations: business service delivered_by application; application depends_on Postgres, runs_on server, and monitored_by monitor. Add a Markdown business-service record linking the CI and relationship files so Graphify joins human and structured context.
 
-- [ ] **Step 3: Add change and reconciliation examples**
+- [x] **Step 3: Add change and reconciliation examples**
 
 The change record identifies graph revision, affected CIs/relationships, requested mutation, rollback plan, execution result, and reconciliation link. It has no approval field. The reconciliation record shows outcome match without raw output.
 
-- [ ] **Step 4: Add the Graphify extraction boundary and inspect records**
+- [x] **Step 4: Add the Graphify extraction boundary and inspect records**
 
 Create .graphifyignore with the required local-secret, raw-evidence, and
 generated-graph patterns. Keep Graphify output excluded from extraction while
 leaving Git artifact policy to Task 3.
 
-- [ ] **Step 5: Run the fixture test and inspect records**
+- [x] **Step 5: Run the fixture test and inspect records**
 
 Run: bash tests/operational-context-graph-test.sh && ! rg -n "authority:|direct_actions:|approval_required:|permission:|permissions:" docs/templates examples/orgs/org-a/cmdb
 
 Expected: fixture test passes and rg prints no matching fields. The repository
 validator is exercised after Task 3 adds the Graphify guide it requires.
 
-- [ ] **Step 6: Commit the data-contract milestone**
+- [x] **Step 6: Commit the data-contract milestone**
 
 ~~~bash
 git add docs/shared/cmdb-policy.md docs/templates examples/orgs/org-a
@@ -229,7 +229,7 @@ git commit -m "docs: add canonized CMDB graph contract"
 - Private operations repo: reviewed graphify-out/graph.json, graph.html, and report can be versioned.
 - Graph generation references the same checked-out repository revision as the consulted CMDB graph.
 
-- [ ] **Step 1: Write the Graphify operating guide**
+- [x] **Step 1: Write the Graphify operating guide**
 
 State the responsibility table, graph-first mutation flow, distinction between declared/verified and inferred/ambiguous, and transition to conflict/stale. Include copyable optional commands:
 
@@ -242,21 +242,21 @@ graphify query "what depends on ci:app:ragflow:production?"
 
 Explain that project installation changes AGENTS.md and must be reviewed rather than run automatically by this template.
 
-- [ ] **Step 2: Add Graphify exclusion and artifact policy**
+- [x] **Step 2: Add Graphify exclusion and artifact policy**
 
 Create .graphifyignore with the exact patterns tested in Task 1 plus .secrets/, secrets/, *.pem, *.key, id_rsa*, id_ed25519*, **/*.sql, **/*.bak, **/raw/, and graphify-out/. Add only graphify-out/cost.json and graphify-out/cache/ to .gitignore so reviewed graph artifacts remain versionable in private operations repositories.
 
-- [ ] **Step 3: Add navigation links and source-of-truth language**
+- [x] **Step 3: Add navigation links and source-of-truth language**
 
 Update README.md, docs/index.md, docs/shared/README.md, and docs/shared/dokploy-reference.md. Add the CMDB policy, graph guide, and context CMDB path. Replace approval/preflight wording in README with graph consultation, external agent profile, execution verification, and reconciliation.
 
-- [ ] **Step 4: Verify links and ignore contract**
+- [x] **Step 4: Verify links and ignore contract**
 
 Run: scripts/validate-operational-graph.sh && scripts/validate-repo.sh && git check-ignore -q graphify-out/cost.json && git check-ignore -q graphify-out/cache/example && ! git check-ignore -q graphify-out/graph.json
 
 Expected: repository validation passes; cost/cache are ignored; graph.json is eligible for an intentional private-repository commit.
 
-- [ ] **Step 5: Commit the Graphify integration milestone**
+- [x] **Step 5: Commit the Graphify integration milestone**
 
 ~~~bash
 git add .gitignore .graphifyignore README.md docs/index.md docs/shared docs/guides/operational-context-graph.md
@@ -282,19 +282,19 @@ git commit -m "docs: integrate Graphify operational graph guidance"
 - After a mutation: record sanitized result and reconcile live divergence.
 - No repository document imposes explicit human approval for all mutations.
 
-- [ ] **Step 1: Replace mutation-safety sections**
+- [x] **Step 1: Replace mutation-safety sections**
 
 Replace Actions Requiring Approval, Required Preflight, and Approval Format with Graph Consultation, Execution Preparation, External Agent Profile, and Reconciliation. Require graph revision, target CIs/relationships, evidence, backup posture, blast radius, rollback, verification plan, and result record. Do not require live CLI/MCP/API evidence before execution.
 
-- [ ] **Step 2: Update agent and branch workflows**
+- [x] **Step 2: Update agent and branch workflows**
 
 In AGENTS.md, replace read-only discovery as a universal precondition with graph consultation and reconciliation. In operational branching, record graph revision and affected CI/relationship IDs; replace approval and live-discovery steps with the external-profile decision and post-operation observation. Preserve checkpoints, rollback, and public-safety rules.
 
-- [ ] **Step 3: Remove conflicting approval language from runbooks and backup guidance**
+- [x] **Step 3: Remove conflicting approval language from runbooks and backup guidance**
 
 Change the runbook template to consult the graph, record its revision, and execute according to the external profile. Change example runbooks and restore policies so they require appropriate capability and graph evidence rather than a universal human-approval statement.
 
-- [ ] **Step 4: Search for contradictions and run full validation**
+- [x] **Step 4: Search for contradictions and run full validation**
 
 Run:
 
@@ -306,7 +306,7 @@ git diff --check
 
 Expected: contradiction search exits 1 with no matches; repository validation and diff check exit 0.
 
-- [ ] **Step 5: Commit the mutation-policy milestone**
+- [x] **Step 5: Commit the mutation-policy milestone**
 
 ~~~bash
 git add AGENTS.md docs/dokploy-operations.md docs/guides/operational-branching.md docs/shared/mutation-safety.md docs/shared/backup-policy.md docs/shared/instance-backups.md docs/templates/runbook.md examples/orgs/org-a/runbooks.md examples/orgs/org-b/runbooks.md
@@ -323,13 +323,13 @@ git commit -m "docs: make mutations graph-first"
 - Validation fails when a public template removes a required graph contract artifact or adds a prohibited policy field to a graph template/example.
 - Documentation points operators to Graphify for the canonized graph and to the external profile for approval.
 
-- [ ] **Step 1: Search every remaining documentation conflict**
+- [x] **Step 1: Search every remaining documentation conflict**
 
 Run: rg -n -i "approval|required approval|explicit confirmation|read-only discovery before|current state.*CLI|before approval" README.md AGENTS.md docs examples
 
 Classify each result as a valid external-profile reference, historical migration instruction, template transport setting, or contradiction. Edit each contradiction found in the listed files.
 
-- [ ] **Step 2: Mark tasks complete and run full verification**
+- [x] **Step 2: Mark tasks complete and run full verification**
 
 Run:
 
@@ -344,7 +344,7 @@ git status --short
 
 Expected: all commands exit 0; status lists only scoped graph-contract changes; the plan checklist marks implementation tasks complete.
 
-- [ ] **Step 3: Review final diff against the spec**
+- [x] **Step 3: Review final diff against the spec**
 
 Run:
 
