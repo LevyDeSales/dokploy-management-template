@@ -236,7 +236,7 @@ State the responsibility table, graph-first mutation flow, distinction between d
 uv tool install graphifyy
 graphify install --project --platform codex
 graphify .
-graphify query "what depends on ci:app:ragflow:production?"
+graphify query "what depends on ci:application:org-a:ragflow-production?"
 ~~~
 
 Explain that project installation changes AGENTS.md and must be reviewed rather than run automatically by this template.

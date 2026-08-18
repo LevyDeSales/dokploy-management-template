@@ -71,10 +71,10 @@ an evidence object with source and reference. It contains no approval,
 permission, agent-capability, or secondary confidence fields.
 
 ~~~yaml
-id: rel:app:ragflow:production:monitored-by:health
-from: ci:app:ragflow:production
+id: rel:ragflow-production:monitored-by:ragflow-health
+from: ci:application:org-a:ragflow-production
 type: monitored_by
-to: ci:checkmate:monitor:ragflow-health
+to: ci:monitor:org-a:ragflow-health
 assertion: declared
 status: canonical
 observed_at: 2026-08-17T10:15:00Z
