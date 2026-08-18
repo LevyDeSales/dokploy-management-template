@@ -33,7 +33,9 @@ required=(
   examples/env/app.env.example
   scripts/dokploy-cli.sh
   scripts/mcp-dokploy-context.sh
+  scripts/validate-operational-graph.sh
   tests/run.sh
+  tests/operational-context-graph-test.sh
 )
 
 for file in "${required[@]}"; do
@@ -48,6 +50,9 @@ bash -n scripts/*.sh tests/*.sh
 
 echo "==> Running shell tests"
 tests/run.sh
+
+echo "==> Checking operational graph contract"
+scripts/validate-operational-graph.sh
 
 echo "==> Checking ASCII"
 if LC_ALL=C grep -RIn \
