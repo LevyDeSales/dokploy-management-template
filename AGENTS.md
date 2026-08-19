@@ -13,8 +13,10 @@ runtime state.
 4. Read `docs/dokploy-operations.md`.
 5. Read `docs/guides/operational-branching.md` before multi-step or mutating
    work in a real operations repository.
-6. Read `docs/shared/mutation-safety.md` before any live change.
-7. Ask for real values only when needed: Dokploy URL, context names, domain,
+6. Read `docs/shared/cmdb-policy.md` and
+   `docs/guides/operational-context-graph.md` before any live change.
+7. Read `docs/shared/mutation-safety.md` before any live change.
+8. Ask for real values only when needed: Dokploy URL, context names, domain,
    provider, VPS names, SSH user, DNS provider, backup destination, and access
    model.
 
@@ -37,7 +39,7 @@ runtime state.
 - In this public template, never commit real customer names, private hostnames,
   real IPs, credential references, or live operational evidence.
 - In a private operations repository created from this template, document only
-  approved operational identifiers that are intentionally part of the
+  reviewed operational identifiers that are intentionally part of the
   infrastructure record.
 - Never commit `.env.local`, `.codex/config.toml`, private keys, API keys,
   service-token headers, auth headers, cookies, `DOKPLOY_CUSTOM_HEADERS`
@@ -64,6 +66,7 @@ runtime state.
 - Local environment template: `.env.example`.
 - Project MCP config example: `.codex/config.toml.example`.
 - Repository validation: `scripts/validate-repo.sh`.
+- Operational graph validation: `scripts/validate-operational-graph.sh`.
 - Shell tests: `tests/run.sh`.
 
 ## Documentation Architecture
@@ -87,6 +90,8 @@ Organization -> Project -> Environment -> Service
 Use these context-level files before creating narrower project docs:
 
 - `inventory.md`: read-only resource snapshot.
+- `cmdb/`: canonized configuration items, relationships, change records, and
+  reconciliation observations.
 - `servers.md`: remote servers, build servers, validation, capacity, and
   security posture.
 - `domains.md`: domain routing, HTTPS, DNS, path rewrites, and Traefik notes.
@@ -158,19 +163,24 @@ Use these context-level files before creating narrower project docs:
 
 ## Operating Rules
 
-- Prefer read-only discovery before any mutating operation.
+- Consult Graphify at the reviewed graph revision before a mutating operation.
+  A canonical `declared` or `verified` relationship is operational truth; the
+  agent's external profile decides whether it executes directly, asks for
+  approval, or remains read-only.
 - For real multi-step operations, work on a focused `op/*` or `incident/*`
   branch and canonize durable records into `operations`.
 - Follow `docs/shared/mutation-safety.md` before any mutating operation.
-- Before destructive operations, collect current organization, project,
-  environment, service, server, and backup state.
+- Before destructive operations, record the graph revision, target CIs and
+  relationships, evidence, backup posture, blast radius, rollback path, and
+  verification plan.
 - Keep MCP redaction enabled with `DOKPLOY_REDACT_ENV=true`.
 - Use official Dokploy docs and Swagger before assuming API or CLI command
   shape.
 - Document important findings, inventory decisions, and operational procedures
   in `docs/`.
 - Use `docs/templates/` when adding project, environment, service, domain,
-  variable, deployment, backup, schedule, integration, server, decision, or
-  runbook docs.
+  variable, deployment, backup, schedule, integration, server, decision,
+  runbook, configuration-item, relationship, business-service, change-record,
+  or reconciliation-observation docs.
 - Do not store secret values in docs; document only variable names, purpose,
   owner, rotation notes, and sensitivity.

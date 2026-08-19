@@ -1,0 +1,11 @@
+id: rel:<from-slug>:<relationship-type-slug>:<to-slug>
+from: ci:<source-kind>:<scope>:<source-slug>
+type: <delivered_by|depends_on|runs_on|exposes|monitored_by|backed_up_to|uses_secret_ref|deployed_from|routes_to|uses_certificate>
+to: ci:<target-kind>:<scope>:<target-slug>
+assertion: <declared|verified|inferred|ambiguous>
+reconciliation_status: <canonical|conflict|stale>
+observed_at: <YYYY-MM-DDTHH:MM:SSZ>
+evidence:
+  source: <document|dokploy-api|cloudflare-api|ssh|checkmate-api>
+  reference: <sanitized-reference>
+notes: <public-safe-context>

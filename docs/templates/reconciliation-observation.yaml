@@ -1,0 +1,15 @@
+id: obs:<YYYY-MM-DD>:<scope>:<slug>
+graph_revision: <git-commit-or-tag>
+observed_at: <YYYY-MM-DDTHH:MM:SSZ>
+source: <dokploy-api|cloudflare-api|ssh|container|checkmate-api>
+scope:
+  cis:
+    - ci:<kind>:<scope>:<slug>
+  relationships:
+    - rel:<from-slug>:<relationship-type-slug>:<to-slug>
+outcome: <match|added|changed|missing|stale|conflict|unverified|redacted>
+evidence:
+  reference: <sanitized-reference>
+  redaction_reviewed: <true|false>
+summary: <public-safe-observation>
+next_state: <canonical|conflict|stale>

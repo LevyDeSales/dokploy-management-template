@@ -30,12 +30,18 @@ Instance backups are shared control-plane artifacts. Do not duplicate them in or
 
 ## Restore Rules
 
-- Do not start a restore without explicit approval.
+- Consult Graphify at the reviewed revision before restore and record the
+  target CIs and relationships. A canonical `declared` or `verified`
+  relationship can orient the restore without mandatory live discovery.
+- The agent's external profile decides whether the restore is executed directly,
+  requires approval, or remains read-only.
 - Follow `docs/shared/mutation-safety.md` before restore.
-- Before restore, capture current service state, active deployment, domain mapping, and latest backup timestamp.
+- Before restore, record evidence, backup posture, blast radius, rollback path,
+  and verification plan; use live state as reconciliation evidence when needed.
 - For volume restores, stop containers that use the target volume and ensure the target volume does not already exist.
 - For Dokploy instance restores, expect `/etc/dokploy` and `dokploy-postgres` to be replaced.
-- After restore, verify service health, DNS, Traefik routing, logs, and backup schedule.
+- After restore, verify service health, DNS, Traefik routing, logs, and backup
+  schedule, then record a reconciliation observation.
 
 ## Service Design Rule
 

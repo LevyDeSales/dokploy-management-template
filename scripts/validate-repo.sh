@@ -33,7 +33,11 @@ required=(
   examples/env/app.env.example
   scripts/dokploy-cli.sh
   scripts/mcp-dokploy-context.sh
+  scripts/validate-markdown-links.sh
+  scripts/validate-operational-graph.sh
   tests/run.sh
+  tests/markdown-link-validation-test.sh
+  tests/operational-context-graph-test.sh
 )
 
 for file in "${required[@]}"; do
@@ -48,6 +52,9 @@ bash -n scripts/*.sh tests/*.sh
 
 echo "==> Running shell tests"
 tests/run.sh
+
+echo "==> Checking operational graph contract"
+scripts/validate-operational-graph.sh
 
 echo "==> Checking ASCII"
 if LC_ALL=C grep -RIn \
@@ -98,22 +105,6 @@ if grep -RInE \
 fi
 
 echo "==> Checking markdown links to local docs"
-while IFS=: read -r file link; do
-  [ -z "$file" ] && continue
-  case "$link" in
-    http://*|https://*|mailto:*|"#"*|"")
-      continue
-      ;;
-  esac
-
-  target="${link%%#*}"
-  target="${target#./}"
-  base="$(dirname "$file")"
-  if [ ! -e "$base/$target" ] && [ ! -e "$target" ]; then
-    echo "broken local link in $file: $link" >&2
-    exit 1
-  fi
-done < <(grep -RhoInE '\[[^]]+\]\(([^)]+)\)' -- README.md AGENTS.md CONTRIBUTING.md SECURITY.md docs examples \
-  | sed -E 's/^([^:]+):.*\]\(([^)]+)\).*$/\1:\2/')
+scripts/validate-markdown-links.sh
 
 echo "OK"

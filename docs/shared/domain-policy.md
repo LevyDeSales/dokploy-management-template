@@ -30,7 +30,11 @@ Record these fields for every domain. Rollup tables may link to a per-domain det
 
 ## Safety Rules
 
-- Confirm DNS target before changing a production domain.
+- Consult Graphify at the reviewed revision and record the domain, target
+  service, and routing relationships before changing a production domain.
+- Use a canonical `declared` or `verified` relationship for direct action; let
+  the agent's external profile decide direct execution, approval, or read-only
+  behavior.
 - Confirm backup and rollback posture before changing production routing.
 - Follow `docs/shared/mutation-safety.md` before changing live routing.
 - Avoid path rewrites unless the application is known to support them.

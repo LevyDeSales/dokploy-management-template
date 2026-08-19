@@ -22,9 +22,12 @@ Use this directory for documentation specific to the Org B organization in `http
 - `decisions.md`: durable operational decisions and rationale.
 - `runbooks.md`: context-specific procedures.
 - `backups.md`: context-managed service, database, and volume backup and restore notes.
+- `cmdb/`: canonized CI records, relationships, business services, change records, and reconciliation observations.
 - `projects/`: one directory per discovered Dokploy project.
 
-Start read-only. Mutating operations require explicit confirmation.
+Consult the reviewed operational graph before mutating. The agent external
+profile decides whether an agent executes directly or requests approval;
+execution results become reconciliation observations.
 
 Shared Dokploy panel/control-plane backups live in `docs/shared/instance-backups.md`, not in this context directory.
 

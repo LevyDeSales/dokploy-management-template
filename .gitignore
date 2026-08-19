@@ -57,3 +57,7 @@ secrets/
 *.key
 id_rsa*
 id_ed25519*
+
+# Graphify keeps reviewed graph artifacts versionable in private operations repos.
+graphify-out/cost.json
+graphify-out/cache/

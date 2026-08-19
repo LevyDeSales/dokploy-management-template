@@ -43,7 +43,10 @@ Route documentation by scope:
 | Cross-context policy and instance procedures | `docs/shared/` |
 | New resource document models | `docs/templates/` |
 
-Within each context, start with `inventory.md` and then create project-level docs under `projects/<project-slug>/` only after the project is observed in Dokploy. Follow `docs/shared/dokploy-reference.md` for the current layout.
+Within each context, start with `inventory.md` and then create project-level docs
+under `projects/<project-slug>/` after reconciling discovery evidence or
+recording a reviewed canonized source in the CMDB. Follow
+`docs/shared/dokploy-reference.md` for the current layout.
 
 ## Prompt Pattern
 
@@ -52,7 +55,8 @@ Use this pattern at the start of an operational session:
 ```text
 Foco desta sessao: <context>
 Objetivo: inventariar servidores e documentar decisoes.
-Somente leitura ate eu aprovar mutacoes.
+Revisao do grafo: <git-commit-ou-revisao>
+Perfil externo do agente: <execucao direta, aprovacao ou somente leitura>
 ```
 
 or:
@@ -60,7 +64,8 @@ or:
 ```text
 Foco desta sessao: global
 Objetivo: comparar politicas de backup entre contextos.
-Somente leitura ate eu aprovar mutacoes.
+Revisao do grafo: <git-commit-ou-revisao>
+Perfil externo do agente: <execucao direta, aprovacao ou somente leitura>
 ```
 
 ## Worktree Rules

@@ -1,0 +1,41 @@
+relationships:
+  - id: rel:ragflow:delivered-by:ragflow-production
+    from: ci:business-service:org-a:ragflow
+    type: delivered_by
+    to: ci:application:org-a:ragflow-production
+    assertion: declared
+    reconciliation_status: canonical
+    observed_at: 2026-08-17T10:15:00Z
+    evidence:
+      source: document
+      reference: business-services/ragflow.md
+  - id: rel:ragflow-production:depends-on:ragflow-postgres
+    from: ci:application:org-a:ragflow-production
+    type: depends_on
+    to: ci:database:org-a:ragflow-postgres
+    assertion: verified
+    reconciliation_status: canonical
+    observed_at: 2026-08-17T10:15:00Z
+    evidence:
+      source: dokploy-api
+      reference: application/<dokploy-application-id>/database/<dokploy-database-id>
+  - id: rel:ragflow-production:runs-on:ragflow-server
+    from: ci:application:org-a:ragflow-production
+    type: runs_on
+    to: ci:server:org-a:ragflow-production
+    assertion: verified
+    reconciliation_status: canonical
+    observed_at: 2026-08-17T10:15:00Z
+    evidence:
+      source: dokploy-api
+      reference: application/<dokploy-application-id>/server/<dokploy-server-id>
+  - id: rel:ragflow-production:monitored-by:ragflow-health
+    from: ci:application:org-a:ragflow-production
+    type: monitored_by
+    to: ci:monitor:org-a:ragflow-health
+    assertion: declared
+    reconciliation_status: canonical
+    observed_at: 2026-08-17T10:15:00Z
+    evidence:
+      source: checkmate-api
+      reference: monitor/<checkmate-monitor-id>

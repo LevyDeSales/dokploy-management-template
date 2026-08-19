@@ -9,14 +9,17 @@ Declare the session focus before running commands:
 ```text
 Foco desta sessao: <context-slug|global>
 Objetivo: incident response
-Somente leitura ate aprovar mutacoes.
+Revisao do grafo: <git-commit-ou-revisao>
+CIs/relacoes afetados: <ids>
+Perfil externo do agente: <execucao direta, aprovacao ou somente leitura>
 ```
 
 Use only the matching CLI wrapper and MCP server unless the incident is explicitly cross-context.
 
 ## 2. Capture Current State
 
-Collect read-only evidence:
+Query Graphify at the reviewed revision first. Collect live read-only evidence
+when it helps triage or reconcile the canonized graph:
 
 - Affected organization, project, environment, and service.
 - Current deployment status and latest deployment timestamp.
@@ -39,7 +42,11 @@ Classify the likely issue:
 
 ## 4. Mutating Actions
 
-Follow `docs/shared/mutation-safety.md` before any mutating action. This includes deploy, redeploy, update, restart, start, stop, scale, rollback, restore, domain changes, variable changes, server changes, and credential rotation.
+Follow `docs/shared/mutation-safety.md` before any mutating action. A canonical
+`declared` or `verified` relationship may orient the action; the external agent
+profile decides direct execution, approval, or read-only behavior. This includes
+deploy, redeploy, update, restart, start, stop, scale, rollback, restore,
+domain changes, variable changes, server changes, and credential rotation.
 
 ## 5. Recovery
 
@@ -59,3 +66,5 @@ After recovery, document:
 - Actions taken.
 - Verification commands and results.
 - Follow-up decisions.
+- Sanitized reconciliation observation, including any `conflict` or `stale`
+  relationship discovered during recovery.

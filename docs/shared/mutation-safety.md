@@ -1,49 +1,65 @@
-# Mutation Safety
+# Mutation Safety And Reconciliation
 
-This is the canonical preflight rule for all Dokploy-changing operations in this repository.
+This document defines the execution and reconciliation contract for live
+Dokploy work. It deliberately does not define an authorization policy: whether
+an agent acts directly, asks for approval, or remains read-only is decided by
+that agent's external profile.
 
-## Actions Requiring Approval
+## Graph Consultation
 
-Get explicit approval before any action that can change live Dokploy state:
+Before mutating live infrastructure, consult the operational graph through
+Graphify at the Git revision being used for the operation. Record the graph
+revision, target CIs, target relationships, and the evidence that supports the
+decision.
 
-- Create, update, rename, move, delete, or archive.
-- Deploy, redeploy, rollback, rebuild, restart, start, stop, scale, or cancel deployment.
-- Restore, prune, cleanup, remove volume, reset data, or use a danger zone action.
-- Change domains, certificates, HTTPS settings, internal path, strip path, DNS, or exposed ports.
-- Change environment variables, secrets, build commands, start commands, compose files, mounts, resources, replicas, registry settings, or webhooks.
-- Change server setup, SSH, firewall, Docker, Traefik, storage, cleanup, cluster, deployment server, or build server settings.
-- Rotate, create, revoke, or copy API keys, SSH keys, registry credentials, S3 credentials, Git source credentials, service tokens, or notification credentials.
-- Change user roles, organization access, SSO, custom roles, or audit/logging settings.
+| Relationship condition | Graph meaning |
+| --- | --- |
+| `declared` or `verified` with `reconciliation_status: canonical` | Current canonized relationship subset |
+| `inferred` or `ambiguous` | Discovery, investigation, or reconciliation proposal only |
+| `reconciliation_status: conflict` or `stale` | Reviewed discrepancy or freshness context; the external profile decides its response |
 
-## Required Preflight
+The current canonized relationship subset contains `declared` or `verified`
+relationships with `reconciliation_status: canonical`, evidence, and
+`observed_at`. A live Dokploy, SSH, or container discovery is useful for
+reconciliation but is not a mandatory preflight when the reviewed graph already
+provides that truth.
 
-Before approval is requested, collect and document:
+## Execution Preparation
 
-| Field | Required |
+Record the following before a material operation:
+
+| Field | Required record |
 | --- | --- |
 | Session focus | A declared context from `DOKPLOY_CONTEXTS`, or `global` |
-| Target scope | Organization, project, environment, service, server, or instance |
-| Current state | Read-only CLI/MCP/API evidence |
+| Graph revision | Reviewed Git commit or revision queried through Graphify |
+| Target scope | CI and relationship IDs for the organization, service, server, or instance |
+| Evidence | Evidence references and `observed_at` values used for the decision |
 | Backup posture | Latest relevant backup and restore constraints |
 | Blast radius | Domains, services, servers, data, and users affected |
 | Rollback path | Revert, redeploy previous version, restore, or manual recovery |
-| Verification plan | Commands or checks to prove the result |
+| Verification plan | Commands or checks that will prove the result |
 
-## Approval Format
+Do not store authorization grants, approver identities, permissions, or secret
+values in the CMDB relationship records.
 
-Approval should name the action and scope, for example:
+## Agent External Profile
 
-```text
-Aprovado: redeploy do service api no projeto acme, environment production, context org-a.
-```
-
-If approval is broad or ambiguous, narrow the action before mutating state.
+Two agents can consult the same reviewed graph and behave differently. An agent
+whose external profile permits direct execution may act on a canonical
+`declared` or `verified` relationship. An agent whose profile requires approval
+or is read-only must follow that external policy. The repository and Graphify
+do not impose either behavior.
 
 ## After Mutation
 
 After a mutating operation:
 
-1. Verify the expected state.
+1. Verify the expected result with the planned checks.
 2. Check logs, deployment status, domain routing, and backups when relevant.
-3. Update the matching docs path.
-4. Record decisions separately from inventory.
+3. Create a sanitized change record and reconciliation observation.
+4. If platform state diverges from the graph, record a reviewed
+   `reconciliation_status: conflict` or `stale`; do not silently overwrite the
+   canonized record.
+5. Update the CMDB and supporting docs through review, then regenerate the
+   private Graphify artifacts for that reviewed revision when they are used.
+6. Never commit secrets, raw sensitive output, backup archives, or dumps.

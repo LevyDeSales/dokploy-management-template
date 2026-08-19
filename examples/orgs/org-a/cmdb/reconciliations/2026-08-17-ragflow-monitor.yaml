@@ -1,0 +1,16 @@
+id: obs:2026-08-17:org-a:ragflow-monitor
+graph_revision: <git-commit-or-tag>
+observed_at: 2026-08-17T10:30:00Z
+source: checkmate-api
+scope:
+  cis:
+    - ci:application:org-a:ragflow-production
+    - ci:monitor:org-a:ragflow-health
+  relationships:
+    - rel:ragflow-production:monitored-by:ragflow-health
+outcome: match
+evidence:
+  reference: monitor/<checkmate-monitor-id>/status
+  redaction_reviewed: true
+summary: RAGFlow health monitor matched the canonized relationship.
+next_state: canonical

@@ -11,3 +11,5 @@ if command -v shellcheck >/dev/null 2>&1; then
 fi
 
 "$PROJECT_ROOT/tests/dokploy-context-test.sh"
+"$PROJECT_ROOT/tests/markdown-link-validation-test.sh"
+"$PROJECT_ROOT/tests/operational-context-graph-test.sh"

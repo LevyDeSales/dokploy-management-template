@@ -1,0 +1,15 @@
+id: ci:application:org-a:ragflow-production
+kind: application
+name: RAGFlow production application
+lifecycle: active
+criticality: high
+owner: platform-team
+external_ids:
+  dokploy: <dokploy-application-id>
+documentation:
+  path: ../../projects/<project-slug>/environments/production/services/ragflow.md
+provenance:
+  observed_at: 2026-08-17T10:15:00Z
+  source: dokploy-api
+  reference: application/<dokploy-application-id>
+  redaction_reviewed: true

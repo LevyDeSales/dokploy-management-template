@@ -1,0 +1,15 @@
+id: ci:server:org-a:ragflow-production
+kind: server
+name: RAGFlow production server
+lifecycle: active
+criticality: high
+owner: platform-team
+external_ids:
+  dokploy: <dokploy-server-id>
+documentation:
+  path: ../../servers.md
+provenance:
+  observed_at: 2026-08-17T10:15:00Z
+  source: dokploy-api
+  reference: server/<dokploy-server-id>
+  redaction_reviewed: true

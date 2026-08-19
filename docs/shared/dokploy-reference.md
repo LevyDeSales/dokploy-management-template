@@ -36,8 +36,10 @@ Organization
 | Shared Dokploy instance | `docs/shared/instance.md` |
 | Shared instance backups | `docs/shared/instance-backups.md` |
 | Canonical mutation rules | `docs/shared/mutation-safety.md` |
+| Canonized graph policy | `docs/shared/cmdb-policy.md` |
 | Organization/context | `docs/orgs/<context-slug>/README.md` |
 | Context inventory | `docs/orgs/<context-slug>/inventory.md` |
+| Context CMDB graph | `docs/orgs/<context-slug>/cmdb/` |
 | Context settings | `docs/orgs/<context-slug>/settings/` |
 | Servers | `docs/orgs/<context-slug>/servers.md` |
 | Context domains rollup | `docs/orgs/<context-slug>/domains.md` |
@@ -98,6 +100,8 @@ Some Dokploy resources are not owned cleanly by a single project. Keep these at 
 | S3 destinations | `docs/orgs/<context-slug>/settings/s3-destinations.md` |
 | Notifications | `docs/orgs/<context-slug>/settings/notifications.md` |
 | Naming policy | `docs/shared/naming-conventions.md` |
+| Operational graph guide | `docs/guides/operational-context-graph.md` |
+| CMDB policy | `docs/shared/cmdb-policy.md` |
 | Domain policy | `docs/shared/domain-policy.md` |
 | Variable policy | `docs/shared/variable-policy.md` |
 | Backup policy | `docs/shared/backup-policy.md` |
@@ -106,7 +110,11 @@ Some Dokploy resources are not owned cleanly by a single project. Keep these at 
 
 ## Provenance Rule
 
-The live Dokploy panel and API remain the operational source of truth. This repository is the reviewed operations record: inventory snapshots, decisions, runbooks, naming rules, and restore evidence.
+The repository CMDB-as-code is the reviewed, canonized operational graph.
+Graphify is the authoritative source of operational truth for consulting that
+graph at the checked-out revision. Live Dokploy panels, APIs, SSH, and
+containers execute actions and reconcile divergence after an operation; they
+are not mandatory discovery before a mutation.
 
 When documenting live state, include:
 
@@ -116,3 +124,4 @@ When documenting live state, include:
 - Source command/tool.
 - Docs path.
 - Redaction review status when command output was used.
+- Graph revision for a decision, mutation, or reconciliation observation.

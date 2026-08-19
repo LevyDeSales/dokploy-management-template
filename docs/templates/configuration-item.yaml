@@ -1,0 +1,15 @@
+id: ci:<kind>:<scope>:<slug>
+kind: <business-service|organization|project|environment|application|compose|database|server|volume|domain|certificate|monitor|backup-destination|secret-reference|registry|source-repository|integration>
+name: <human-readable-name>
+lifecycle: <active|retired|planned|unverified>
+criticality: <low|medium|high|critical>
+owner: <team-or-role-label>
+external_ids:
+  dokploy: <optional-sanitized-id>
+documentation:
+  path: <relative-markdown-or-yaml-path>
+provenance:
+  observed_at: <YYYY-MM-DDTHH:MM:SSZ>
+  source: <document|dokploy-api|cloudflare-api|ssh|checkmate-api>
+  reference: <sanitized-reference>
+  redaction_reviewed: <true|false>

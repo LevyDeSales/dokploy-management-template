@@ -35,7 +35,11 @@ Every operational session should declare one focus before making changes:
 - `<context>`: use only the matching CLI/MCP wrappers and document under `docs/orgs/<context-slug>/`.
 - `global`: compare or coordinate multiple contexts only when explicitly requested, and document shared work under `docs/shared/`.
 
-Default to read-only discovery. If the work needs to cross context boundaries, state that explicitly before running commands against another context.
+Use read-only discovery for inventory work. Before mutation, consult Graphify at
+the reviewed graph revision; canonical `declared` and `verified` relationships
+may guide the action without mandatory live discovery. If the work needs to
+cross context boundaries, state that explicitly before running commands against
+another context.
 
 ## CLI Checks
 
@@ -87,7 +91,10 @@ When discovering resources, document durable information here or in a focused fi
 - Deployment and rollback notes.
 - Known operational risks and maintenance windows.
 
-Prefer read-only discovery first. Mutating operations require explicit confirmation.
+For a mutation, use the reviewed Graphify view of the canonized CMDB first.
+The agent's external profile, not this repository, decides whether it executes,
+asks for approval, or remains read-only. Follow
+`docs/shared/mutation-safety.md` and record reconciliation after execution.
 
 Use these paths:
 
@@ -108,6 +115,7 @@ Context-level files:
 | File | Purpose |
 | --- | --- |
 | `inventory.md` | Projects, environments, services, databases, servers, and backups |
+| `cmdb/` | Canonized CIs, operational relationships, evidence, changes, and reconciliation observations |
 | `servers.md` | Deployment servers, build servers, capacity, security, validation |
 | `domains.md` | Public routing, HTTPS, DNS owner, Traefik behavior |
 | `variables.md` | Variable names, scope, purpose, sensitivity, rotation owner |
@@ -142,8 +150,8 @@ For mutating or multi-step real infrastructure work:
 2. Create a checkpoint tag before high-risk work.
 3. Create a focused temporary branch such as `op/YYYY-MM-DD-deploy-service` or
    `incident/YYYY-MM-DD-routing-failure`.
-4. Record preflight, approval, actions, evidence, and verification without
-   secrets.
+4. Record Graphify revision, target CIs and relationships, evidence, actions,
+   verification, and reconciliation without secrets.
 5. Commit the intended documentation changes on the temporary branch.
 6. Merge durable documentation back into `operations`.
 7. Push `operations` so the remote branch can be used to resume operations.
@@ -159,8 +167,10 @@ protection recommendations, and agent behavior.
 
 1. Declare session focus: a context from `DOKPLOY_CONTEXTS`, or `global`.
 2. Run read-only CLI or MCP discovery with the matching context credential.
-3. Update context-level inventory before creating project-level docs.
-4. Create or update project docs only for resources observed in Dokploy.
+3. Reconcile context-level inventory with the canonized CMDB before creating
+   project-level docs.
+4. Use observed platform state as reconciliation evidence; a reviewed declared
+   relationship may also originate in an approved operational record.
 5. Record decisions separately from inventory so facts and rationale stay distinct.
 6. Run verification commands and keep secrets out of Git.
 
@@ -169,5 +179,7 @@ protection recommendations, and agent behavior.
 - Do not commit `.env.local` or API keys.
 - Keep `DOKPLOY_REDACT_ENV=true` for MCP sessions.
 - Follow `docs/shared/mutation-safety.md` before any mutating operation.
-- Before delete, prune, rebuild, rollback, restore, or credential rotation, collect current state and backup status.
+- Before delete, prune, rebuild, rollback, restore, or credential rotation,
+  record the reviewed graph revision, target CIs and relationships, evidence,
+  backup posture, rollback path, and verification plan.
 - Prefer official Dokploy docs and `https://dokploy.example.com/swagger` before assuming command or API shape.
