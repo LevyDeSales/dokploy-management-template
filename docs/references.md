@@ -2,6 +2,10 @@
 
 Keep official docs as links. Do not copy external docs into this repo.
 
+## Graphify
+
+- Upstream repository: https://github.com/Graphify-Labs/graphify
+
 ## Dokploy
 
 - Core docs: https://docs.dokploy.com/docs/core
