@@ -62,7 +62,8 @@ Live discovery is optional reconciliation evidence, not a mandatory preflight.
 ## Optional Graphify Setup
 
 Graphify is optional in this public template. Install it only in a trusted
-operator environment:
+operator environment. Its upstream repository is
+https://github.com/Graphify-Labs/graphify.
 
 ~~~bash
 uv tool install graphifyy
